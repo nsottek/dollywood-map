@@ -625,8 +625,6 @@ const pz=(()=>{
     const visH=ch-panH;
     const iw=mi.offsetWidth,ih=mi.offsetHeight;
     const px=(area.cx/1836)*iw,py=(area.cy/1290)*ih;
-    const ts=isMob()?2.2:1.8;
-    s=Math.min(5,Math.max(1,ts));
     tx=cw/2-px*s; ty=visH*.4-py*s;
     apply(true); setTimeout(clamp,440);
   }
