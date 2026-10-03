@@ -342,7 +342,7 @@ const A = { showstreet:{name:"Showstreet",color:"#1E88E5",cx:981,cy:1015,att:[{i
 const PIN_COORDS={1:[1128,926],4:[1110,978],7:[861,990],20:[1084,1001],21:[889,999],22:[921,963],23:[1016,1035],24:[893,1024],25:[740,622],26:[832,538],27:[804,666],28:[854,410],29:[620,728],30:[672,636],33:[780,584],34:[786,632],35:[1028,96],36:[918,196],38:[1130,282],42:[1012,196],43:[998,228],44:[954,242],45:[894,250],46:[912,274],47:[1172,242],48:[1174,276],49:[1170,508],51:[1236,554],52:[1210,96],53:[1308,756],54:[1226,162],68:[1326,718],69:[1254,802],70:[1168,440],71:[1358,822],72:[1350,792],73:[1296,626],74:[1190,82],75:[1332,642],76:[1172,788],77:[1156,700],78:[1702,994],79:[1594,938],80:[1652,996],82:[1560,962],83:[1540,968],84:[1530,974],85:[1802,1140],86:[1716,1068],87:[1644,1192],89:[1780,1118],90:[1730,1186],91:[1696,1140],92:[1632,1108],93:[1704,1068],94:[1798,1064],95:[1636,1160],96:[1616,1194],97:[1762,1106],98:[1560,1082],99:[1560,1144],100:[1558,1028],101:[1700,1140],102:[1626,1138],103:[1400,924],104:[1376,954],105:[1194,866],111:[1254,946],112:[1178,976],113:[1190,988],114:[1178,998],115:[1248,1070],116:[1258,948],117:[1188,1012],118:[1208,1166],119:[1198,1098],120:[1112,1138],122:[1128,1088],123:[1152,1144],124:[1200,1088],125:[964,1084],126:[1024,1082],127:[932,1140],128:[1014,1124],129:[1044,1126],131:[274,500],132:[474,412],133:[380,600],134:[432,438],135:[598,518],136:[462,506],137:[76,436],138:[398,512],139:[580,486],140:[716,518],141:[496,484],145:[356,536],146:[446,576],147:[492,568],148:[436,554],149:[498,570]};
 
 // ── State ────────────────────────────────────────────────────────────────────
-let curArea=null, panelPage='list'; // 'list'|'detail'
+let curArea=null, panelPage='list', idetClearTimer=null; // 'list'|'detail'
 const isMob=()=>window.innerWidth<768;
 
 // ── View toggle ───────────────────────────────────────────────────────────────
@@ -373,21 +373,31 @@ function selectArea(key){
 
 // ── Pin badge hit-targets ─────────────────────────────────────────────────────
 (function(){
-  const mapIdToArea={};
+  const mapIdToItem={};
   for(const[key,area]of Object.entries(A)){
-    for(const item of[...(area.att||[]),...(area.din||[]),...(area.shp||[])]){
-      if(item.id>0)mapIdToArea[item.id]=key;
+    for(const[cat,items]of[['att',area.att],['din',area.din],['shp',area.shp]]){
+      for(const item of(items||[])){
+        if(item.id>0)mapIdToItem[item.id]={areaKey:key,cat};
+      }
     }
   }
   const svg=document.getElementById('msvg');
   for(const[idStr,[x,y]]of Object.entries(PIN_COORDS)){
-    const areaKey=mapIdToArea[+idStr];
-    if(!areaKey)continue;
+    const id=+idStr;
+    const info=mapIdToItem[id];
+    if(!info)continue;
+    const{areaKey,cat}=info;
     const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
     c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','22');
     c.setAttribute('fill','transparent');c.style.cursor='pointer';
-    c.addEventListener('click',e=>{e.stopPropagation();if(pz.dragged)return;selectArea(areaKey);pz.panToPin(x,y);});
-    c.addEventListener('touchend',e=>{if(pz.dragged)return;e.preventDefault();e.stopPropagation();selectArea(areaKey);pz.panToPin(x,y);});
+    const tap=()=>{
+      if(pz.dragged)return;
+      if(curArea!==areaKey)selectArea(areaKey);
+      openIdet(areaKey,id,cat);
+      pz.panToPin(x,y);
+    };
+    c.addEventListener('click',e=>{e.stopPropagation();tap();});
+    c.addEventListener('touchend',e=>{if(pz.dragged)return;e.preventDefault();e.stopPropagation();tap();});
     svg.appendChild(c);
   }
 })();
@@ -447,6 +457,7 @@ function openIdet(key,id,cat){
   const area=A[key];
   const items=cat==='att'?area.att:cat==='din'?area.din:area.shp;
   const item=items.find(i=>i.id===id); if(!item)return;
+  clearTimeout(idetClearTimer);
   panelPage='detail';
   document.getElementById('p-title').textContent=item.name;
   document.getElementById('p-back').classList.add('on');
@@ -482,7 +493,8 @@ function detailHTML(item,area,cat){
 function closeIdet(){
   const el=document.getElementById('idet');
   el.classList.remove('on');
-  setTimeout(()=>{document.getElementById('idet-body').innerHTML='';},320);
+  clearTimeout(idetClearTimer);
+  idetClearTimer=setTimeout(()=>{document.getElementById('idet-body').innerHTML='';},320);
 }
 function panelBack(){
   if(panelPage==='detail'){
