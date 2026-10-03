@@ -427,7 +427,11 @@ function selectArea(key){
     c.setAttribute('fill','transparent');c.style.cursor='pointer';
     const tap=()=>{
       if(pz.dragged)return;
-      if(curArea!==areaKey)selectArea(areaKey);
+      if(curArea!==areaKey){
+        curArea=areaKey; panelPage='list';
+        highlightZone(areaKey);
+        showPanel(areaKey);
+      }
       openIdet(areaKey,id,cat);
       pz.panToPin(x,y);
     };
