@@ -3,7 +3,6 @@ from PIL import Image
 import base64, io, os, json
 
 PROJECT = os.path.dirname(os.path.abspath(__file__))
-SCRATCHPAD = '/private/tmp/claude-502/-Users-natesottek-Library-Application-Support-Claude-scratch-workspaces-2587ba4a-537a-4ea4-960e-49ec4f58496e-185441bb-1f36-496c-929a-dcc5f8b9c35e-scratch-2026-09-29-310f4e/dc0289ce-5fac-4406-aca4-b9603b5daa12/scratchpad'
 
 # ── Build park data from JSON ─────────────────────────────────────────────────
 with open(os.path.join(PROJECT, 'dollywood_attractions.json')) as _f:
@@ -96,7 +95,7 @@ park_js = '{' + ','.join(_parts) + '}'
 # ── Render & encode map image ─────────────────────────────────────────────────
 # Render at 4x for higher-resolution detail (2448×1720 map area)
 SCALE = 4.0
-pdf4 = pdfium.PdfDocument('/Users/natesottek/Downloads/DW26_GENERAL_ParkMap_20260824.pdf')
+pdf4 = pdfium.PdfDocument(os.path.join(PROJECT, 'DW26_GENERAL_ParkMap_20260824.pdf'))
 bitmap4 = pdf4[0].render(scale=SCALE)
 pil4 = bitmap4.to_pil()
 CROP_H = round(1290 * SCALE / 3.0)  # proportional to original 3x crop

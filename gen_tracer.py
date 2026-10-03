@@ -5,7 +5,7 @@ import base64, io, os, json
 PROJECT = os.path.dirname(os.path.abspath(__file__))
 
 # Render at 1.5x — 918×645, lighter file; JS will output coords ×2 for 1836×1290 space
-pdf = pdfium.PdfDocument('/Users/natesottek/Downloads/DW26_GENERAL_ParkMap_20260824.pdf')
+pdf = pdfium.PdfDocument(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DW26_GENERAL_ParkMap_20260824.pdf'))
 bitmap = pdf[0].render(scale=1.5)
 pil = bitmap.to_pil()
 map_img = pil.crop((0, 0, pil.width, 645))

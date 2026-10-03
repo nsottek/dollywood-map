@@ -45,6 +45,12 @@ Types include: `"restaurant"`, `"bakery"`, `"snack"`, `"ice_cream"`, `"event_spa
 The park is divided into themed areas, each with a distinct color in the UI:
 - Showstreet, Timber Canyon, Wilderness Pass, Craftsman's Valley, Owens Farm, The Village, Country Fair, Rivertown Junction, Jukebox Junction, Dolly Parton Experience, Wildwood Grove
 
+## Deployment
+
+This project is hosted on **GitHub Pages** from the `main` branch. There is no build step — the HTML file is served directly.
+
+Whenever you would otherwise create an Artifact to show a result, **commit and push to `main` instead**. GitHub Pages will pick up the change automatically and the live page will update within seconds. Do not create standalone Artifacts for this project.
+
 ## Design notes
 
 - Single-file HTML with no build tooling; keep it that way unless there's a compelling reason to change
