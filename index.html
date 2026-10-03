@@ -573,13 +573,7 @@ const pz=(()=>{
     mi.style.transition=ani?'transform .42s cubic-bezier(.32,.72,0,1)':'none';
     mi.style.transform=`translate(${tx}px,${ty}px) scale(${s})`;
   }
-  function clamp(){
-    const cw=mc.clientWidth,ch=mc.clientHeight;
-    const iw=mi.offsetWidth*s,ih=mi.offsetHeight*s;
-    if(iw<=cw)tx=(cw-iw)/2; else tx=Math.min(0,Math.max(cw-iw,tx));
-    if(ih<=ch)ty=Math.max(0,(ch-ih)/2); else ty=Math.min(0,ty);
-    apply(false);
-  }
+  function clamp(){apply(false);}
   function dst(t){const dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy);}
   function mid(t){return{x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2};}
 
