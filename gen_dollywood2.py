@@ -94,14 +94,14 @@ for _k, _nm, _col, _cx, _cy in AREA_META:
 park_js = '{' + ','.join(_parts) + '}'
 
 # ── Render & encode map image ─────────────────────────────────────────────────
-pdf = pdfium.PdfDocument('/Users/natesottek/Downloads/DW26_GENERAL_ParkMap_20260824.pdf')
-bitmap = pdf[0].render(scale=1.5)
-pil = bitmap.to_pil()
-# Render at 3x for Retina-quality detail
-pdf3 = pdfium.PdfDocument('/Users/natesottek/Downloads/DW26_GENERAL_ParkMap_20260824.pdf')
-bitmap3 = pdf3[0].render(scale=3.0)
-pil3 = bitmap3.to_pil()
-map_img = pil3.crop((0, 0, pil3.width, 1290))  # 1836×1290 — map only, no listings
+# Render at 4x for higher-resolution detail (2448×1720 map area)
+SCALE = 4.0
+pdf4 = pdfium.PdfDocument('/Users/natesottek/Downloads/DW26_GENERAL_ParkMap_20260824.pdf')
+bitmap4 = pdf4[0].render(scale=SCALE)
+pil4 = bitmap4.to_pil()
+CROP_H = round(1290 * SCALE / 3.0)  # proportional to original 3x crop
+map_img = pil4.crop((0, 0, pil4.width, CROP_H))  # 2448×1720 — map only, no listings
+print(f'Map image size: {map_img.width}×{map_img.height}')
 buf = io.BytesIO()
 map_img.save(buf, format='JPEG', quality=90, optimize=True)
 raw = buf.getvalue()
@@ -342,7 +342,7 @@ html,body{{height:100%;overflow:hidden;font-family:var(--sans);background:var(--
   <div id="map-view" class="view on">
     <div id="mc">
       <div id="mi">
-        <img src="{img_src}" alt="Dollywood 2026 Park Map" width="1836" height="1290">
+        <img src="{img_src}" alt="Dollywood 2026 Park Map" width="{map_img.width}" height="{map_img.height}">
         <svg id="msvg" viewBox="0 0 1836 1290" preserveAspectRatio="none">
           <polygon data-area="showstreet"  fill="var(--c-showstreet)" fill-opacity=".3" stroke="var(--c-showstreet)" points="746,1022 756,950 840,904 996,894 1146,872 1204,932 1158,954 1140,990 1170,1024 1166,1052 1048,1060 986,1054 908,1068 908,1092 922,1158 818,1124 758,1104"/>
           <polygon data-area="timber"      fill="var(--c-timber)"     fill-opacity=".3" stroke="var(--c-timber)"     points="732,834 780,730 818,588 866,460 894,408 816,322 748,338 748,420 776,464 776,514 730,552 690,554 642,536 530,518 512,566 504,640 506,658 586,722 688,816"/>
