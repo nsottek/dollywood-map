@@ -68,11 +68,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   transform:translateY(105%);
   transition:transform .38s cubic-bezier(.32,.72,0,1);
   z-index:50;display:flex;flex-direction:column;
-  height:50vh;overflow:hidden;
+  height:80vh;overflow:hidden;
 }
-#panel.on{transform:translateY(0)}
+#panel.on{transform:translateY(37.5%)} /* shows ~50vh of 80vh panel */
 @media(min-width:768px){
-  #panel{height:auto;max-height:38vh}
+  #panel{height:auto;max-height:60vh}
+  #panel.on{transform:translateY(0)}
 }
 .ph-bar{flex:0 0 auto;display:flex;justify-content:center;padding:10px;cursor:pointer}
 .ph-nub{width:36px;height:4px;border-radius:2px;background:var(--border)}
@@ -629,5 +630,84 @@ const pz=(()=>{
     apply(true); setTimeout(clamp,440);
   }
   return {zoomTo,get dragged(){return dragged;}};
+})();
+
+// ── Panel drag-to-snap ───────────────────────────────────────────────────────
+(function(){
+  const panel=document.getElementById('panel');
+  const handle=panel.querySelector('.ph-bar');
+  const ph=panel.querySelector('.ph');
+  const TRANS='transform .38s cubic-bezier(.32,.72,0,1)';
+  // Snap positions as % of panel height (panel = 80vh on mobile)
+  const S_DEFAULT=37.5, S_EXPANDED=0, S_CLOSED=105;
+
+  let sy=0,sCur=0,dragging=false,hasMoved=false,ly=0,lt=0,vel=0;
+
+  function curPct(){
+    const t=getComputedStyle(panel).transform;
+    if(t==='none')return S_CLOSED;
+    const h=panel.offsetHeight;
+    return h>0?(new DOMMatrix(t).m42/h)*100:S_CLOSED;
+  }
+
+  function animTo(pct){
+    panel.style.transition=TRANS;
+    panel.style.transform=`translateY(${pct}%)`;
+  }
+
+  // Patch closePanel so ×/back buttons also animate correctly with inline styles present
+  const _cp=closePanel;
+  closePanel=function(){
+    if(!panel.classList.contains('on')){_cp();return;}
+    animTo(S_CLOSED);
+    panel.addEventListener('transitionend',()=>{
+      panel.style.transition=''; panel.style.transform=''; _cp();
+    },{once:true});
+  };
+
+  function onDown(e){
+    if(!panel.classList.contains('on'))return;
+    dragging=true; hasMoved=false;
+    sy=e.touches?e.touches[0].clientY:e.clientY;
+    sCur=curPct(); ly=sy; lt=Date.now(); vel=0;
+    panel.style.transition='none';
+    panel.style.transform=`translateY(${sCur}%)`;
+  }
+
+  function onMove(e){
+    if(!dragging)return;
+    const cy=e.touches?e.touches[0].clientY:e.clientY;
+    if(Math.abs(cy-sy)>6)hasMoved=true;
+    if(!hasMoved)return;
+    const h=panel.offsetHeight;
+    panel.style.transform=`translateY(${Math.max(-4,Math.min(110,sCur+(cy-sy)/h*100))}%)`;
+    const now=Date.now(),dt=now-lt;
+    if(dt>0)vel=(cy-ly)/dt;
+    ly=cy; lt=now;
+    e.preventDefault();
+  }
+
+  function onUp(e){
+    if(!dragging)return;
+    dragging=false;
+    if(!hasMoved)return; // tap — let onclick/closePanel handle it
+    const p=curPct();
+    if(vel>0.4||p>65){
+      closePanel(); // uses patched version
+    } else if(vel<-0.4||p<18){
+      animTo(S_EXPANDED);
+    } else {
+      animTo(S_DEFAULT);
+    }
+  }
+
+  [handle,ph].forEach(el=>{
+    el.addEventListener('touchstart',onDown,{passive:true});
+    el.addEventListener('touchmove',onMove,{passive:false});
+    el.addEventListener('touchend',onUp,{passive:true});
+    el.addEventListener('mousedown',onDown);
+  });
+  document.addEventListener('mousemove',onMove);
+  document.addEventListener('mouseup',onUp);
 })();
 </script>
