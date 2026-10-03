@@ -498,9 +498,10 @@ function renderListView(){
     else if(F.cat==='din'){att=[];shp=[];}
     else if(F.cat==='shp'){att=[];din=[];}
 
-    // Height filter (rides only)
+    // Height filter — hide dining/shopping whenever a height filter is active
+    if(F.hmin!==0){din=[];shp=[];}
     if(F.hmin===-1) att=att.filter(i=>i.hmax>0);
-    else if(F.hmin>0) att=att.filter(i=>i.hmin>=F.hmin);
+    else if(F.hmin>0) att=att.filter(i=>i.hmin>0&&i.hmin<=F.hmin);
 
     // TimeSaver filter
     if(F.ts){
