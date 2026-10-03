@@ -453,8 +453,11 @@ const TYPE_LABELS={{
 }};
 const A = {park_js};
 
+// ── Pin badge coordinates (1836×1290 SVG space) ──────────────────────────────
+const PIN_COORDS={{1:[1128,926],4:[1110,978],7:[861,990],20:[1084,1001],21:[889,999],22:[921,963],23:[1016,1035],24:[893,1024],25:[740,622],26:[832,538],27:[804,666],28:[854,410],29:[620,728],30:[672,636],33:[780,584],34:[786,632],35:[1028,96],36:[918,196],38:[1130,282],42:[1012,196],43:[998,228],44:[954,242],45:[894,250],46:[912,274],47:[1172,242],48:[1174,276],49:[1170,508],51:[1236,554],52:[1210,96],53:[1308,756],54:[1226,162],68:[1326,718],69:[1254,802],70:[1168,440],71:[1358,822],72:[1350,792],73:[1296,626],74:[1190,82],75:[1332,642],76:[1172,788],77:[1156,700],78:[1702,994],79:[1594,938],80:[1652,996],82:[1560,962],83:[1540,968],84:[1530,974],85:[1802,1140],86:[1716,1068],87:[1644,1192],89:[1780,1118],90:[1730,1186],91:[1696,1140],92:[1632,1108],93:[1704,1068],94:[1798,1064],95:[1636,1160],96:[1616,1194],97:[1762,1106],98:[1560,1082],99:[1560,1144],100:[1558,1028],101:[1700,1140],102:[1626,1138],103:[1400,924],104:[1376,954],105:[1194,866],111:[1254,946],112:[1178,976],113:[1190,988],114:[1178,998],115:[1248,1070],116:[1258,948],117:[1188,1012],118:[1208,1166],119:[1198,1098],120:[1112,1138],122:[1128,1088],123:[1152,1144],124:[1200,1088],125:[964,1084],126:[1024,1082],127:[932,1140],128:[1014,1124],129:[1044,1126],131:[274,500],132:[474,412],133:[380,600],134:[432,438],135:[598,518],136:[462,506],137:[76,436],138:[398,512],139:[580,486],140:[716,518],141:[496,484],145:[356,536],146:[446,576],147:[492,568],148:[436,554],149:[498,570]}};
+
 // ── State ────────────────────────────────────────────────────────────────────
-let curArea=null, panelPage='list'; // 'list'|'detail'
+let curArea=null, panelPage='list', idetClearTimer=null; // 'list'|'detail'
 const isMob=()=>window.innerWidth<768;
 
 // ── View toggle ───────────────────────────────────────────────────────────────
@@ -482,6 +485,37 @@ function selectArea(key){{
   pz.zoomTo(key);
   showPanel(key);
 }}
+
+// ── Pin badge hit-targets ─────────────────────────────────────────────────────
+(function(){{
+  const mapIdToItem={{}};
+  for(const[key,area]of Object.entries(A)){{
+    for(const[cat,items]of[['att',area.att],['din',area.din],['shp',area.shp]]){{
+      for(const item of(items||[])){{
+        if(item.id>0)mapIdToItem[item.id]={{areaKey:key,cat}};
+      }}
+    }}
+  }}
+  const svg=document.getElementById('msvg');
+  for(const[idStr,[x,y]]of Object.entries(PIN_COORDS)){{
+    const id=+idStr;
+    const info=mapIdToItem[id];
+    if(!info)continue;
+    const{{areaKey,cat}}=info;
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','22');
+    c.setAttribute('fill','transparent');c.style.cursor='pointer';
+    const tap=()=>{{
+      if(pz.dragged)return;
+      if(curArea!==areaKey)selectArea(areaKey);
+      openIdet(areaKey,id,cat);
+      pz.panToPin(x,y);
+    }};
+    c.addEventListener('click',e=>{{e.stopPropagation();tap();}});
+    c.addEventListener('touchend',e=>{{if(pz.dragged)return;e.preventDefault();e.stopPropagation();tap();}});
+    svg.appendChild(c);
+  }}
+}})();
 
 function highlightZone(key){{
   document.querySelectorAll('#msvg polygon').forEach(p=>{{
@@ -688,13 +722,7 @@ const pz=(()=>{{
     mi.style.transition=ani?'transform .42s cubic-bezier(.32,.72,0,1)':'none';
     mi.style.transform=`translate(${{tx}}px,${{ty}}px) scale(${{s}})`;
   }}
-  function clamp(){{
-    const cw=mc.clientWidth,ch=mc.clientHeight;
-    const iw=mi.offsetWidth*s,ih=mi.offsetHeight*s;
-    if(iw<=cw)tx=(cw-iw)/2; else tx=Math.min(0,Math.max(cw-iw,tx));
-    if(ih<=ch)ty=Math.max(0,(ch-ih)/2); else ty=Math.min(0,Math.max(ch-ih,ty));
-    apply(false);
-  }}
+  function clamp(){{apply(false);}}
   function dst(t){{const dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy);}}
   function mid(t){{return{{x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2}};}}
 
@@ -749,7 +777,16 @@ const pz=(()=>{{
     tx=cw/2-px*s; ty=visH*.4-py*s;
     apply(true); setTimeout(clamp,440);
   }}
-  return {{zoomTo,get dragged(){{return dragged;}}}};
+  function panToPin(px1836,py1836){{
+    const cw=mc.clientWidth,ch=mc.clientHeight;
+    const panH=isMob()?ch*.52:ch*.38;
+    const visH=ch-panH;
+    const iw=mi.offsetWidth,ih=mi.offsetHeight;
+    const px=(px1836/1836)*iw,py2=(py1836/1290)*ih;
+    tx=cw/2-px*s; ty=visH*.4-py2*s;
+    apply(true); setTimeout(clamp,440);
+  }}
+  return {{zoomTo,panToPin,get dragged(){{return dragged;}}}};
 }})();
 </script>
 </body>
