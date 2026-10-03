@@ -503,7 +503,7 @@ function selectArea(key){{
     if(!info)continue;
     const{{areaKey,cat}}=info;
     const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','50');
+    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','30');
     c.setAttribute('fill','transparent');c.style.cursor='pointer';
     const tap=()=>{{
       if(pz.dragged)return;
@@ -546,7 +546,12 @@ function renderPanelList(key){{
   const idet=document.getElementById('idet');
   body.innerHTML=''; body.appendChild(wrap); body.appendChild(idet);
   wrap.querySelectorAll('.ir').forEach(r=>{{
-    r.addEventListener('click',()=>openIdet(key,+r.dataset.id,r.dataset.cat));
+    r.addEventListener('click',()=>{{
+      const id=+r.dataset.id;
+      openIdet(key,id,r.dataset.cat);
+      const coords=PIN_COORDS[id];
+      if(coords) pz.panToPin(coords[0],coords[1]);
+    }});
   }});
 }}
 
