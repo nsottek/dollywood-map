@@ -301,6 +301,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
         </select>
       </div>
       <div class="frow">
+        <input id="f-search" type="search" placeholder="Search attractions…" autocomplete="off" autocorrect="off" spellcheck="false"
+          style="flex:1;min-width:0;padding:7px 12px;border:1.5px solid var(--border);border-radius:20px;font-size:13px;font-family:var(--sans);font-weight:500;color:var(--txt);background:var(--surface2);outline:none;">
+      </div>
+      <div class="frow">
         <button class="chip on" data-cat="all">All</button>
         <button class="chip" data-cat="rides">Rides</button>
         <button class="chip" data-cat="shows">Shows</button>
@@ -554,7 +558,7 @@ function closePanel(){
 // ── List view + filters ──────────────────────────────────────────────────────
 const RIDE_TYPES=new Set(['roller_coaster','family','water','thrill','pre_k']);
 const SHOW_TYPES=new Set(['show','venue','film','interactive_experience','character_meet','dance_party','music','attraction']);
-const F={area:'',cat:'all',hmin:0,ts:false};
+const F={area:'',cat:'all',hmin:0,ts:false,q:''};
 
 function renderListView(){
   const body=document.getElementById('list-body');
@@ -584,6 +588,14 @@ function renderListView(){
       att=att.filter(i=>i.ts);
       din=din.filter(i=>i.ts);
       shp=shp.filter(i=>i.ts);
+    }
+
+    // Name search filter
+    if(F.q){
+      const q=F.q.toLowerCase();
+      att=att.filter(i=>i.name.toLowerCase().includes(q));
+      din=din.filter(i=>i.name.toLowerCase().includes(q));
+      shp=shp.filter(i=>i.name.toLowerCase().includes(q));
     }
 
     if(!att.length&&!din.length&&!shp.length) continue;
@@ -616,6 +628,7 @@ function renderListView(){
 }
 
 // Filter controls wiring
+document.getElementById('f-search').addEventListener('input',e=>{F.q=e.target.value.trim();renderListView();});
 document.getElementById('f-area').addEventListener('change',e=>{F.area=e.target.value;renderListView();});
 document.getElementById('f-height').addEventListener('change',e=>{F.hmin=+e.target.value;renderListView();});
 document.querySelectorAll('.chip[data-cat]').forEach(btn=>{
