@@ -109,7 +109,12 @@ img_src = f'data:image/jpeg;base64,{img_b64}'
 print(f'Map JPEG: {len(raw):,} bytes  b64: {len(img_b64):,} chars')
 
 # ── HTML (no DOCTYPE/html/head/body — Artifact skeleton provides them) ────────
-html = f'''<title>Dollywood 2026 Guide</title>
+html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dollywood 2026 Guide</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
 <style>
 /* Layout: full-screen app — dark header / map / slide-up panel or list */
@@ -322,7 +327,8 @@ html,body{{height:100%;overflow:hidden;font-family:var(--sans);background:var(--
 .back-btn{{border:none;background:none;color:var(--red);font-size:15px;font-weight:600;
   cursor:pointer;display:flex;align-items:center;gap:3px;font-family:var(--sans);padding:4px 0}}
 </style>
-
+</head>
+<body>
 <!-- ── App shell ─────────────────────────────────────────────────────────── -->
 <div id="app">
 
@@ -746,6 +752,8 @@ const pz=(()=>{{
   return {{zoomTo,get dragged(){{return dragged;}}}};
 }})();
 </script>
+</body>
+</html>
 '''
 
 out = os.path.join(PROJECT, 'index.html')
