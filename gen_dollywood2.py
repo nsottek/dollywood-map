@@ -503,7 +503,7 @@ function selectArea(key){{
     if(!info)continue;
     const{{areaKey,cat}}=info;
     const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','22');
+    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','50');
     c.setAttribute('fill','transparent');c.style.cursor='pointer';
     const tap=()=>{{
       if(pz.dragged)return;
