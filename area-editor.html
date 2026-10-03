@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Area Editor — Dollywood</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--sur:#161b22;--brd:#30363d;--txt:#e6edf3;--txt2:#8b949e;--acc:#58a6ff;--grn:#3fb950;--ff:system-ui,sans-serif}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--ff);font-size:14px;overflow:hidden}
+#app{height:100%;display:flex}
+#sidebar{width:260px;flex-shrink:0;display:flex;flex-direction:column;background:var(--sur);border-right:1px solid var(--brd);overflow:hidden}
+#sid-title{padding:12px 14px;font-weight:700;font-size:14px;border-bottom:1px solid var(--brd);color:var(--txt)}
+#area-list{flex:1;overflow-y:auto}
+.area-item{display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:1px solid rgba(48,54,61,.4);border-left:2px solid transparent}
+.area-item:hover{background:rgba(255,255,255,.04)}
+.area-item.sel{background:rgba(88,166,255,.08);border-left-color:var(--acc)}
+.area-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.area-nm{flex:1;font-size:12.5px}
+.area-nv{font-size:11px;color:var(--txt2)}
+#bottom{padding:10px;border-top:1px solid var(--brd);display:flex;flex-direction:column;gap:7px}
+#bottom label{font-size:10px;color:var(--txt2);letter-spacing:.05em;text-transform:uppercase}
+#pts-out{width:100%;height:64px;font-size:10px;font-family:monospace;background:var(--bg);border:1px solid var(--brd);color:var(--txt);border-radius:4px;padding:5px;resize:none;line-height:1.4}
+button{border:1px solid var(--brd);background:var(--bg);color:var(--txt);border-radius:6px;padding:7px 10px;cursor:pointer;font-size:12px;font-family:var(--ff);width:100%;text-align:left}
+button:hover{background:rgba(255,255,255,.06)}
+#btn-copy{border-color:var(--acc);color:var(--acc)}
+#btn-export{border-color:var(--grn);color:var(--grn)}
+#map-wrap{flex:1;overflow:hidden;background:#111}
+#mc{width:100%;height:100%;overflow:hidden;cursor:grab;position:relative;touch-action:none;user-select:none}
+#mc:active{cursor:grabbing}
+#mi{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+#mimg{display:block;width:918px;height:645px;pointer-events:none;user-select:none}
+#msvg{position:absolute;top:0;left:0;width:918px;height:645px;overflow:visible}
+#tip{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(13,17,23,.88);border:1px solid var(--brd);border-radius:6px;padding:6px 14px;font-size:11px;color:var(--txt2);pointer-events:none;z-index:10;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <div id="sid-title">Area Polygon Editor</div>
+    <div id="area-list"></div>
+    <div id="bottom">
+      <label>Points — current area</label>
+      <textarea id="pts-out" readonly></textarea>
+      <button id="btn-copy">Copy Points  [C]</button>
+      <button id="btn-export">Export All  [E]</button>
+    </div>
+  </div>
+  <div id="map-wrap">
+    <div id="mc">
+      <div id="tip">Scroll/pinch to zoom · Drag to pan · Drag vertex handle to edit</div>
+      <div id="mi">
+        <img id="mimg" alt="Loading map…">
+        <svg id="msvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1836 1290"></svg>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const POLYS = {
+  showstreet:{name:"Showstreet",color:"#1E88E5",pts:[[746,1022],[756,950],[840,904],[996,894],[1146,872],[1204,932],[1158,954],[1140,990],[1170,1024],[1166,1052],[1048,1060],[986,1054],[908,1068],[908,1092],[922,1158],[818,1124],[758,1104]]},
+  timber:{name:"Timber Canyon",color:"#795548",pts:[[732,834],[780,730],[818,588],[866,460],[894,408],[816,322],[748,338],[748,420],[776,464],[776,514],[730,552],[690,554],[642,536],[530,518],[512,566],[504,640],[506,658],[586,722],[688,816]]},
+  wildpass:{name:"Wilderness Pass",color:"#00897B",pts:[[896,392],[822,306],[816,236],[868,172],[912,116],[948,32],[1008,6],[1128,8],[1180,56],[1196,146],[1136,140],[1120,188],[1122,228],[1146,288],[1146,376],[1090,430],[976,468],[948,646],[880,666],[844,612]]},
+  craftsman:{name:"Craftsman's Valley",color:"#43A047",pts:[[1184,42],[1234,22],[1278,90],[1320,116],[1276,236],[1284,314],[1326,384],[1306,494],[1384,718],[1396,850],[1332,842],[1244,810],[1236,694],[1204,662],[1168,578],[1064,634],[1002,606],[976,524],[1002,464],[1144,416],[1162,372],[1158,280],[1130,184],[1154,152],[1206,154]]},
+  owens:{name:"Owens Farm",color:"#F57C00",pts:[[1234,692],[1246,816],[1174,820],[1110,790],[1080,714],[1054,652],[1110,628],[1188,634],[1210,650]]},
+  village:{name:"The Village",color:"#5E35B1",pts:[[1446,938],[1462,980],[1482,1004],[1556,1012],[1610,1010],[1662,1022],[1736,1026],[1796,1022],[1810,988],[1818,902],[1720,898],[1544,910]]},
+  countryfair:{name:"Country Fair",color:"#E91E63",pts:[[1502,1024],[1512,1092],[1542,1162],[1588,1198],[1620,1214],[1638,1256],[1784,1256],[1780,1212],[1762,1182],[1786,1128],[1794,1070],[1788,1036],[1678,1028],[1600,1016]]},
+  rivertown:{name:"Rivertown Junction",color:"#C62828",pts:[[1318,858],[1208,842],[1156,862],[1214,928],[1164,956],[1154,982],[1162,1008],[1178,1044],[1262,1076],[1304,1102],[1366,1128],[1424,1134],[1492,1128],[1474,1034],[1444,974],[1388,910]]},
+  jukebox:{name:"Jukebox Junction",color:"#E64A19",pts:[[1276,1104],[1190,1062],[1106,1066],[1106,1096],[1070,1114],[1066,1156],[1118,1168],[1128,1190],[1132,1258],[1166,1288],[1272,1284],[1368,1280],[1404,1234],[1460,1196],[1476,1146],[1422,1138],[1368,1136]]},
+  dolly:{name:"Dolly Parton Experience",color:"#8E24AA",pts:[[1094,1068],[1092,1090],[1062,1108],[1056,1160],[1082,1170],[1118,1192],[1112,1222],[906,1226],[910,1170],[944,1148],[912,1102],[934,1074],[962,1052]]},
+  wildwood:{name:"Wildwood Grove",color:"#2E7D32",pts:[[762,466],[768,508],[738,538],[702,544],[654,530],[616,524],[566,518],[546,510],[524,512],[514,530],[498,594],[454,646],[410,668],[358,680],[336,670],[210,600],[26,540],[2,388],[28,338],[94,308],[164,306],[248,334],[252,448],[342,440],[390,402],[446,356],[500,306],[550,310],[574,340],[652,346],[704,348],[744,352],[746,392],[738,426]]}
+};
+
+let s=1,tx=0,ty=0,mdown=false,lm={x:0,y:0},dragged=false,t0=[],pd=0,pm=null;
+let curArea=Object.keys(POLYS)[0];
+let vertexDragging=false;
+
+const mc=document.getElementById('mc'),mi=document.getElementById('mi'),svg=document.getElementById('msvg');
+
+fetch('index.html').then(r=>r.text()).then(html=>{
+  const m=html.match(/src="(data:image\/jpeg;base64,[^"]{100,})"/);
+  if(m)document.getElementById('mimg').src=m[1];
+  else document.getElementById('tip').textContent='Map image not found in index.html';
+}).catch(()=>{document.getElementById('tip').textContent='Open from a web server (e.g. GitHub Pages) to load the map.';});
+
+function applyT(ani){mi.style.transition=ani?'transform .25s ease':'none';mi.style.transform=`translate(${tx}px,${ty}px) scale(${s})`;}
+
+function screenToSvg(cx,cy){
+  const r=mc.getBoundingClientRect();
+  return[Math.round((cx-r.left-tx)/s*2),Math.round((cy-r.top-ty)/s*2)];
+}
+
+function ptStr(key){return POLYS[key].pts.map(p=>p.join(',')).join(' ');}
+
+function render(){
+  let h='';
+  for(const[key,poly]of Object.entries(POLYS)){
+    const isCur=key===curArea;
+    h+=`<polygon id="poly-${key}" points="${ptStr(key)}" fill="${poly.color}" fill-opacity="${isCur?.28:.07}" stroke="${poly.color}" stroke-width="${isCur?4:1.5}" stroke-opacity="${isCur?1:.45}"/>`;
+  }
+  const cur=POLYS[curArea];
+  cur.pts.forEach((p,i)=>{
+    h+=`<circle id="vtx-${curArea}-${i}" class="vtx" data-area="${curArea}" data-idx="${i}" cx="${p[0]}" cy="${p[1]}" r="20" fill="${cur.color}" fill-opacity=".9" stroke="#fff" stroke-width="3" style="cursor:move"/>`;
+    h+=`<text id="lbl-${curArea}-${i}" x="${p[0]}" y="${p[1]}" fill="#fff" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="central" pointer-events="none">${i}</text>`;
+  });
+  svg.innerHTML=h;
+  svg.querySelectorAll('.vtx').forEach(el=>el.addEventListener('pointerdown',onVtxDown));
+  document.getElementById('pts-out').value=ptStr(curArea);
+  renderSidebar();
+}
+
+function renderSidebar(){
+  document.getElementById('area-list').innerHTML=Object.entries(POLYS).map(([key,p])=>`<div class="area-item${key===curArea?' sel':''}" data-key="${key}"><div class="area-dot" style="background:${p.color}"></div><span class="area-nm">${p.name}</span><span class="area-nv">${p.pts.length}pts</span></div>`).join('');
+  document.querySelectorAll('.area-item').forEach(el=>el.addEventListener('click',()=>{curArea=el.dataset.key;render();}));
+  const sel=document.querySelector('.area-item.sel');
+  if(sel)sel.scrollIntoView({block:'nearest'});
+}
+
+function onVtxDown(e){
+  e.stopPropagation();
+  e.preventDefault();
+  vertexDragging=true;
+  const el=e.currentTarget;
+  const area=el.dataset.area,idx=+el.dataset.idx;
+  el.setPointerCapture(e.pointerId);
+  function onMove(ev){
+    const[x,y]=screenToSvg(ev.clientX,ev.clientY);
+    POLYS[area].pts[idx]=[x,y];
+    document.getElementById(`poly-${area}`).setAttribute('points',ptStr(area));
+    el.setAttribute('cx',x); el.setAttribute('cy',y);
+    document.getElementById(`lbl-${area}-${idx}`).setAttribute('x',x);
+    document.getElementById(`lbl-${area}-${idx}`).setAttribute('y',y);
+    document.getElementById('pts-out').value=ptStr(area);
+  }
+  function onUp(){
+    vertexDragging=false;
+    el.removeEventListener('pointermove',onMove);
+    el.removeEventListener('pointerup',onUp);
+  }
+  el.addEventListener('pointermove',onMove);
+  el.addEventListener('pointerup',onUp);
+}
+
+// Pan / zoom
+function dst(t){const dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy);}
+function midp(t){return{x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2};}
+mc.addEventListener('touchstart',e=>{if(vertexDragging)return;e.preventDefault();dragged=false;t0=Array.from(e.touches);if(t0.length===2){pd=dst(t0);pm=midp(t0);}},{passive:false});
+mc.addEventListener('touchmove',e=>{if(vertexDragging)return;e.preventDefault();const t=Array.from(e.touches);dragged=true;if(t.length===2){const d=dst(t),m=midp(t),r=d/pd;const rect=mc.getBoundingClientRect();const cx=m.x-rect.left,cy=m.y-rect.top;const ns=Math.min(10,Math.max(.3,s*r)),sr=ns/s;tx=cx-sr*(cx-tx);ty=cy-sr*(cy-ty);s=ns;if(pm){tx+=m.x-pm.x;ty+=m.y-pm.y;}pd=d;pm=m;}else if(t.length===1&&t0.length===1){tx+=t[0].clientX-t0[0].clientX;ty+=t[0].clientY-t0[0].clientY;t0=t;}applyT(false);},{passive:false});
+mc.addEventListener('touchend',e=>{t0=Array.from(e.touches);});
+mc.addEventListener('mousedown',e=>{if(vertexDragging)return;mdown=true;lm={x:e.clientX,y:e.clientY};dragged=false;});
+window.addEventListener('mousemove',e=>{if(!mdown||vertexDragging)return;const dx=e.clientX-lm.x,dy=e.clientY-lm.y;if(Math.abs(dx)+Math.abs(dy)>4)dragged=true;tx+=dx;ty+=dy;lm={x:e.clientX,y:e.clientY};applyT(false);});
+window.addEventListener('mouseup',()=>{mdown=false;});
+mc.addEventListener('wheel',e=>{e.preventDefault();const r=mc.getBoundingClientRect();const cx=e.clientX-r.left,cy=e.clientY-r.top;const d=e.deltaY>0?.85:1.18;const ns=Math.min(10,Math.max(.3,s*d)),sr=ns/s;tx=cx-sr*(cx-tx);ty=cy-sr*(cy-ty);s=ns;applyT(false);},{passive:false});
+
+// Copy / Export
+function copy(){
+  const txt=ptStr(curArea);
+  navigator.clipboard.writeText(txt).then(()=>{const b=document.getElementById('btn-copy');b.textContent='Copied!';setTimeout(()=>b.textContent='Copy Points  [C]',1500);}).catch(()=>prompt('Copy:',txt));
+}
+function exp(){
+  const lines=Object.entries(POLYS).map(([k,p])=>`          <polygon data-area="${k}"  fill="var(--c-${k==='countryfair'?'fair':k})" fill-opacity=".1" stroke="var(--c-${k==='countryfair'?'fair':k})" points="${ptStr(k)}"/>`).join('\n');
+  navigator.clipboard.writeText(lines).then(()=>{const b=document.getElementById('btn-export');b.textContent='Copied!';setTimeout(()=>b.textContent='Export All  [E]',1500);}).catch(()=>prompt('Copy:',lines));
+}
+document.getElementById('btn-copy').addEventListener('click',copy);
+document.getElementById('btn-export').addEventListener('click',exp);
+window.addEventListener('keydown',e=>{if(e.key==='c'||e.key==='C')copy();if(e.key==='e'||e.key==='E')exp();});
+
+render();
+</script>
+</body>
+</html>
