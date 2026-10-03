@@ -1,200 +1,13 @@
 {
   "rides": [
     {
-      "mapId": 131,
-      "name": "Big Bear Mountain\u00ae",
-      "area": "Wildwood Grove",
-      "timeSaver": true,
-      "timeSaverType": "premium",
-      "heightMin": 39,
-      "type": "roller_coaster",
-      "description": "Big Bear Mountain\u00ae is the longest coaster at Dollywood, taking guests of all ages on an unforgettable family-friendly expedition in search of the Big Bear. Circling Wildwood Grove for nearly two minutes on 3,990 ft. of track, this gigantic coaster features onboard audio, including music and announcements from Ned Oakley himself. This triple-launching family coaster features a 66-foot maximum track height and reaches a speed of 48 mph."
-    },
-    {
-      "mapId": 75,
-      "name": "Barnstormer",
-      "area": "Owens Farm",
-      "timeSaver": true,
-      "heightMin": 48,
-      "type": "roller_coaster",
-      "description": "Enjoy the same breathtaking moments that daring stunt pilots of the 1920s might have experienced as they zoomed over the fields of nearby farms. The Barnstormer features two pendulum arms with seating for 32 riders. Seated back to back, riders travel progressively higher on each swing, reaching a maximum speed of 45 mph and 230 degrees of rotation. At its peak, the Barnstormer reaches a staggering 81 feet in the air!"
-    },
-    {
-      "mapId": 132,
-      "name": "Black Bear Trail",
-      "area": "Wildwood Grove",
-      "timeSaver": false,
-      "type": "family",
-      "description": "In Wildwood Grove, even the bears are friendly and fun-loving. Climbing onto the back of one of the friendly bears, riders glide through the beautiful backwoods, enjoying the scenery, accompanied by a joyful tune. There are plenty of surprises as you meander through the woods on the Black Bear Trail, making unexpected discoveries along the way."
-    },
-    {
-      "mapId": 47,
-      "name": "Blazing Fury",
-      "area": "Craftsman's Valley",
-      "timeSaver": false,
-      "heightMin": 42,
-      "type": "roller_coaster",
-      "description": "An out-of-control fire is just minutes away from engulfing this 1880s town, and chaos ensues as the town's residents hurry to escape the blaze. Riders scream through town on this indoor roller coaster, taking each hill and curve with great speed as they try to outrun the fire."
-    },
-    {
-      "mapId": 85,
-      "name": "Busy Bees",
-      "area": "Country Fair",
-      "timeSaver": false,
-      "heightMax": 36,
-      "type": "pre_k",
-      "description": "Our \"busy bees\" are all abuzz with fun and excitement! Ride along as the \"bumble bee\" cars fly 'round and 'round. It's a ride that promises to \"busy\" the entire family with lots of fun."
-    },
-    {
-      "mapId": 48,
-      "name": "Calico Falls Schoolhouse",
-      "area": "Craftsman's Valley",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "The one-room schoolhouse offers visitors a view of how many schools appeared in East Tennessee during the 1890s. It clearly reminds us all of a simpler time when slate boards took the place of pen and paper. You can easily imagine students eager to learn about the ever-changing world outside the mountains of East Tennessee."
-    },
-    {
-      "mapId": 86,
-      "name": "Country Fair Splash and Play",
-      "area": "Country Fair",
-      "timeSaver": false,
-      "type": "water",
-      "description": "Cool off and splash around at Country Fair Splash and Play, a water play area perfect for the whole family."
-    },
-    {
-      "mapId": 49,
-      "name": "Daredevil Falls",
-      "area": "Craftsman's Valley",
-      "timeSaver": false,
-      "heightMin": 42,
-      "type": "water",
-      "description": "Only a real daredevil will venture into an abandoned logging camp for a one-of-a-kind boat expedition. Just when you catch your breath, your boat careens over a waterfall down a 60-foot drop at a heart-racing 50 mph! This super flume water ride consists of quick turns and a 60-foot drop with the boat holding eight guests."
-    },
-    {
-      "mapId": 87,
-      "name": "Demolition Derby",
-      "area": "Country Fair",
-      "timeSaver": false,
-      "heightMin": 42,
-      "type": "thrill",
-      "description": "Family and friends may cross your path, but this is one time that it's okay to bump them out of your way as you make your way through the skirmish of cluttered bumper cars. It's guaranteed good times for the whole family as you make your way through the chaos!"
-    },
-    {
-      "mapId": 104,
-      "name": "Dolly's Tennessee Mountain Home",
-      "area": "Rivertown Junction",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "You'll get a true feeling of what Dolly means when she speaks of her Tennessee Mountain Home upbringing as you visit this two-room replica of her Locust Ridge childhood home. Though it lacked electricity and running water, love was abundant in this tiny little mountain house that Dolly and her family called home."
-    },
-    {
-      "mapId": 79,
-      "name": "Dollywood Express Train Depot",
-      "area": "The Village",
-      "timeSaver": false,
-      "type": "family",
-      "description": "The engineer sounds the whistle and your 20-minute mountain excursion is underway. Our authentic 110-ton steam locomotive engine takes you on a breathtaking five-mile journey through the foothills of the Great Smoky Mountains where you'll enjoy pastoral scenery and some of the most beautiful views that nature has to offer."
-    },
-    {
-      "mapId": 133,
-      "name": "Dragonflier",
-      "area": "Wildwood Grove",
-      "timeSaver": true,
-      "heightMin": 39,
-      "type": "roller_coaster",
-      "description": "One of the most playful creatures inhabiting Wildwood Grove's creekside, Dragonflier mimics the flight of a Smoky Mountain dragonfly as it speeds through the terrain in a twisting, unpredictable path. With the rush of wind and the thrill of flight, there's nothing more exhilarating than a ride on the wings of a dragonfly! This suspended family coaster reaches speeds up to 43 mph with a lift height of 63 feet."
-    },
-    {
       "mapId": 25,
-      "name": "Drop Line\u00ae",
+      "name": "Drop Line®",
       "area": "Timber Canyon",
       "timeSaver": true,
       "heightMin": 55,
       "type": "thrill",
       "description": "Drop Line lifts guests more than 20 stories above Dollywood's Timber Canyon. The ride's gondola slowly spins around the tower as it ascends, providing guests with a bird's eye view of the Great Smoky Mountains. In an instant, Drop Line plummets them back to the ground in a thrilling rush of excitement."
-    },
-    {
-      "mapId": 35,
-      "name": "FireChaser Express\u00ae",
-      "area": "Wilderness Pass",
-      "timeSaver": true,
-      "heightMin": 39,
-      "type": "roller_coaster",
-      "description": "It's FireChaser Express \u2014 the nation's first dual-launch family coaster \u2014 blasting riders forward and backward! Celebrating the heroic spirit of Smoky Mountain firefighters, this forward-and-backward-launching family coaster features a 72-foot lift height and reaches a speed of 35 mph."
-    },
-    {
-      "mapId": 36,
-      "name": "Firehouse Fun Yard",
-      "area": "Wilderness Pass",
-      "timeSaver": false,
-      "type": "family",
-      "description": "Recruits less than 39 inches can enjoy their time at the FireChaser Express Firehouse Fun Yard. This interactive children's play area includes pop-jet water features, a \"soft play\" structure where children can slide and play, a block table, and a chalk board coloring wall."
-    },
-    {
-      "mapId": 134,
-      "name": "Frogs & Fireflies",
-      "area": "Wildwood Grove",
-      "timeSaver": false,
-      "type": "pre_k",
-      "description": "Hungry frogs chase each other through the marsh in this playful roundabout ride. A clump of tall grasses in the center is home to flickering fireflies, fluttering just out of reach of the frogs. Racing around and around to the sounds of a lively bluegrass tune, riders dodge up and down as they try to catch the fireflies."
-    },
-    {
-      "mapId": 76,
-      "name": "Granny's Garden",
-      "area": "Owens Farm",
-      "timeSaver": false,
-      "type": "pre_k",
-      "description": "The kids will enjoy digging up tons of fun at Granny's Garden. This interactive playground experience will keep the kids laughing for hours with its soft-play structures where children can climb, slide and play."
-    },
-    {
-      "mapId": 135,
-      "name": "Great Tree Swing",
-      "area": "Wildwood Grove",
-      "timeSaver": false,
-      "heightMin": 36,
-      "type": "family",
-      "description": "The Great Tree Swing, wound with vines and decorated with bright leaves, is a breathtaking thrill as riders fly high through the skies. Riders experience heights of up to 40 feet as the ride vehicle swings forward and backward in a pendulum motion."
-    },
-    {
-      "mapId": 136,
-      "name": "Hidden Hollow",
-      "area": "Wildwood Grove",
-      "timeSaver": false,
-      "type": "family",
-      "description": "Near the Wildwood Tree, a secret play area named Hidden Hollow beckons families with a collection of kid-friendly activities for hours of play. Surrounded by a forest scene, kids of all ages get in touch with nature, climbing up tree trunk net towers, exploring tree crawls, traversing a series of blocks, and sliding down hollow logs."
-    },
-    {
-      "mapId": 78,
-      "name": "Imagination Playhouse",
-      "area": "The Village",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "A whimsical play area where imagination runs wild, perfect for young explorers visiting The Village."
-    },
-    {
-      "mapId": 89,
-      "name": "Lemon Twist",
-      "area": "Country Fair",
-      "timeSaver": false,
-      "type": "family",
-      "description": "Once you spot the giant lemonade pitcher, you know you're not far from the Lemon Twist. Nine spinning \"lemon cups\" revolve around the pitcher in the center \u2014 the perfect ride for little ones who are thirsty for adventure."
-    },
-    {
-      "mapId": 118,
-      "name": "Lightning Rod\u00ae",
-      "area": "Jukebox Junction",
-      "timeSaver": false,
-      "heightMin": 48,
-      "type": "roller_coaster",
-      "description": "Themed after a tricked-out 1950s-era hot rod, Lightning Rod\u00ae sends riders more than 20 stories up its lift hill. Lightning Rod races down the 165-foot drop and propels guests along its 3,800-foot track with nearly 20 seconds of airtime. USA Today readers have consistently named it one of the top-10 best roller coasters in the country."
-    },
-    {
-      "mapId": 77,
-      "name": "Lil' Pilots Playground",
-      "area": "Owens Farm",
-      "timeSaver": false,
-      "type": "pre_k",
-      "description": "Down on the ground, Lil' Pilots Playground entertains pilots in training. Little ones 48 inches and under can explore a 22-foot by 16-foot wooden bi-plane, play with a one-of-a-kind drum set and climb and slide amid a variety of structures."
     },
     {
       "mapId": 26,
@@ -206,40 +19,95 @@
       "description": "Two 30-foot-tall towers await passengers who can \"pull\" the ropes, lifting the cars as high as 25 feet in the air. Or, if you dare, release the cable for an exciting but \"kid friendly\" free fall!"
     },
     {
-      "mapId": 90,
-      "name": "Lucky Ducky",
-      "area": "Country Fair",
-      "timeSaver": false,
-      "heightMax": 36,
-      "type": "pre_k",
-      "description": "Everyone's a winner on our Lucky Ducky ride where all the cute \"duck\" cars travel in a circle of fun. These lucky ducks are sure to entertain the entire family."
-    },
-    {
       "mapId": 28,
-      "name": "Mystery Mine\u00ae",
+      "name": "Mystery Mine®",
       "area": "Timber Canyon",
       "timeSaver": true,
       "heightMin": 48,
       "type": "roller_coaster",
-      "description": "What if there is no light at the end of the tunnel? Find out on Dollywood's Mystery Mine\u00ae steel coaster where a 1,811-foot track travels through an abandoned coal mine. A hair-raising 95-degree, 85-foot vertical drop plunges into darkness!"
+      "description": "What if there is no light at the end of the tunnel? Find out on Dollywood's Mystery Mine® steel coaster where a 1,811-foot track travels through an abandoned coal mine. A hair-raising 95-degree, 85-foot vertical drop plunges into darkness!"
     },
     {
-      "mapId": 137,
-      "name": "NightFlight Expedition",
-      "area": "Wildwood Grove",
+      "mapId": 29,
+      "name": "Thunderhead®",
+      "area": "Timber Canyon",
+      "timeSaver": true,
+      "heightMin": 48,
+      "type": "roller_coaster",
+      "description": "Carefully situated between two mountains, this massive wooden coaster stands tall among the mighty trees and takes advantage of the area's rough and tumble terrain to create a daring ride featuring a 100-foot drop and a top speed of 55 mph."
+    },
+    {
+      "mapId": 30,
+      "name": "Whistle Punk Chaser®",
+      "area": "Timber Canyon",
       "timeSaver": false,
+      "heightMin": 36,
+      "type": "roller_coaster",
+      "description": "Whistle Punk Chaser, a junior coaster, throws thrilling twists and turns at Dollywood's younger loggers, helping prepare them for the day they can join their parents aboard the award-winning Thunderhead wooden coaster."
+    },
+    {
+      "mapId": 35,
+      "name": "FireChaser Express®",
+      "area": "Wilderness Pass",
+      "timeSaver": true,
       "heightMin": 39,
       "type": "roller_coaster",
-      "description": "Welcome to NightFlight Expedition \u2014 a groundbreaking new addition to Dollywood that redefines adventure! Prepare to embark on an immersive indoor adventure coaster like no other, combining storytelling, thrills, and cutting-edge technology in a way only Dollywood can deliver. This first ride of its kind in the world invites guests of all ages to soar over the Smoky Mountains, plunge through dramatic rapids, climb rugged ridges, and glide across shimmering bioluminescent waters \u2014 all in one unforgettable journey."
+      "description": "It's FireChaser Express — the nation's first dual-launch family coaster — blasting riders forward and backward! Celebrating the heroic spirit of Smoky Mountain firefighters, this forward-and-backward-launching family coaster features a 72-foot lift height and reaches a speed of 35 mph."
     },
     {
-      "mapId": 91,
-      "name": "Piggy Parade",
-      "area": "Country Fair",
+      "mapId": 36,
+      "name": "Firehouse Fun Yard",
+      "area": "Wilderness Pass",
       "timeSaver": false,
-      "heightMax": 36,
-      "type": "pre_k",
-      "description": "Your little one will love this parade! A larger-than-life scarecrow keeps a watchful eye on the Piggy Parade as the adorable \"piggy\" cars travel in a circle of fun."
+      "type": "family",
+      "description": "Recruits less than 39 inches can enjoy their time at the FireChaser Express Firehouse Fun Yard. This interactive children's play area includes pop-jet water features, a \"soft play\" structure where children can slide and play, a block table, and a chalk board coloring wall."
+    },
+    {
+      "mapId": 37,
+      "name": "Games",
+      "area": "Wilderness Pass",
+      "type": "attraction"
+    },
+    {
+      "mapId": 38,
+      "name": "Wild Eagle®",
+      "area": "Wilderness Pass",
+      "timeSaver": true,
+      "heightMin": 50,
+      "type": "roller_coaster",
+      "description": "America's first wing coaster, the first ride of its kind in the U.S., perched 21 stories above Dollywood. Wild Eagle® seats riders on either side of the track so there is nothing but air above and below the rider — as if they are actually soaring high above the Smoky Mountains."
+    },
+    {
+      "mapId": 47,
+      "name": "Blazing Fury",
+      "area": "Craftsman's Valley",
+      "timeSaver": false,
+      "heightMin": 42,
+      "type": "roller_coaster",
+      "description": "An out-of-control fire is just minutes away from engulfing this 1880s town, and chaos ensues as the town's residents hurry to escape the blaze. Riders scream through town on this indoor roller coaster, taking each hill and curve with great speed as they try to outrun the fire."
+    },
+    {
+      "mapId": 48,
+      "name": "Calico Falls Schoolhouse",
+      "area": "Craftsman's Valley",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "The one-room schoolhouse offers visitors a view of how many schools appeared in East Tennessee during the 1890s. It clearly reminds us all of a simpler time when slate boards took the place of pen and paper. You can easily imagine students eager to learn about the ever-changing world outside the mountains of East Tennessee."
+    },
+    {
+      "mapId": 49,
+      "name": "Daredevil Falls",
+      "area": "Craftsman's Valley",
+      "timeSaver": false,
+      "heightMin": 42,
+      "type": "water",
+      "description": "Only a real daredevil will venture into an abandoned logging camp for a one-of-a-kind boat expedition. Just when you catch your breath, your boat careens over a waterfall down a 60-foot drop at a heart-racing 50 mph! This super flume water ride consists of quick turns and a 60-foot drop with the boat holding eight guests."
+    },
+    {
+      "mapId": 50,
+      "name": "Games",
+      "area": "Craftsman's Valley",
+      "type": "attraction"
     },
     {
       "mapId": 51,
@@ -250,12 +118,128 @@
       "description": "Step inside this one-room country church where the simple wooden pews and hardwood floors echo with the sounds of families and neighbors gathering for Sunday morning worship. Named in honor of the doctor who delivered little Dolly Rebecca Parton."
     },
     {
-      "mapId": 119,
-      "name": "Rockin' Roadway",
-      "area": "Jukebox Junction",
+      "mapId": 52,
+      "name": "Tennessee Tornado",
+      "area": "Craftsman's Valley",
+      "timeSaver": true,
+      "heightMin": 48,
+      "type": "roller_coaster",
+      "description": "What happens when a mighty twister sweeps through an old Tennessee Mining Company? This triple spiral-looping coaster makes you feel like you've landed inside a funnel cloud as you zoom down a 128-foot drop through an actual mountain at speeds nearing 70 mph."
+    },
+    {
+      "mapId": 54,
+      "name": "Wings of America Show Birds",
+      "area": "Craftsman's Valley",
+      "timeSaver": false,
+      "type": "show",
+      "description": "The Wings of America show is a fascinating and educational experience for audiences. Many of the beautiful raptors presented in the show live next door to the theatre. Each individual bird's story is showcased so you can learn more about some of Dollywood's most popular entertainers."
+    },
+    {
+      "mapId": 75,
+      "name": "Barnstormer",
+      "area": "Owens Farm",
+      "timeSaver": true,
+      "heightMin": 48,
+      "type": "roller_coaster",
+      "description": "Enjoy the same breathtaking moments that daring stunt pilots of the 1920s might have experienced as they zoomed over the fields of nearby farms. The Barnstormer features two pendulum arms with seating for 32 riders. Seated back to back, riders travel progressively higher on each swing, reaching a maximum speed of 45 mph and 230 degrees of rotation. At its peak, the Barnstormer reaches a staggering 81 feet in the air!"
+    },
+    {
+      "mapId": 76,
+      "name": "Granny's Garden",
+      "area": "Owens Farm",
+      "timeSaver": false,
+      "type": "pre_k",
+      "description": "The kids will enjoy digging up tons of fun at Granny's Garden. This interactive playground experience will keep the kids laughing for hours with its soft-play structures where children can climb, slide and play."
+    },
+    {
+      "mapId": 77,
+      "name": "Lil' Pilots Playground",
+      "area": "Owens Farm",
+      "timeSaver": false,
+      "type": "pre_k",
+      "description": "Down on the ground, Lil' Pilots Playground entertains pilots in training. Little ones 48 inches and under can explore a 22-foot by 16-foot wooden bi-plane, play with a one-of-a-kind drum set and climb and slide amid a variety of structures."
+    },
+    {
+      "mapId": 78,
+      "name": "Imagination Playhouse",
+      "area": "The Village",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "A whimsical play area where imagination runs wild, perfect for young explorers visiting The Village."
+    },
+    {
+      "mapId": 79,
+      "name": "Dollywood Express Train Depot",
+      "area": "The Village",
       "timeSaver": false,
       "type": "family",
-      "description": "If you've ever dreamed of taking the wheel of a classic Corvette, Thunderbird or Cadillac, here's your chance. You'll soak up the sunshine as you drive along this scenic route down a country road set in the 1950s where classic Berma Shave billboards dot the landscape."
+      "description": "The engineer sounds the whistle and your 20-minute mountain excursion is underway. Our authentic 110-ton steam locomotive engine takes you on a breathtaking five-mile journey through the foothills of the Great Smoky Mountains where you'll enjoy pastoral scenery and some of the most beautiful views that nature has to offer."
+    },
+    {
+      "mapId": 80,
+      "name": "Village Carousel",
+      "area": "The Village",
+      "timeSaver": false,
+      "type": "family",
+      "description": "Dollywood's carousel features 60 beautifully painted animals, including the lead horse lovingly referred to as \"Dolly\" because of its flowing blonde mane. Calliope music fills the air and creates a fun-filled setting where smiles abound as the carousel spins."
+    },
+    {
+      "mapId": 85,
+      "name": "Busy Bees",
+      "area": "Country Fair",
+      "timeSaver": false,
+      "heightMax": 36,
+      "type": "pre_k",
+      "description": "Our \"busy bees\" are all abuzz with fun and excitement! Ride along as the \"bumble bee\" cars fly 'round and 'round. It's a ride that promises to \"busy\" the entire family with lots of fun."
+    },
+    {
+      "mapId": 86,
+      "name": "Country Fair Splash and Play",
+      "area": "Country Fair",
+      "timeSaver": false,
+      "type": "water",
+      "description": "Cool off and splash around at Country Fair Splash and Play, a water play area perfect for the whole family."
+    },
+    {
+      "mapId": 87,
+      "name": "Demolition Derby",
+      "area": "Country Fair",
+      "timeSaver": false,
+      "heightMin": 42,
+      "type": "thrill",
+      "description": "Family and friends may cross your path, but this is one time that it's okay to bump them out of your way as you make your way through the skirmish of cluttered bumper cars. It's guaranteed good times for the whole family as you make your way through the chaos!"
+    },
+    {
+      "mapId": 88,
+      "name": "Games",
+      "area": "Country Fair",
+      "type": "attraction"
+    },
+    {
+      "mapId": 89,
+      "name": "Lemon Twist",
+      "area": "Country Fair",
+      "timeSaver": false,
+      "type": "family",
+      "description": "Once you spot the giant lemonade pitcher, you know you're not far from the Lemon Twist. Nine spinning \"lemon cups\" revolve around the pitcher in the center — the perfect ride for little ones who are thirsty for adventure."
+    },
+    {
+      "mapId": 90,
+      "name": "Lucky Ducky",
+      "area": "Country Fair",
+      "timeSaver": false,
+      "heightMax": 36,
+      "type": "pre_k",
+      "description": "Everyone's a winner on our Lucky Ducky ride where all the cute \"duck\" cars travel in a circle of fun. These lucky ducks are sure to entertain the entire family."
+    },
+    {
+      "mapId": 91,
+      "name": "Piggy Parade",
+      "area": "Country Fair",
+      "timeSaver": false,
+      "heightMax": 36,
+      "type": "pre_k",
+      "description": "Your little one will love this parade! A larger-than-life scarecrow keeps a watchful eye on the Piggy Parade as the adorable \"piggy\" cars travel in a circle of fun."
     },
     {
       "mapId": 92,
@@ -276,39 +260,12 @@
       "description": "On the Sky Rider, you're the pilot as the plane soars 70 feet above Country Fair. There's even room for a co-pilot and either can control the rudders to move the wings on this exciting ride."
     },
     {
-      "mapId": 105,
-      "name": "Smoky Mountain River Rampage",
-      "area": "Rivertown Junction",
-      "timeSaver": true,
-      "heightMin": 36,
-      "type": "water",
-      "description": "Dollywood's Smoky Mountain River Rampage is a white water rafting adventure full of exciting dips, twists and turns along the way. No two excursions are the same, but each one promises a good soaking for all who dare to brave the rapids."
-    },
-    {
-      "mapId": 52,
-      "name": "Tennessee Tornado",
-      "area": "Craftsman's Valley",
-      "timeSaver": true,
-      "heightMin": 48,
-      "type": "roller_coaster",
-      "description": "What happens when a mighty twister sweeps through an old Tennessee Mining Company? This triple spiral-looping coaster makes you feel like you've landed inside a funnel cloud as you zoom down a 128-foot drop through an actual mountain at speeds nearing 70 mph."
-    },
-    {
       "mapId": 94,
       "name": "The Amazing Flying Elephants",
       "area": "Country Fair",
       "timeSaver": false,
       "type": "pre_k",
       "description": "Take a seat aboard one of the \"elephant\" cars and hold on as you soar 'round and 'round and up and down as these \"elephants\" take you on an amazing adventure. These lucky ducks are sure to entertain the entire family."
-    },
-    {
-      "mapId": 138,
-      "name": "The Mad Mockingbird",
-      "area": "Wildwood Grove",
-      "timeSaver": false,
-      "heightMin": 36,
-      "type": "family",
-      "description": "On any given day, a colorful variety of birds dart around Wildwood Grove. The Mad Mockingbird takes riders on a whimsical flight as they dip and soar in an aerial ballet."
     },
     {
       "mapId": 95,
@@ -320,14 +277,6 @@
       "description": "You'll definitely twist and shout, and you'll probably laugh and scream even more as our scrambler ride shuffles you around in every direction. Things definitely look a little \"scrambled\" as you move back and forth."
     },
     {
-      "mapId": 139,
-      "name": "The Wildwood Tree",
-      "area": "Wildwood Grove",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "Beyond an ancient hollow log and into a hidden land, Wildwood Grove beckons the explorer in all of us. Let curiosity be your guide as you journey ever deeper, past sparkling creeks, through a charming village, and under the mighty limbs of the great Wildwood Tree."
-    },
-    {
       "mapId": 96,
       "name": "The Waltzing Swinger",
       "area": "Country Fair",
@@ -337,13 +286,148 @@
       "description": "Dollywood's Waltzing Swinger soars to new heights of adventure as you glide through the air, 25 feet above Country Fair. There's nothing like the swings to bring out the kid in everyone."
     },
     {
-      "mapId": 29,
-      "name": "Thunderhead\u00ae",
-      "area": "Timber Canyon",
+      "mapId": 104,
+      "name": "Dolly's Tennessee Mountain Home",
+      "area": "Rivertown Junction",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "You'll get a true feeling of what Dolly means when she speaks of her Tennessee Mountain Home upbringing as you visit this two-room replica of her Locust Ridge childhood home. Though it lacked electricity and running water, love was abundant in this tiny little mountain house that Dolly and her family called home."
+    },
+    {
+      "mapId": 105,
+      "name": "Smoky Mountain River Rampage",
+      "area": "Rivertown Junction",
       "timeSaver": true,
+      "heightMin": 36,
+      "type": "water",
+      "description": "Dollywood's Smoky Mountain River Rampage is a white water rafting adventure full of exciting dips, twists and turns along the way. No two excursions are the same, but each one promises a good soaking for all who dare to brave the rapids."
+    },
+    {
+      "mapId": 118,
+      "name": "Lightning Rod®",
+      "area": "Jukebox Junction",
+      "timeSaver": false,
       "heightMin": 48,
       "type": "roller_coaster",
-      "description": "Carefully situated between two mountains, this massive wooden coaster stands tall among the mighty trees and takes advantage of the area's rough and tumble terrain to create a daring ride featuring a 100-foot drop and a top speed of 55 mph."
+      "description": "Themed after a tricked-out 1950s-era hot rod, Lightning Rod® sends riders more than 20 stories up its lift hill. Lightning Rod races down the 165-foot drop and propels guests along its 3,800-foot track with nearly 20 seconds of airtime. USA Today readers have consistently named it one of the top-10 best roller coasters in the country."
+    },
+    {
+      "mapId": 119,
+      "name": "Rockin' Roadway",
+      "area": "Jukebox Junction",
+      "timeSaver": false,
+      "type": "family",
+      "description": "If you've ever dreamed of taking the wheel of a classic Corvette, Thunderbird or Cadillac, here's your chance. You'll soak up the sunshine as you drive along this scenic route down a country road set in the 1950s where classic Berma Shave billboards dot the landscape."
+    },
+    {
+      "mapId": 125,
+      "name": "Behind the Seams",
+      "area": "Dolly Parton Experience",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "A walk-through exhibit showcasing Dolly Parton's iconic wardrobe and signature style through the years — part of The Dolly Parton Experience."
+    },
+    {
+      "mapId": 126,
+      "name": "Dolly's Home on Wheels",
+      "area": "Dolly Parton Experience",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "Visit the custom tour bus that carried Dolly Parton across the country during her legendary music career — part of The Dolly Parton Experience."
+    },
+    {
+      "mapId": 128,
+      "name": "Precious Memories",
+      "area": "Dolly Parton Experience",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "An exhibit celebrating the most important relationships and memories of Dolly Parton's life — part of The Dolly Parton Experience."
+    },
+    {
+      "mapId": 129,
+      "name": "Songteller",
+      "area": "Dolly Parton Experience",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "An immersive exhibit exploring the stories behind Dolly Parton's most beloved songs, told in her own words — part of The Dolly Parton Experience."
+    },
+    {
+      "mapId": 131,
+      "name": "Big Bear Mountain®",
+      "area": "Wildwood Grove",
+      "timeSaver": true,
+      "timeSaverType": "premium",
+      "heightMin": 39,
+      "type": "roller_coaster",
+      "description": "Big Bear Mountain® is the longest coaster at Dollywood, taking guests of all ages on an unforgettable family-friendly expedition in search of the Big Bear. Circling Wildwood Grove for nearly two minutes on 3,990 ft. of track, this gigantic coaster features onboard audio, including music and announcements from Ned Oakley himself. This triple-launching family coaster features a 66-foot maximum track height and reaches a speed of 48 mph."
+    },
+    {
+      "mapId": 132,
+      "name": "Black Bear Trail",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "type": "family",
+      "description": "In Wildwood Grove, even the bears are friendly and fun-loving. Climbing onto the back of one of the friendly bears, riders glide through the beautiful backwoods, enjoying the scenery, accompanied by a joyful tune. There are plenty of surprises as you meander through the woods on the Black Bear Trail, making unexpected discoveries along the way."
+    },
+    {
+      "mapId": 133,
+      "name": "Dragonflier",
+      "area": "Wildwood Grove",
+      "timeSaver": true,
+      "heightMin": 39,
+      "type": "roller_coaster",
+      "description": "One of the most playful creatures inhabiting Wildwood Grove's creekside, Dragonflier mimics the flight of a Smoky Mountain dragonfly as it speeds through the terrain in a twisting, unpredictable path. With the rush of wind and the thrill of flight, there's nothing more exhilarating than a ride on the wings of a dragonfly! This suspended family coaster reaches speeds up to 43 mph with a lift height of 63 feet."
+    },
+    {
+      "mapId": 134,
+      "name": "Frogs & Fireflies",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "type": "pre_k",
+      "description": "Hungry frogs chase each other through the marsh in this playful roundabout ride. A clump of tall grasses in the center is home to flickering fireflies, fluttering just out of reach of the frogs. Racing around and around to the sounds of a lively bluegrass tune, riders dodge up and down as they try to catch the fireflies."
+    },
+    {
+      "mapId": 135,
+      "name": "Great Tree Swing",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "heightMin": 36,
+      "type": "family",
+      "description": "The Great Tree Swing, wound with vines and decorated with bright leaves, is a breathtaking thrill as riders fly high through the skies. Riders experience heights of up to 40 feet as the ride vehicle swings forward and backward in a pendulum motion."
+    },
+    {
+      "mapId": 136,
+      "name": "Hidden Hollow",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "type": "family",
+      "description": "Near the Wildwood Tree, a secret play area named Hidden Hollow beckons families with a collection of kid-friendly activities for hours of play. Surrounded by a forest scene, kids of all ages get in touch with nature, climbing up tree trunk net towers, exploring tree crawls, traversing a series of blocks, and sliding down hollow logs."
+    },
+    {
+      "mapId": 137,
+      "name": "NightFlight Expedition",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "heightMin": 39,
+      "type": "roller_coaster",
+      "description": "Welcome to NightFlight Expedition — a groundbreaking new addition to Dollywood that redefines adventure! Prepare to embark on an immersive indoor adventure coaster like no other, combining storytelling, thrills, and cutting-edge technology in a way only Dollywood can deliver. This first ride of its kind in the world invites guests of all ages to soar over the Smoky Mountains, plunge through dramatic rapids, climb rugged ridges, and glide across shimmering bioluminescent waters — all in one unforgettable journey."
+    },
+    {
+      "mapId": 138,
+      "name": "The Mad Mockingbird",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "heightMin": 36,
+      "type": "family",
+      "description": "On any given day, a colorful variety of birds dart around Wildwood Grove. The Mad Mockingbird takes riders on a whimsical flight as they dip and soar in an aerial ballet."
+    },
+    {
+      "mapId": 139,
+      "name": "The Wildwood Tree",
+      "area": "Wildwood Grove",
+      "timeSaver": false,
+      "type": "attraction",
+      "description": "Beyond an ancient hollow log and into a hidden land, Wildwood Grove beckons the explorer in all of us. Let curiosity be your guide as you journey ever deeper, past sparkling creeks, through a charming village, and under the mighty limbs of the great Wildwood Tree."
     },
     {
       "mapId": 140,
@@ -354,78 +438,12 @@
       "description": "Inspired by the nutritious acorns of Wildwood Grove, the whimsical Treetop Tower whirls riders through the air in charming hand-carved acorns, which offer panoramic views of the beautiful Wildwood Tree before gently falling to the forest floor."
     },
     {
-      "mapId": 80,
-      "name": "Village Carousel",
-      "area": "The Village",
-      "timeSaver": false,
-      "type": "family",
-      "description": "Dollywood's carousel features 60 beautifully painted animals, including the lead horse lovingly referred to as \"Dolly\" because of its flowing blonde mane. Calliope music fills the air and creates a fun-filled setting where smiles abound as the carousel spins."
-    },
-    {
-      "mapId": 30,
-      "name": "Whistle Punk Chaser\u00ae",
-      "area": "Timber Canyon",
-      "timeSaver": false,
-      "heightMin": 36,
-      "type": "roller_coaster",
-      "description": "Whistle Punk Chaser, a junior coaster, throws thrilling twists and turns at Dollywood's younger loggers, helping prepare them for the day they can join their parents aboard the award-winning Thunderhead wooden coaster."
-    },
-    {
-      "mapId": 38,
-      "name": "Wild Eagle\u00ae",
-      "area": "Wilderness Pass",
-      "timeSaver": true,
-      "heightMin": 50,
-      "type": "roller_coaster",
-      "description": "America's first wing coaster, the first ride of its kind in the U.S., perched 21 stories above Dollywood. Wild Eagle\u00ae seats riders on either side of the track so there is nothing but air above and below the rider \u2014 as if they are actually soaring high above the Smoky Mountains."
-    },
-    {
       "mapId": 141,
       "name": "Wildwood Creek",
       "area": "Wildwood Grove",
       "timeSaver": false,
       "type": "water",
-      "description": "At the heart of the Grove, Wildwood Creek is a welcome oasis for cooling off. Crossing over a scenic footbridge, young and old can wade and splash the day away in fresh mountain water. Charming musical instruments \u2014 chimes, drums and a xylophone \u2014 invite guests to create their own tunes."
-    },
-    {
-      "mapId": 54,
-      "name": "Wings of America Show Birds",
-      "area": "Craftsman's Valley",
-      "timeSaver": false,
-      "type": "show",
-      "description": "The Wings of America show is a fascinating and educational experience for audiences. Many of the beautiful raptors presented in the show live next door to the theatre. Each individual bird's story is showcased so you can learn more about some of Dollywood's most popular entertainers."
-    },
-    {
-      "mapId": 125,
-      "name": "Behind the Seams",
-      "area": "Dolly Parton Experience",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "A walk-through exhibit showcasing Dolly Parton's iconic wardrobe and signature style through the years \u2014 part of The Dolly Parton Experience."
-    },
-    {
-      "mapId": 126,
-      "name": "Dolly's Home on Wheels",
-      "area": "Dolly Parton Experience",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "Visit the custom tour bus that carried Dolly Parton across the country during her legendary music career \u2014 part of The Dolly Parton Experience."
-    },
-    {
-      "mapId": 128,
-      "name": "Precious Memories",
-      "area": "Dolly Parton Experience",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "An exhibit celebrating the most important relationships and memories of Dolly Parton's life \u2014 part of The Dolly Parton Experience."
-    },
-    {
-      "mapId": 129,
-      "name": "Songteller",
-      "area": "Dolly Parton Experience",
-      "timeSaver": false,
-      "type": "attraction",
-      "description": "An immersive exhibit exploring the stories behind Dolly Parton's most beloved songs, told in her own words \u2014 part of The Dolly Parton Experience."
+      "description": "At the heart of the Grove, Wildwood Creek is a welcome oasis for cooling off. Crossing over a scenic footbridge, young and old can wade and splash the day away in fresh mountain water. Charming musical instruments — chimes, drums and a xylophone — invite guests to create their own tunes."
     }
   ],
   "entertainment": [
@@ -438,6 +456,16 @@
       "description": "Dollywood's premier performance venue showcasing top-tier entertainment acts throughout the season."
     },
     {
+      "mapId": 4,
+      "name": "Great Pumpkin LumiNights Character Meet & Greet",
+      "area": "Showstreet",
+      "venue": "Market Square Stage",
+      "seasonal": true,
+      "seasonDates": "9/14–10/31",
+      "type": "character_meet",
+      "description": "Fall fun and memories can be found around every corner during Dollywood's Harvest Festival. Strike your best pumpkin pose and capture a perfect photo with captivating autumn characters including Harvey!"
+    },
+    {
       "mapId": 7,
       "name": "Showstreet Palace Theater",
       "area": "Showstreet",
@@ -446,12 +474,65 @@
       "description": "A beloved Dollywood venue hosting classic and beloved musical performances on Showstreet."
     },
     {
+      "mapId": 7,
+      "name": "The Kingdom Heirs",
+      "area": "Showstreet",
+      "venue": "Showstreet Palace Theater",
+      "seasonal": false,
+      "type": "show",
+      "description": "Dollywood's own award-winning Southern gospel group performs its biggest hits from more than 30 years of chart-toppers."
+    },
+    {
+      "mapId": 27,
+      "name": "Lumberjack Jam Band",
+      "area": "Timber Canyon",
+      "venue": "Timber Canyon Stage",
+      "seasonal": false,
+      "type": "music",
+      "description": "Live bluegrass and folk music performances in the heart of Timber Canyon, celebrating the musical traditions of the Smoky Mountains."
+    },
+    {
       "mapId": 53,
       "name": "Valley Theater",
       "area": "Craftsman's Valley",
       "venue": "Valley Theater",
       "type": "venue",
       "description": "Nestled in Craftsman's Valley, this charming theater hosts some of Dollywood's most beloved seasonal shows."
+    },
+    {
+      "mapId": 53,
+      "name": "Forever Country",
+      "area": "Craftsman's Valley",
+      "venue": "Valley Theater",
+      "seasonal": false,
+      "type": "show",
+      "description": "Seven talented performers celebrate the \"Prime\" country of the 80s and 90s with traditional roots and new sounds!"
+    },
+    {
+      "mapId": 54,
+      "name": "Wings of America Birds of Prey",
+      "area": "Craftsman's Valley",
+      "venue": "Wings of America Theater",
+      "seasonal": false,
+      "type": "show",
+      "description": "Get an up-close look and learn some fascinating facts about these amazing birds of prey, including America's most iconic symbol of freedom. All birds of prey at Dollywood are under the care of the American Eagle Foundation."
+    },
+    {
+      "mapId": 103,
+      "name": "Back Porch Theater",
+      "area": "Rivertown Junction",
+      "venue": "Back Porch Theater",
+      "type": "venue",
+      "description": "A cozy outdoor amphitheater in Rivertown Junction hosting live music and entertainment throughout the day."
+    },
+    {
+      "mapId": 103,
+      "name": "Good Vibes",
+      "area": "Rivertown Junction",
+      "venue": "Back Porch Theater",
+      "seasonal": false,
+      "type": "show",
+      "description": "This incredible production showcases the talent of four vocalists and a five-piece band. A curated selection of songs from various genres — including country, contemporary Christian and pop — create an uplifting and positive message you are sure to be inspired by."
     },
     {
       "mapId": 120,
@@ -468,60 +549,6 @@
       "venue": "Dreamsong",
       "type": "venue",
       "description": "The centerpiece of The Dolly Parton Experience, Dreamsong Theater hosts immersive film and live performances celebrating Dolly's music and legacy."
-    },
-    {
-      "mapId": 103,
-      "name": "Back Porch Theater",
-      "area": "Rivertown Junction",
-      "venue": "Back Porch Theater",
-      "type": "venue",
-      "description": "A cozy outdoor amphitheater in Rivertown Junction hosting live music and entertainment throughout the day."
-    },
-    {
-      "mapId": 27,
-      "name": "Lumberjack Jam Band",
-      "area": "Timber Canyon",
-      "venue": "Timber Canyon Stage",
-      "seasonal": false,
-      "type": "music",
-      "description": "Live bluegrass and folk music performances in the heart of Timber Canyon, celebrating the musical traditions of the Smoky Mountains."
-    },
-    {
-      "mapId": null,
-      "name": "The Dolly Parton Experience",
-      "area": "Dolly Parton Experience",
-      "venue": null,
-      "seasonal": false,
-      "type": "interactive_experience",
-      "description": "The Dolly Parton Experience features interactive exhibits spanning Dolly's iconic career, the inspiration for her biggest dreams, the importance of her family, and a curated exhibit highlighting Dolly's signature style through the years. Three times the size of the former Chasing Rainbows Museum, it provides guests more Dolly than ever."
-    },
-    {
-      "mapId": 53,
-      "name": "Forever Country",
-      "area": "Craftsman's Valley",
-      "venue": "Valley Theater",
-      "seasonal": false,
-      "type": "show",
-      "description": "Seven talented performers celebrate the \"Prime\" country of the 80s and 90s with traditional roots and new sounds!"
-    },
-    {
-      "mapId": 103,
-      "name": "Good Vibes",
-      "area": "Rivertown Junction",
-      "venue": "Back Porch Theater",
-      "seasonal": false,
-      "type": "show",
-      "description": "This incredible production showcases the talent of four vocalists and a five-piece band. A curated selection of songs from various genres \u2014 including country, contemporary Christian and pop \u2014 create an uplifting and positive message you are sure to be inspired by."
-    },
-    {
-      "mapId": 4,
-      "name": "Great Pumpkin LumiNights Character Meet & Greet",
-      "area": "Showstreet",
-      "venue": "Market Square Stage",
-      "seasonal": true,
-      "seasonDates": "9/14\u201310/31",
-      "type": "character_meet",
-      "description": "Fall fun and memories can be found around every corner during Dollywood's Harvest Festival. Strike your best pumpkin pose and capture a perfect photo with captivating autumn characters including Harvey!"
     },
     {
       "mapId": 127,
@@ -543,11 +570,20 @@
     },
     {
       "mapId": null,
+      "name": "The Dolly Parton Experience",
+      "area": "Dolly Parton Experience",
+      "venue": null,
+      "seasonal": false,
+      "type": "interactive_experience",
+      "description": "The Dolly Parton Experience features interactive exhibits spanning Dolly's iconic career, the inspiration for her biggest dreams, the importance of her family, and a curated exhibit highlighting Dolly's signature style through the years. Three times the size of the former Chasing Rainbows Museum, it provides guests more Dolly than ever."
+    },
+    {
+      "mapId": null,
       "name": "LumiNights Dance Party",
       "area": "Wildwood Grove",
       "venue": "Wildwood Grove",
       "seasonal": true,
-      "seasonDates": "9/14\u201310/31",
+      "seasonDates": "9/14–10/31",
       "type": "dance_party",
       "description": "A brand-new dance party experience joins the fun and glow of Great Pumpkin LumiNights each autumn evening. The colorful night full of twinkling lights and a plethora of pumpkins is joined by a playlist to get toes tapping and dancing in the crisp air."
     },
@@ -561,15 +597,6 @@
       "description": "Join our talented musicians for some of the best bluegrass music you'll find anywhere. You're sure to leave with a smile on your face and a song in your heart!"
     },
     {
-      "mapId": 7,
-      "name": "The Kingdom Heirs",
-      "area": "Showstreet",
-      "venue": "Showstreet Palace Theater",
-      "seasonal": false,
-      "type": "show",
-      "description": "Dollywood's own award-winning Southern gospel group performs its biggest hits from more than 30 years of chart-toppers."
-    },
-    {
       "mapId": null,
       "name": "Wildwood Grove Characters Meet & Greet",
       "area": "Wildwood Grove",
@@ -577,24 +604,162 @@
       "seasonal": false,
       "type": "character_meet",
       "description": "Wildwood Grove is home to a friendly ensemble of woodland creatures. Flit, Flutter, and Benjamin Bear delight in welcoming families to play and enjoy the grove. At select times, meet and take photos with our friendly inhabitants just steps from the mighty Wildwood Tree."
-    },
-    {
-      "mapId": 54,
-      "name": "Wings of America Birds of Prey",
-      "area": "Craftsman's Valley",
-      "venue": "Wings of America Theater",
-      "seasonal": false,
-      "type": "show",
-      "description": "Get an up-close look and learn some fascinating facts about these amazing birds of prey, including America's most iconic symbol of freedom. All birds of prey at Dollywood are under the care of the American Eagle Foundation."
     }
   ],
   "dining": [
     {
-      "mapId": 111,
-      "name": "Aunt Granny's Restaurant",
-      "area": "Rivertown Junction",
+      "mapId": 20,
+      "name": "Front Porch Café",
+      "area": "Showstreet",
+      "type": "cafe",
+      "description": "This family restaurant features many of Dolly's favorite meals. We can also accommodate a meal for any food allergy — just ask for one of our chefs."
+    },
+    {
+      "mapId": 21,
+      "name": "Showstreet Frozen Lemonade",
+      "area": "Showstreet",
+      "type": "beverage",
+      "description": "At Showstreet Frozen Lemonade, you'll find one of our guests' favorite treats. Try classic frozen lemonade or other refreshing flavors. Also a convenient place to pick up a refillable mug when entering the park."
+    },
+    {
+      "mapId": 22,
+      "name": "Showstreet Ice Cream",
+      "area": "Showstreet",
+      "type": "ice_cream",
+      "description": "Stop by for a frozen and delicious treat to satisfy your sweet tooth! Choose from hand-scooped Mayfield® ice cream served in cones or sundaes with yummy toppings, or pick a creamy milkshake in your favorite flavor."
+    },
+    {
+      "mapId": 23,
+      "name": "Showstreet Snacks",
+      "area": "Showstreet",
+      "type": "snack",
+      "description": "Fuel up for a fun-filled Dollywood day by choosing from a variety of tasty snacks, including Nutty Bavarian treats, a giant pickle, butterfly pretzels, cotton candy, popcorn and refreshing beverages."
+    },
+    {
+      "mapId": 24,
+      "name": "Spotlight Bakery",
+      "area": "Showstreet",
+      "type": "bakery",
+      "description": "Our pastry chefs create tempting treats to satisfy any sweet tooth — from cookies, cupcakes and brownies to a 25-pound apple pie baked to perfection in a cast-iron skillet."
+    },
+    {
+      "mapId": 33,
+      "name": "Drop Line Dippin' Dots",
+      "area": "Timber Canyon",
+      "type": "snack",
+      "description": "Dippin' Dots flash-frozen ice cream served near the Drop Line attraction in Timber Canyon. Try cookies n' cream, rainbow ice, or the seasonal festival flavor."
+    },
+    {
+      "mapId": 34,
+      "name": "Lumber Jack's Pizza",
+      "area": "Timber Canyon",
+      "type": "pizza",
+      "description": "As any lumberjack can tell you, it's easy to work up a big appetite whether you're having fun or working hard! Enjoy a variety of pizzas, salads, snacks and drinks to fuel up for a great Dollywood day."
+    },
+    {
+      "mapId": 42,
+      "name": "SkyView Snacks",
+      "area": "Wilderness Pass",
+      "type": "snack",
+      "description": "Don't let your hunger soar atop Wilderness Pass — stop into SkyView Snacks for the perfect treat without ever leaving Wild Eagle Plaza. Made-fresh Dollywood favorites like a giant pickle, butterfly pretzels, cotton candy, popcorn and an ICEE®."
+    },
+    {
+      "mapId": 43,
+      "name": "Splinter's Funnel Cakes",
+      "area": "Wilderness Pass",
+      "type": "snack",
+      "description": "Splinter's Funnel Cakes serves up fantastic deep-fried favorites including the butterfly funnel cake, berries & cream funnel cake, and cinnamon bread served in mini form! Customize with toppings including strawberry pie filling, apple pie filling, whipped cream, crumbled Oreos or hot fudge."
+    },
+    {
+      "mapId": 44,
+      "name": "The Dog House",
+      "area": "Wilderness Pass",
+      "type": "snack",
+      "description": "Quick-serve hot dogs and classic park snacks located in the heart of Wilderness Pass."
+    },
+    {
+      "mapId": 45,
+      "name": "Trailhead Eats",
+      "area": "Wilderness Pass",
+      "type": "snack",
+      "description": "Pick up your mobile order of delicious menu choices at Trailhead Eats, also featuring seasonal options that rotate throughout the year."
+    },
+    {
+      "mapId": 46,
+      "name": "Wilderness Pass Restaurant",
+      "area": "Wilderness Pass",
       "type": "restaurant",
-      "description": "Named by USA Today as one of the top 10 best theme park restaurants in the country, Aunt Granny puts out a grand spread served family-style with something for everyone."
+      "description": "Nestled in the natural beauty of the Great Smoky Mountains, this is an ideal place to eat, relax and recharge. Guests enjoy rotisserie, smoked and wood-fired meats and a variety of menu choices inspired by Appalachian culture and cuisine."
+    },
+    {
+      "mapId": 68,
+      "name": "Granny Ogle's Ham 'n' Beans",
+      "area": "Craftsman's Valley",
+      "type": "restaurant",
+      "description": "Nothing says you've stepped into the south like a plate of ham and pinto beans with great Southern hospitality. At Granny Ogle's Ham 'n' Beans, you can expect a heaping helping of both!"
+    },
+    {
+      "mapId": 69,
+      "name": "Cinnamon Bread at The Grist Mill",
+      "area": "Craftsman's Valley",
+      "type": "bakery",
+      "description": "Built in 1982, the Dollywood Grist Mill was the first fully operational grist mill built in Tennessee in more than 100 years. Today, it's home to world-famous cinnamon bread, freshly made daily before your very eyes. Try it with buttercream icing or Dollywood's own apple butter."
+    },
+    {
+      "mapId": 70,
+      "name": "Hickory House BBQ",
+      "area": "Craftsman's Valley",
+      "type": "bbq",
+      "description": "In the South, we take our barbeque seriously. Grab a table and taste our award-winning BBQ recipes and other smokehouse favorites."
+    },
+    {
+      "mapId": 71,
+      "name": "Miss Lillian's BBQ Corner",
+      "area": "Craftsman's Valley",
+      "type": "bbq",
+      "description": "Miss Lillian loves to have you sit a spell, but she's selected a few favorite BBQ dishes and made them readily available for guests on the go."
+    },
+    {
+      "mapId": 72,
+      "name": "Miss Lillian's Mill House",
+      "area": "Craftsman's Valley",
+      "type": "restaurant",
+      "description": "Miss Lillian, one of Dollywood's most colorful characters, invites you to join her for some of the best home cooking you'll find in the Smokies."
+    },
+    {
+      "mapId": 73,
+      "name": "Pork Rinds",
+      "area": "Craftsman's Valley",
+      "type": "snack",
+      "description": "Don't miss these fresh pork rinds, deep-fried to golden perfection for a one-of-a-kind Southern snack. Enjoy plain or add extra flavor including BBQ, Tennessee hot or salt & vinegar."
+    },
+    {
+      "mapId": 74,
+      "name": "Tennessee Tornado Dippin' Dots",
+      "area": "Craftsman's Valley",
+      "type": "snack",
+      "description": "Dippin' Dots flash-frozen ice cream served near the Tennessee Tornado coaster in Craftsman's Valley. Try cookies n' cream, rainbow ice, or the seasonal festival flavor."
+    },
+    {
+      "mapId": 82,
+      "name": "Iron Horse Pizza",
+      "area": "The Village",
+      "type": "pizza",
+      "description": "Stop by this conveniently-located eatery just steps from the namesake Dollywood Express. Enjoy a variety of flatbread pizzas, salads, snacks and drinks."
+    },
+    {
+      "mapId": 83,
+      "name": "PaPaw's Roadside Market",
+      "area": "The Village",
+      "type": "snack",
+      "description": "Stop in for a quick and refreshing snack as you make your way to or from The Village. Try a giant pickle, butterfly pretzel, cotton candy, popcorn or a refreshing beverage."
+    },
+    {
+      "mapId": 84,
+      "name": "Village Lemonade",
+      "area": "The Village",
+      "type": "beverage",
+      "description": "Refreshing hand-squeezed and frozen lemonade served in The Village — a perfect cool-down treat."
     },
     {
       "mapId": 97,
@@ -616,14 +781,35 @@
       "area": "Country Fair",
       "type": "event_space",
       "temporarilyClosed": true,
-      "description": "Celebration Hall is our cozy, indoor picnic pavilion \u2014 perfect for groups, special events, dining buffets, and hearty helpings of Southern hospitality."
+      "description": "Celebration Hall is our cozy, indoor picnic pavilion — perfect for groups, special events, dining buffets, and hearty helpings of Southern hospitality."
     },
     {
-      "mapId": 69,
-      "name": "Cinnamon Bread at The Grist Mill",
-      "area": "Craftsman's Valley",
-      "type": "bakery",
-      "description": "Built in 1982, the Dollywood Grist Mill was the first fully operational grist mill built in Tennessee in more than 100 years. Today, it's home to world-famous cinnamon bread, freshly made daily before your very eyes. Try it with buttercream icing or Dollywood's own apple butter."
+      "mapId": 100,
+      "name": "Country Fair Dippin' Dots",
+      "area": "Country Fair",
+      "type": "snack",
+      "description": "Dippin' Dots flash-frozen ice cream in Country Fair. Try cookies n' cream, rainbow ice, Big Bear brownie batter, or the seasonal festival flavor."
+    },
+    {
+      "mapId": 101,
+      "name": "Grandstand Café",
+      "area": "Country Fair",
+      "type": "cafe",
+      "description": "It's the perfect pit stop during a trip through the midway in Country Fair. Reminiscent of the concession stands at the local fair, Grandstand Café serves up award-winning food deserving of a blue ribbon."
+    },
+    {
+      "mapId": 102,
+      "name": "Midway Market",
+      "area": "Country Fair",
+      "type": "snack",
+      "description": "What better way to reminisce about great times on the Midway than with a tasty snack? Try a giant pickle, butterfly pretzel, cotton candy, popcorn or a refreshing beverage."
+    },
+    {
+      "mapId": 111,
+      "name": "Aunt Granny's Restaurant",
+      "area": "Rivertown Junction",
+      "type": "restaurant",
+      "description": "Named by USA Today as one of the top 10 best theme park restaurants in the country, Aunt Granny puts out a grand spread served family-style with something for everyone."
     },
     {
       "mapId": 112,
@@ -640,13 +826,6 @@
       "description": "One of our most popular food items, funnel cakes are just plain fun to eat! Crossroads Funnel Cakes serves up deep-fried favorites including the butterfly funnel cake, customizable with toppings like strawberry pie filling, whipped cream, crumbled Oreos or hot fudge."
     },
     {
-      "mapId": null,
-      "name": "Dippin' Dots\u00ae",
-      "area": "Throughout the Park",
-      "type": "snack",
-      "description": "The refreshing and unbeatable flash-frozen ice cream sensation, Dippin' Dots, is a true taste adventure. Flavor choices include cookies n' cream, rainbow ice, Big Bear brownie batter and cookie monster. Available at multiple locations throughout the park."
-    },
-    {
       "mapId": 114,
       "name": "Dogs N Taters",
       "area": "Rivertown Junction",
@@ -654,46 +833,25 @@
       "description": "This quick-serve dining location serves two perennial favorites: Dollywood's fantastic foot-long dogs and signature curly fries. Stop by for a quick bite before catching a show at the Back Porch Theater just across the midway."
     },
     {
-      "mapId": 33,
-      "name": "Drop Line Dippin' Dots",
-      "area": "Timber Canyon",
-      "type": "snack",
-      "description": "Dippin' Dots flash-frozen ice cream served near the Drop Line attraction in Timber Canyon. Try cookies n' cream, rainbow ice, or the seasonal festival flavor."
+      "mapId": 115,
+      "name": "Lakeside Lemonade",
+      "area": "Rivertown Junction",
+      "type": "beverage",
+      "description": "Refreshing frozen and hand-squeezed lemonade served lakeside in Rivertown Junction — the perfect cool-down on a warm Smoky Mountain day."
     },
     {
-      "mapId": 20,
-      "name": "Front Porch Caf\u00e9",
-      "area": "Showstreet",
-      "type": "cafe",
-      "description": "This family restaurant features many of Dolly's favorite meals. We can also accommodate a meal for any food allergy \u2014 just ask for one of our chefs."
-    },
-    {
-      "mapId": 101,
-      "name": "Grandstand Caf\u00e9",
-      "area": "Country Fair",
-      "type": "cafe",
-      "description": "It's the perfect pit stop during a trip through the midway in Country Fair. Reminiscent of the concession stands at the local fair, Grandstand Caf\u00e9 serves up award-winning food deserving of a blue ribbon."
-    },
-    {
-      "mapId": 68,
-      "name": "Granny Ogle's Ham 'n' Beans",
-      "area": "Craftsman's Valley",
+      "mapId": 116,
+      "name": "Market Square BIG SKILLET®",
+      "area": "Rivertown Junction",
       "type": "restaurant",
-      "description": "Nothing says you've stepped into the south like a plate of ham and pinto beans with great Southern hospitality. At Granny Ogle's Ham 'n' Beans, you can expect a heaping helping of both!"
+      "description": "As you make your way from Showstreet to Rivertown Junction, there's no denying the incredible aroma wafting from the open-air Market Square, featuring BIG SKILLET® crafted dishes."
     },
     {
-      "mapId": 70,
-      "name": "Hickory House BBQ",
-      "area": "Craftsman's Valley",
-      "type": "bbq",
-      "description": "In the South, we take our barbeque seriously. Grab a table and taste our award-winning BBQ recipes and other smokehouse favorites."
-    },
-    {
-      "mapId": 82,
-      "name": "Iron Horse Pizza",
-      "area": "The Village",
-      "type": "pizza",
-      "description": "Stop by this conveniently-located eatery just steps from the namesake Dollywood Express. Enjoy a variety of flatbread pizzas, salads, snacks and drinks."
+      "mapId": 117,
+      "name": "Potato Tornado",
+      "area": "Rivertown Junction",
+      "type": "snack",
+      "description": "Discover our spiral-cut spud that has become a Dollywood flavor sensation — the Potato Tornado! Great potato taste with a twist, served on a skewer to make it the perfect on-the-go taste."
     },
     {
       "mapId": 122,
@@ -703,88 +861,11 @@
       "description": "Dippin' Dots flash-frozen ice cream in Jukebox Junction. Try cookies n' cream, rainbow ice, or the seasonal festival flavor."
     },
     {
-      "mapId": 115,
-      "name": "Lakeside Lemonade",
-      "area": "Rivertown Junction",
-      "type": "beverage",
-      "description": "Refreshing frozen and hand-squeezed lemonade served lakeside in Rivertown Junction \u2014 the perfect cool-down on a warm Smoky Mountain day."
-    },
-    {
-      "mapId": 34,
-      "name": "Lumber Jack's Pizza",
-      "area": "Timber Canyon",
-      "type": "pizza",
-      "description": "As any lumberjack can tell you, it's easy to work up a big appetite whether you're having fun or working hard! Enjoy a variety of pizzas, salads, snacks and drinks to fuel up for a great Dollywood day."
-    },
-    {
-      "mapId": 116,
-      "name": "Market Square BIG SKILLET\u00ae",
-      "area": "Rivertown Junction",
-      "type": "restaurant",
-      "description": "As you make your way from Showstreet to Rivertown Junction, there's no denying the incredible aroma wafting from the open-air Market Square, featuring BIG SKILLET\u00ae crafted dishes."
-    },
-    {
-      "mapId": 102,
-      "name": "Midway Market",
-      "area": "Country Fair",
-      "type": "snack",
-      "description": "What better way to reminisce about great times on the Midway than with a tasty snack? Try a giant pickle, butterfly pretzel, cotton candy, popcorn or a refreshing beverage."
-    },
-    {
-      "mapId": 71,
-      "name": "Miss Lillian's BBQ Corner",
-      "area": "Craftsman's Valley",
-      "type": "bbq",
-      "description": "Miss Lillian loves to have you sit a spell, but she's selected a few favorite BBQ dishes and made them readily available for guests on the go."
-    },
-    {
-      "mapId": 72,
-      "name": "Miss Lillian's Mill House",
-      "area": "Craftsman's Valley",
-      "type": "restaurant",
-      "description": "Miss Lillian, one of Dollywood's most colorful characters, invites you to join her for some of the best home cooking you'll find in the Smokies."
-    },
-    {
-      "mapId": 145,
-      "name": "Ned's Refresh Station",
-      "area": "Wildwood Grove",
-      "type": "beverage",
-      "description": "Dollywood's resident adventurer Ned Oakley has a mountainous selection of snacks and drinks to get you refreshed and back on the search for Big Bear. Cotton candy, popcorn, an ICEE\u00ae and other refreshing beverages."
-    },
-    {
-      "mapId": 83,
-      "name": "PaPaw's Roadside Market",
-      "area": "The Village",
-      "type": "snack",
-      "description": "Stop in for a quick and refreshing snack as you make your way to or from The Village. Try a giant pickle, butterfly pretzel, cotton candy, popcorn or a refreshing beverage."
-    },
-    {
-      "mapId": null,
-      "name": "Park Ranger's Canteen",
-      "area": "Wilderness Pass",
-      "type": "snack",
-      "description": "Having fun can make you hungry, and Park Ranger's Canteen offers a variety of popcorn snacks sure to satisfy, including build-your-own popcorn creations with a variety of toppings and sauces!"
-    },
-    {
       "mapId": 123,
       "name": "Pines Theater Concessions",
       "area": "Jukebox Junction",
       "type": "snack",
-      "description": "Concessions serving snacks and beverages at the Pines Theater in Jukebox Junction \u2014 perfect for enjoying during a show."
-    },
-    {
-      "mapId": 73,
-      "name": "Pork Rinds",
-      "area": "Craftsman's Valley",
-      "type": "snack",
-      "description": "Don't miss these fresh pork rinds, deep-fried to golden perfection for a one-of-a-kind Southern snack. Enjoy plain or add extra flavor including BBQ, Tennessee hot or salt & vinegar."
-    },
-    {
-      "mapId": 117,
-      "name": "Potato Tornado",
-      "area": "Rivertown Junction",
-      "type": "snack",
-      "description": "Discover our spiral-cut spud that has become a Dollywood flavor sensation \u2014 the Potato Tornado! Great potato taste with a twist, served on a skewer to make it the perfect on-the-go taste."
+      "description": "Concessions serving snacks and beverages at the Pines Theater in Jukebox Junction — perfect for enjoying during a show."
     },
     {
       "mapId": 124,
@@ -794,53 +875,18 @@
       "description": "Menu classics from the '50s like burgers and fries are today's favorites at Red's Drive-In."
     },
     {
+      "mapId": 145,
+      "name": "Ned's Refresh Station",
+      "area": "Wildwood Grove",
+      "type": "beverage",
+      "description": "Dollywood's resident adventurer Ned Oakley has a mountainous selection of snacks and drinks to get you refreshed and back on the search for Big Bear. Cotton candy, popcorn, an ICEE® and other refreshing beverages."
+    },
+    {
       "mapId": 146,
       "name": "Runway Refreshments",
       "area": "Wildwood Grove",
       "type": "snack",
       "description": "Fuel up for your great adventure on NightFlight Expedition with tasty snacks. Enjoy pretzels, a variety of cold drinks and popcorn, including the one-of-a-kind souvenir bioluminator popcorn bucket designed by Cora and Jasper!"
-    },
-    {
-      "mapId": 21,
-      "name": "Showstreet Frozen Lemonade",
-      "area": "Showstreet",
-      "type": "beverage",
-      "description": "At Showstreet Frozen Lemonade, you'll find one of our guests' favorite treats. Try classic frozen lemonade or other refreshing flavors. Also a convenient place to pick up a refillable mug when entering the park."
-    },
-    {
-      "mapId": 22,
-      "name": "Showstreet Ice Cream",
-      "area": "Showstreet",
-      "type": "ice_cream",
-      "description": "Stop by for a frozen and delicious treat to satisfy your sweet tooth! Choose from hand-scooped Mayfield\u00ae ice cream served in cones or sundaes with yummy toppings, or pick a creamy milkshake in your favorite flavor."
-    },
-    {
-      "mapId": 23,
-      "name": "Showstreet Snacks",
-      "area": "Showstreet",
-      "type": "snack",
-      "description": "Fuel up for a fun-filled Dollywood day by choosing from a variety of tasty snacks, including Nutty Bavarian treats, a giant pickle, butterfly pretzels, cotton candy, popcorn and refreshing beverages."
-    },
-    {
-      "mapId": 42,
-      "name": "SkyView Snacks",
-      "area": "Wilderness Pass",
-      "type": "snack",
-      "description": "Don't let your hunger soar atop Wilderness Pass \u2014 stop into SkyView Snacks for the perfect treat without ever leaving Wild Eagle Plaza. Made-fresh Dollywood favorites like a giant pickle, butterfly pretzels, cotton candy, popcorn and an ICEE\u00ae."
-    },
-    {
-      "mapId": 43,
-      "name": "Splinter's Funnel Cakes",
-      "area": "Wilderness Pass",
-      "type": "snack",
-      "description": "Splinter's Funnel Cakes serves up fantastic deep-fried favorites including the butterfly funnel cake, berries & cream funnel cake, and cinnamon bread served in mini form! Customize with toppings including strawberry pie filling, apple pie filling, whipped cream, crumbled Oreos or hot fudge."
-    },
-    {
-      "mapId": 24,
-      "name": "Spotlight Bakery",
-      "area": "Showstreet",
-      "type": "bakery",
-      "description": "Our pastry chefs create tempting treats to satisfy any sweet tooth \u2014 from cookies, cupcakes and brownies to a 25-pound apple pie baked to perfection in a cast-iron skillet."
     },
     {
       "mapId": 147,
@@ -850,20 +896,6 @@
       "description": "Sweets and Treats has both savory and sweet options to fill up your family. Try a hot dog, butterfly pretzel, nachos, soft serve ice cream, churro fries or a refreshing beverage."
     },
     {
-      "mapId": 74,
-      "name": "Tennessee Tornado Dippin' Dots",
-      "area": "Craftsman's Valley",
-      "type": "snack",
-      "description": "Dippin' Dots flash-frozen ice cream served near the Tennessee Tornado coaster in Craftsman's Valley. Try cookies n' cream, rainbow ice, or the seasonal festival flavor."
-    },
-    {
-      "mapId": 44,
-      "name": "The Dog House",
-      "area": "Wilderness Pass",
-      "type": "snack",
-      "description": "Quick-serve hot dogs and classic park snacks located in the heart of Wilderness Pass."
-    },
-    {
       "mapId": 148,
       "name": "Till & Harvest Food Hall",
       "area": "Wildwood Grove",
@@ -871,55 +903,164 @@
       "description": "Savor a variety of flavors at this scrumptious eatery featuring classic American dishes."
     },
     {
-      "mapId": 45,
-      "name": "Trailhead Eats",
-      "area": "Wilderness Pass",
-      "type": "snack",
-      "description": "Pick up your mobile order of delicious menu choices at Trailhead Eats, also featuring seasonal options that rotate throughout the year."
-    },
-    {
-      "mapId": 46,
-      "name": "Wilderness Pass Restaurant",
-      "area": "Wilderness Pass",
-      "type": "restaurant",
-      "description": "Nestled in the natural beauty of the Great Smoky Mountains, this is an ideal place to eat, relax and recharge. Guests enjoy rotisserie, smoked and wood-fired meats and a variety of menu choices inspired by Appalachian culture and cuisine."
-    },
-    {
-      "mapId": 84,
-      "name": "Village Lemonade",
-      "area": "The Village",
-      "type": "beverage",
-      "description": "Refreshing hand-squeezed and frozen lemonade served in The Village \u2014 a perfect cool-down treat."
-    },
-    {
-      "mapId": 100,
-      "name": "Country Fair Dippin' Dots",
-      "area": "Country Fair",
-      "type": "snack",
-      "description": "Dippin' Dots flash-frozen ice cream in Country Fair. Try cookies n' cream, rainbow ice, Big Bear brownie batter, or the seasonal festival flavor."
-    },
-    {
       "mapId": 149,
       "name": "Wildwood Grove Dippin' Dots",
       "area": "Wildwood Grove",
       "type": "snack",
       "description": "Dippin' Dots flash-frozen ice cream in Wildwood Grove. Try cookies n' cream, rainbow ice, or the seasonal festival flavor."
+    },
+    {
+      "mapId": null,
+      "name": "Dippin' Dots®",
+      "area": "Throughout the Park",
+      "type": "snack",
+      "description": "The refreshing and unbeatable flash-frozen ice cream sensation, Dippin' Dots, is a true taste adventure. Flavor choices include cookies n' cream, rainbow ice, Big Bear brownie batter and cookie monster. Available at multiple locations throughout the park."
+    },
+    {
+      "mapId": null,
+      "name": "Park Ranger's Canteen",
+      "area": "Wilderness Pass",
+      "type": "snack",
+      "description": "Having fun can make you hungry, and Park Ranger's Canteen offers a variety of popcorn snacks sure to satisfy, including build-your-own popcorn creations with a variety of toppings and sauces!"
     }
   ],
   "shops": [
+    {
+      "mapId": 2,
+      "name": "ECV Rentals",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 3,
+      "name": "Lost & Found / Doggywood",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 5,
+      "name": "Ride Accessibility Center",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 6,
+      "name": "Ride Measuring Center",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 8,
+      "name": "Stroller / ECV / Wheelchair Rentals",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 9,
+      "name": "TimeSaver & Special Experiences Reservation Center",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 10,
+      "name": "Caricatures & Portraits",
+      "area": "Showstreet",
+      "type": "experience"
+    },
+    {
+      "mapId": 11,
+      "name": "The Dollywood Emporium",
+      "area": "Showstreet",
+      "type": "merchandise",
+      "description": "The ultimate Dollywood shopping experience, featuring the best of all that Dollywood's many unique shops have to offer. You'll find a large selection of apparel, hats, accessories, gifts and souvenirs for the entire family, plus tasty fudge, savory treats and Dollywood's specialty jams, jellies and butters."
+    },
+    {
+      "mapId": 12,
+      "name": "Festival Shop",
+      "area": "Showstreet",
+      "type": "gift"
+    },
+    {
+      "mapId": 13,
+      "name": "Flashbulb Photos",
+      "area": "Showstreet",
+      "type": "photo"
+    },
+    {
+      "mapId": 14,
+      "name": "Gazebo Gifts",
+      "area": "Showstreet",
+      "type": "gifts",
+      "description": "Whether you're shopping for gifts, light up toys or hats, this charming gazebo is filled with the latest Dollywood souvenirs so you can take home a memento of your Smoky Mountain visit."
+    },
+    {
+      "mapId": 15,
+      "name": "Package Pickup",
+      "area": "Showstreet",
+      "type": "service"
+    },
+    {
+      "mapId": 16,
+      "name": "Sweet Shoppe Candy Kitchen",
+      "area": "Showstreet",
+      "type": "candy",
+      "description": "A sweet stop on Showstreet featuring hand-crafted candies, fudge, and confections made fresh in the Smoky Mountain tradition."
+    },
+    {
+      "mapId": 17,
+      "name": "The Southern Pantry",
+      "area": "Showstreet",
+      "type": "food_gifts",
+      "description": "At Southern Pantry you'll find specialty items to add something extra to your next big meal or dinner party, with a wide selection of canned vegetables and fruits, dressings and more — plus decorative items to give your kitchen that special Southern flair."
+    },
+    {
+      "mapId": 18,
+      "name": "Traditions",
+      "area": "Showstreet",
+      "type": "gifts",
+      "description": "Dollywood's Traditions store offers southern-inspired goods and fashion, including brands like Simply Southern® and Kerusso®, plus much more."
+    },
+    {
+      "mapId": 19,
+      "name": "Wired Up Names",
+      "area": "Showstreet",
+      "type": "souvenirs",
+      "description": "Looking for a unique gift to commemorate your visit to Dollywood? Wired Up Names offers beautiful necklaces featuring your name spelled out using wire twisted into shape by a talented jewelry maker."
+    },
+    {
+      "mapId": 31,
+      "name": "The Mine Shaft",
+      "area": "Timber Canyon",
+      "type": "souvenirs",
+      "description": "When your travels take you through Timber Canyon, visit the Mine Shaft and browse our large selection of Dollywood shirts, hats, accessories, jewelry and personalized leather bracelets."
+    },
+    {
+      "mapId": 32,
+      "name": "Wired Up Names",
+      "area": "Timber Canyon",
+      "type": "souvenirs",
+      "description": "Looking for a unique gift to commemorate your visit to Dollywood? Wired Up Names offers beautiful necklaces featuring your name spelled out using wire twisted into shape by a talented jewelry maker."
+    },
+    {
+      "mapId": 39,
+      "name": "Eagle's Flight Outfitters",
+      "area": "Wilderness Pass",
+      "type": "clothing",
+      "description": "Eagle's Flight Outfitters is soaring with great Wild Eagle merchandise, celebrating America's first wing coaster."
+    },
+    {
+      "mapId": 41,
+      "name": "Volunteer Supply",
+      "area": "Wilderness Pass",
+      "type": "clothing",
+      "description": "Dollywood's Volunteer Supply company offers a great selection of FireChaser Express and Lucky the Dalmatian merchandise including t-shirts, toys and gifts. An array of jewelry and sunglasses are also available."
+    },
     {
       "mapId": 55,
       "name": "Airbrush T-Shirts",
       "area": "Craftsman's Valley",
       "type": "clothing",
       "description": "Create a personalized, custom airbrush T-shirt or other souvenir to take home as a one-of-a-kind reminder of your Dollywood visit."
-    },
-    {
-      "mapId": 106,
-      "name": "Butterfly Strings Music Store",
-      "area": "Rivertown Junction",
-      "type": "music",
-      "description": "Step inside this store, a tribute to Dolly's influence on country music, where you'll find a selection of apparel, gifts and more."
     },
     {
       "mapId": 56,
@@ -936,39 +1077,10 @@
       "description": "Stroll through the best one-stop-shop for all things play! Find plush toys, games and so much more."
     },
     {
-      "mapId": 130,
-      "name": "Dolly's Fan Shop",
-      "area": "Dolly Parton Experience",
-      "type": "merchandise",
-      "description": "From vintage to modern styles and everything in between, this merchandise boutique is all things Dolly!"
-    },
-    {
-      "mapId": 107,
-      "name": "Dollywood Crafters",
-      "area": "Rivertown Junction",
-      "type": "craft",
-      "description": "A showcase of locally inspired handcrafted goods and artisan wares, celebrating the craft traditions of the Great Smoky Mountains."
-    },
-    {
-      "mapId": 39,
-      "name": "Eagle's Flight Outfitters",
-      "area": "Wilderness Pass",
-      "type": "clothing",
-      "description": "Eagle's Flight Outfitters is soaring with great Wild Eagle merchandise, celebrating America's first wing coaster."
-    },
-    {
-      "mapId": 14,
-      "name": "Gazebo Gifts",
-      "area": "Showstreet",
-      "type": "gifts",
-      "description": "Whether you're shopping for gifts, light up toys or hats, this charming gazebo is filled with the latest Dollywood souvenirs so you can take home a memento of your Smoky Mountain visit."
-    },
-    {
-      "mapId": 69,
-      "name": "Grist Mill & Cinnamon Bread",
+      "mapId": 58,
+      "name": "Face Painting",
       "area": "Craftsman's Valley",
-      "type": "bakery",
-      "description": "Pick up fresh-baked Dollywood favorites, unique food gifts, and Smoky Mountain-inspired treats at the Grist Mill shop."
+      "type": "experience"
     },
     {
       "mapId": 59,
@@ -978,13 +1090,6 @@
       "description": "Step inside our shop to find a selection of handmade, quality hats."
     },
     {
-      "mapId": 121,
-      "name": "Hi-Octane Ride Souvenirs",
-      "area": "Jukebox Junction",
-      "type": "souvenirs",
-      "description": "Put the pedal to the metal and head over to Hi-Octane to pick up speedy souvenirs celebrating Lightning Rod. Select from a wide variety of Lightning Rod- and automotive-themed items including t-shirts, hats and die-cast hot rods."
-    },
-    {
       "mapId": 60,
       "name": "Hillside General Store",
       "area": "Craftsman's Valley",
@@ -992,39 +1097,11 @@
       "description": "It's a step back in time with a wonderful selection of old-fashioned goods and treasures that remind you of your favorite five and dime store. Relax on the porch playing checkers or let the folks back home know you're enjoying the Smokies with a postcard postmarked \"Dollywood.\""
     },
     {
-      "mapId": 143,
-      "name": "Hidden Hollow Outfitters",
-      "area": "Wildwood Grove",
-      "type": "clothing",
-      "description": "Gear up for your Wildwood Grove adventure at Hidden Hollow Outfitters, featuring apparel, accessories and souvenirs inspired by the grove."
-    },
-    {
       "mapId": 61,
       "name": "Lucky 7 Mine & Pick-A-Pearl",
       "area": "Craftsman's Valley",
       "type": "activity",
       "description": "Shop amid hundreds of natural rocks and minerals, or find your own treasures when you mine from our working sluice box. Stop by the \"Pick-A-Pearl\" station, hand-pick your own oyster, and watch as one of our hosts helps you discover the beautiful pearl found inside."
-    },
-    {
-      "mapId": 109,
-      "name": "Mountain Blown Glass",
-      "area": "Rivertown Junction",
-      "type": "craft",
-      "description": "Watch the glass blower breathe life into unique pieces including serving pitchers, vases, lamps and figurines. Let our craftsman help you create your own glass ornament as a keepsake to last a lifetime."
-    },
-    {
-      "mapId": 144,
-      "name": "Mountain Grove Merchants",
-      "area": "Wildwood Grove",
-      "type": "gifts",
-      "description": "If you're looking to take a little bit of Wildwood Grove back home with you, Mountain Grove Merchants is your one-stop-shop for gifts and souvenirs celebrating your family's adventure in the grove."
-    },
-    {
-      "mapId": 110,
-      "name": "Mountain Laurel Home",
-      "area": "Rivertown Junction",
-      "type": "home_goods",
-      "description": "Mountain Laurel Home celebrates the elegant splendor and warm simplicity of life in the Great Smoky Mountains. With unique home furnishings, candles, linens, soaps and many memory-capturing gifts, the collection is anchored in the quality and warmth of the mountains."
     },
     {
       "mapId": 62,
@@ -1048,60 +1125,11 @@
       "description": "Explore our year-round Christmas shop featuring a variety of handmade and hand-painted ornaments, decorations and more. Valley Wood Carvers also finds its home here with amazing hand-crafted fireplace mantles and wooden figures."
     },
     {
-      "mapId": 16,
-      "name": "Sweet Shoppe Candy Kitchen",
-      "area": "Showstreet",
-      "type": "candy",
-      "description": "A sweet stop on Showstreet featuring hand-crafted candies, fudge, and confections made fresh in the Smoky Mountain tradition."
-    },
-    {
-      "mapId": 81,
-      "name": "Temple's Warehouse and Old Fashioned Candy Store",
-      "area": "The Village",
-      "type": "candy",
-      "description": "Temple's Warehouse pays homage to a longtime Pigeon Forge-area mercantile. Today, it serves as Dollywood's one-stop shop for the entire family featuring trains, toys, clothing and candy. Kids can even stuff their own bear to take home!"
-    },
-    {
-      "mapId": 11,
-      "name": "The Dollywood Emporium",
-      "area": "Showstreet",
-      "type": "merchandise",
-      "description": "The ultimate Dollywood shopping experience, featuring the best of all that Dollywood's many unique shops have to offer. You'll find a large selection of apparel, hats, accessories, gifts and souvenirs for the entire family, plus tasty fudge, savory treats and Dollywood's specialty jams, jellies and butters."
-    },
-    {
-      "mapId": 31,
-      "name": "The Mine Shaft",
-      "area": "Timber Canyon",
-      "type": "souvenirs",
-      "description": "When your travels take you through Timber Canyon, visit the Mine Shaft and browse our large selection of Dollywood shirts, hats, accessories, jewelry and personalized leather bracelets."
-    },
-    {
-      "mapId": 17,
-      "name": "The Southern Pantry",
-      "area": "Showstreet",
-      "type": "food_gifts",
-      "description": "At Southern Pantry you'll find specialty items to add something extra to your next big meal or dinner party, with a wide selection of canned vegetables and fruits, dressings and more \u2014 plus decorative items to give your kitchen that special Southern flair."
-    },
-    {
-      "mapId": 18,
-      "name": "Traditions",
-      "area": "Showstreet",
-      "type": "gifts",
-      "description": "Dollywood's Traditions store offers southern-inspired goods and fashion, including brands like Simply Southern\u00ae and Kerusso\u00ae, plus much more."
-    },
-    {
       "mapId": 65,
       "name": "Valley Crafts",
       "area": "Craftsman's Valley",
       "type": "craft",
       "description": "Guests will be charmed, uplifted and inspired by the variety of custom-made art that brings the spirit of the Smokies to life. From faith-based artwork to hand painted signs featuring custom monograms to unique gifts and accessories."
-    },
-    {
-      "mapId": 67,
-      "name": "Valley Forge Blacksmith",
-      "area": "Craftsman's Valley",
-      "type": "craft",
-      "description": "Watch as Dollywood's master craftsmen use traditional ironsmith skills to forge hand-forged steel items including collector knives, customized metal gifts, horseshoe gifts, and garden and home decor."
     },
     {
       "mapId": 66,
@@ -1111,48 +1139,102 @@
       "description": "A charming shop celebrating Appalachian herbal traditions, offering a selection of natural herbs, teas, and homeopathic remedies inspired by Smoky Mountain mountain culture."
     },
     {
-      "mapId": 41,
-      "name": "Volunteer Supply",
-      "area": "Wilderness Pass",
-      "type": "clothing",
-      "description": "Dollywood's Volunteer Supply company offers a great selection of FireChaser Express and Lucky the Dalmatian merchandise including t-shirts, toys and gifts. An array of jewelry and sunglasses are also available."
+      "mapId": 67,
+      "name": "Valley Forge Blacksmith",
+      "area": "Craftsman's Valley",
+      "type": "craft",
+      "description": "Watch as Dollywood's master craftsmen use traditional ironsmith skills to forge hand-forged steel items including collector knives, customized metal gifts, horseshoe gifts, and garden and home decor."
     },
-    {
-      "mapId": 19,
-      "name": "Wired Up Names",
-      "area": "Showstreet",
-      "type": "souvenirs",
-      "description": "Looking for a unique gift to commemorate your visit to Dollywood? Wired Up Names offers beautiful necklaces featuring your name spelled out using wire twisted into shape by a talented jewelry maker."
-    },
-    {
-      "mapId": 32,
-      "name": "Wired Up Names",
-      "area": "Timber Canyon",
-      "type": "souvenirs",
-      "description": "Looking for a unique gift to commemorate your visit to Dollywood? Wired Up Names offers beautiful necklaces featuring your name spelled out using wire twisted into shape by a talented jewelry maker."
-    }
-  ],
-  "crafts": [
     {
       "mapId": 69,
       "name": "Grist Mill & Cinnamon Bread",
       "area": "Craftsman's Valley",
-      "type": "bakery_demo",
-      "description": "Built in 1982, the Dollywood Grist Mill was the first fully operational grist mill built in Tennessee in more than 100 years. Today, the Grist Mill is home to world-famous cinnamon bread, freshly made daily before your very eyes. Try it with buttercream icing or Dollywood's own apple butter."
+      "type": "bakery",
+      "description": "Pick up fresh-baked Dollywood favorites, unique food gifts, and Smoky Mountain-inspired treats at the Grist Mill shop."
     },
     {
-      "mapId": 40,
-      "name": "Handsville Wax Company",
-      "area": "Wilderness Pass",
-      "type": "wax",
-      "description": "Enjoy a hands-on, interactive experience with Handsville Wax Company! This unique shop gives you the opportunity to dip your hands into wax, creating a mold that captures a moment in time during your Dollywood visit. These molds capture incredible detail of your hands and jewelry \u2014 a fun keepsake and memory you'll have forever!"
+      "mapId": 81,
+      "name": "Temple's Warehouse and Old Fashioned Candy Store",
+      "area": "The Village",
+      "type": "candy",
+      "description": "Temple's Warehouse pays homage to a longtime Pigeon Forge-area mercantile. Today, it serves as Dollywood's one-stop shop for the entire family featuring trains, toys, clothing and candy. Kids can even stuff their own bear to take home!"
+    },
+    {
+      "mapId": 106,
+      "name": "Butterfly Strings Music Store",
+      "area": "Rivertown Junction",
+      "type": "music",
+      "description": "Step inside this store, a tribute to Dolly's influence on country music, where you'll find a selection of apparel, gifts and more."
+    },
+    {
+      "mapId": 107,
+      "name": "Dollywood Crafters",
+      "area": "Rivertown Junction",
+      "type": "craft",
+      "description": "A showcase of locally inspired handcrafted goods and artisan wares, celebrating the craft traditions of the Great Smoky Mountains."
+    },
+    {
+      "mapId": 108,
+      "name": "Face Painting",
+      "area": "Rivertown Junction",
+      "type": "experience"
     },
     {
       "mapId": 109,
       "name": "Mountain Blown Glass",
       "area": "Rivertown Junction",
-      "type": "glass",
-      "description": "The timeless art of hand blown glass is demonstrated daily at Dollywood. Watch the glass blower breathe life into unique pieces, or let our craftsman help you create your own glass ornament as a keepsake to last a lifetime."
+      "type": "craft",
+      "description": "Watch the glass blower breathe life into unique pieces including serving pitchers, vases, lamps and figurines. Let our craftsman help you create your own glass ornament as a keepsake to last a lifetime."
+    },
+    {
+      "mapId": 110,
+      "name": "Mountain Laurel Home",
+      "area": "Rivertown Junction",
+      "type": "home_goods",
+      "description": "Mountain Laurel Home celebrates the elegant splendor and warm simplicity of life in the Great Smoky Mountains. With unique home furnishings, candles, linens, soaps and many memory-capturing gifts, the collection is anchored in the quality and warmth of the mountains."
+    },
+    {
+      "mapId": 121,
+      "name": "Hi-Octane Ride Souvenirs",
+      "area": "Jukebox Junction",
+      "type": "souvenirs",
+      "description": "Put the pedal to the metal and head over to Hi-Octane to pick up speedy souvenirs celebrating Lightning Rod. Select from a wide variety of Lightning Rod- and automotive-themed items including t-shirts, hats and die-cast hot rods."
+    },
+    {
+      "mapId": 130,
+      "name": "Dolly's Fan Shop",
+      "area": "Dolly Parton Experience",
+      "type": "merchandise",
+      "description": "From vintage to modern styles and everything in between, this merchandise boutique is all things Dolly!"
+    },
+    {
+      "mapId": 142,
+      "name": "Face Painting",
+      "area": "Wildwood Grove",
+      "type": "experience"
+    },
+    {
+      "mapId": 143,
+      "name": "Hidden Hollow Outfitters",
+      "area": "Wildwood Grove",
+      "type": "clothing",
+      "description": "Gear up for your Wildwood Grove adventure at Hidden Hollow Outfitters, featuring apparel, accessories and souvenirs inspired by the grove."
+    },
+    {
+      "mapId": 144,
+      "name": "Mountain Grove Merchants",
+      "area": "Wildwood Grove",
+      "type": "gifts",
+      "description": "If you're looking to take a little bit of Wildwood Grove back home with you, Mountain Grove Merchants is your one-stop-shop for gifts and souvenirs celebrating your family's adventure in the grove."
+    }
+  ],
+  "crafts": [
+    {
+      "mapId": 40,
+      "name": "Handsville Wax Company",
+      "area": "Wilderness Pass",
+      "type": "wax",
+      "description": "Enjoy a hands-on, interactive experience with Handsville Wax Company! This unique shop gives you the opportunity to dip your hands into wax, creating a mold that captures a moment in time during your Dollywood visit. These molds capture incredible detail of your hands and jewelry — a fun keepsake and memory you'll have forever!"
     },
     {
       "mapId": 62,
@@ -1174,6 +1256,20 @@
       "area": "Craftsman's Valley",
       "type": "blacksmith",
       "description": "Hundreds of years ago, folks who settled in the Smoky Mountains relied on the skills of the area ironsmith for life's necessities. Today, Dollywood's master craftsmen use those same skills to forge hand-forged steel items. Watch as they create collector knives, customized metal gifts, horseshoe gifts, and garden and home decor."
+    },
+    {
+      "mapId": 69,
+      "name": "Grist Mill & Cinnamon Bread",
+      "area": "Craftsman's Valley",
+      "type": "bakery_demo",
+      "description": "Built in 1982, the Dollywood Grist Mill was the first fully operational grist mill built in Tennessee in more than 100 years. Today, the Grist Mill is home to world-famous cinnamon bread, freshly made daily before your very eyes. Try it with buttercream icing or Dollywood's own apple butter."
+    },
+    {
+      "mapId": 109,
+      "name": "Mountain Blown Glass",
+      "area": "Rivertown Junction",
+      "type": "glass",
+      "description": "The timeless art of hand blown glass is demonstrated daily at Dollywood. Watch the glass blower breathe life into unique pieces, or let our craftsman help you create your own glass ornament as a keepsake to last a lifetime."
     }
   ]
 }
