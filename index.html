@@ -66,11 +66,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   transform:translateY(105%);
   transition:transform .38s cubic-bezier(.32,.72,0,1);
   z-index:50;display:flex;flex-direction:column;
-  max-height:55vh;
+  height:50vh;overflow:hidden;
 }
 #panel.on{transform:translateY(0)}
 @media(min-width:768px){
-  #panel{max-height:38vh}
+  #panel{height:auto;max-height:38vh}
 }
 .ph-bar{flex:0 0 auto;display:flex;justify-content:center;padding:10px;cursor:pointer}
 .ph-nub{width:36px;height:4px;border-radius:2px;background:var(--border)}
@@ -285,7 +285,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
         </select>
         <select id="f-height" class="fsel">
           <option value="0">Any height</option>
-          <option value="-1">Kids only</option>
+          <option value="-1">36 in. max</option>
           <option value="36">36 in</option>
           <option value="39">39 in</option>
           <option value="42">42 in</option>
@@ -453,7 +453,11 @@ function detailHTML(item,area,cat){
 
 }
 
-function closeIdet(){document.getElementById('idet').classList.remove('on');}
+function closeIdet(){
+  const el=document.getElementById('idet');
+  el.classList.remove('on');
+  setTimeout(()=>{document.getElementById('idet-body').innerHTML='';},320);
+}
 function panelBack(){
   if(panelPage==='detail'){
     closeIdet(); panelPage='list';

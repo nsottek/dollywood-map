@@ -749,7 +749,7 @@ const pz=(()=>{{
 </script>
 '''
 
-out = os.path.join(PROJECT, 'dollywood2.html')
+out = os.path.join(PROJECT, 'index.html')
 with open(out, 'w', encoding='utf-8') as f:
     f.write(html)
 print(f'Written: {out}  ({os.path.getsize(out):,} bytes)')
