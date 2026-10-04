@@ -222,6 +222,44 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;
   opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:9999;white-space:nowrap}
 #share-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── Plan / Itinerary view ───────────────────────────────────────────────── */
+#plan-view{background:var(--bg)}
+#plan-hdr{flex:0 0 auto;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.plan-row{display:flex;gap:8px;align-items:center}
+#pi-time{flex-shrink:0;padding:7px 10px;border:1.5px solid var(--border);border-radius:20px;
+  font-size:13px;font-family:var(--sans);font-weight:500;color:var(--txt);background:var(--surface2);outline:none;min-width:0}
+.pi-wrap{flex:1;min-width:0;position:relative}
+#pi-search{width:100%;padding:7px 12px;border:1.5px solid var(--border);border-radius:20px;
+  font-size:13px;font-family:var(--sans);font-weight:500;color:var(--txt);background:var(--surface2);outline:none}
+#pi-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:14px;
+  box-shadow:0 6px 24px rgba(0,0,0,.18);max-height:240px;overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:200}
+#pi-drop.on{display:block}
+.pi-opt{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;font-size:13px;color:var(--txt)}
+.pi-opt:hover,.pi-opt:active{background:var(--surface2)}
+.pi-opt-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.pi-opt-area{font-size:11px;color:var(--txt3);margin-left:auto;flex-shrink:0;padding-left:6px}
+#pi-dur{width:66px;padding:7px 8px;border:1.5px solid var(--border);border-radius:20px;
+  font-size:13px;font-family:var(--sans);font-weight:500;color:var(--txt);background:var(--surface2);outline:none;text-align:center}
+#pi-dur-lbl{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap}
+#pi-add{flex-shrink:0;padding:8px 16px;border:none;border-radius:20px;
+  background:var(--red);color:#fff;font-size:13px;font-weight:600;font-family:var(--sans);cursor:pointer}
+#plan-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#itin-list{padding:0 16px}
+.itin-stop{display:flex;align-items:center;gap:8px;padding:11px 0;border-bottom:1px solid var(--border)}
+.itin-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt2);width:56px;flex-shrink:0}
+.itin-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.itin-name{flex:1;font-size:14px;font-weight:500;color:var(--txt);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.itin-dur{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap}
+.itin-del{border:none;background:none;color:var(--txt3);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px;flex-shrink:0}
+#plan-empty{text-align:center;color:var(--txt3);padding:52px 16px;font-size:15px;line-height:1.7}
+#plan-foot{flex:0 0 auto;padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--border);background:var(--surface);display:flex;gap:8px}
+#plan-copy{flex:1;padding:10px;border:none;border-radius:20px;background:var(--red);color:#fff;
+  font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
+#plan-clear{padding:10px 20px;border:1.5px solid var(--border);border-radius:20px;background:none;
+  color:var(--txt2);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
 </style>
 </head>
 <body>
@@ -236,6 +274,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
     <div id="toggle">
       <button class="tbtn on" data-view="map" onclick="switchView('map')">Map</button>
       <button class="tbtn"    data-view="list" onclick="switchView('list')">List</button>
+      <button class="tbtn"    data-view="plan" onclick="switchView('plan')">Plan</button>
     </div>
   </header>
 
@@ -331,6 +370,31 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
     </div>
   </div>
 
+  <div id="plan-view" class="view">
+    <div id="plan-hdr">
+      <div class="plan-row">
+        <input type="time" id="pi-time" value="09:00">
+        <div class="pi-wrap">
+          <input type="search" id="pi-search" placeholder="Search attractions…" autocomplete="off" autocorrect="off" spellcheck="false">
+          <div id="pi-drop"></div>
+        </div>
+      </div>
+      <div class="plan-row">
+        <span id="pi-dur-lbl">Duration:</span>
+        <input type="number" id="pi-dur" placeholder="min" min="5" max="480" step="5">
+        <button id="pi-add" onclick="addItinStop()">+ Add Stop</button>
+      </div>
+    </div>
+    <div id="plan-body">
+      <div id="itin-list"></div>
+      <div id="plan-empty">No stops yet &mdash; search for an attraction above to build your day.</div>
+    </div>
+    <div id="plan-foot">
+      <button id="plan-copy" onclick="copyItinLink()">Share Itinerary</button>
+      <button id="plan-clear" onclick="clearItin()">Clear</button>
+    </div>
+  </div>
+
 </div><!-- #app -->
 <div id="share-toast"></div>
 
@@ -380,6 +444,7 @@ const PIN_COORDS={1:[1122, 928],2:[586, 1161],3:[907, 1143],4:[1116, 981],5:[773
 
 // ── State ────────────────────────────────────────────────────────────────────
 let curArea=null, panelPage='list', idetClearTimer=null; // 'list'|'detail'
+let itinerary=[]; // [{time:'0930',id:119,dur:30|null},...]
 const isMob=()=>window.innerWidth<768;
 
 // ── View toggle ───────────────────────────────────────────────────────────────
@@ -390,6 +455,7 @@ function switchView(v){
   document.querySelector(`.tbtn[data-view="${v}"]`).classList.add('on');
   if(v==='map') closePanel();
   if(v==='list') renderListView();
+  if(v==='plan') renderItinList();
 }
 
 // ── Convert polygons to rounded paths ────────────────────────────────────────
@@ -576,7 +642,7 @@ function detailHTML(item,area,cat){
 function closeIdet(){
   const el=document.getElementById('idet');
   el.classList.remove('on');
-  history.replaceState(null,'',location.pathname);
+  history.replaceState(null,'',location.pathname+(itinerary.length?'?itinerary='+serializeItin():''));
   clearTimeout(idetClearTimer);
   idetClearTimer=setTimeout(()=>{document.getElementById('idet-body').innerHTML='';},320);
 }
@@ -592,7 +658,7 @@ function panelBack(){
 function closePanel(){
   document.getElementById('panel').classList.remove('on');
   document.querySelectorAll('#msvg path[data-area]').forEach(p=>{p.setAttribute('fill-opacity','0.1');p.setAttribute('stroke-width','1.5');});
-  history.replaceState(null,'',location.pathname);
+  history.replaceState(null,'',location.pathname+(itinerary.length?'?itinerary='+serializeItin():''));
   curArea=null;
 }
 
@@ -784,8 +850,141 @@ const pz=(()=>{
   return {zoomTo,panToPin,get dragged(){return dragged;}};
 })();
 
+// ── Itinerary ─────────────────────────────────────────────────────────────────
+const ALL_PINNED=(()=>{
+  const out=[];
+  for(const[key,area]of Object.entries(A)){
+    for(const[cat,items]of[['att',area.att],['din',area.din],['shp',area.shp]]){
+      for(const item of(items||[])){
+        if(item.id>0&&PIN_COORDS[item.id])out.push({id:item.id,name:item.name,area:area.name,color:area.color,areaKey:key,cat});
+      }
+    }
+  }
+  out.sort((a,b)=>a.name.localeCompare(b.name));
+  return out;
+})();
+
+let piSelected=null;
+
+(function initItinPicker(){
+  const srch=document.getElementById('pi-search');
+  const drop=document.getElementById('pi-drop');
+  function showDrop(q){
+    const lower=(q||'').toLowerCase();
+    const filtered=lower?ALL_PINNED.filter(i=>i.name.toLowerCase().includes(lower)||i.area.toLowerCase().includes(lower)):ALL_PINNED;
+    drop.innerHTML=filtered.slice(0,60).map(i=>
+      `<div class="pi-opt" onclick="selectPiOpt(${i.id})"><span class="pi-opt-dot" style="background:${i.color}"></span><span>${i.name}</span><span class="pi-opt-area">${i.area}</span></div>`
+    ).join('');
+    drop.classList.add('on');
+  }
+  function hideDrop(){drop.classList.remove('on');}
+  srch.addEventListener('input',()=>{piSelected=null;showDrop(srch.value);});
+  srch.addEventListener('focus',()=>showDrop(srch.value));
+  document.addEventListener('click',e=>{if(!e.target.closest('#pi-search')&&!e.target.closest('#pi-drop'))hideDrop();});
+})();
+
+function selectPiOpt(id){
+  const item=ALL_PINNED.find(i=>i.id===id);
+  if(!item)return;
+  piSelected=item;
+  document.getElementById('pi-search').value=item.name;
+  document.getElementById('pi-drop').classList.remove('on');
+}
+
+function addItinStop(){
+  const timeEl=document.getElementById('pi-time');
+  const durEl=document.getElementById('pi-dur');
+  if(!timeEl.value||!piSelected){
+    if(!timeEl.value)timeEl.focus();
+    else document.getElementById('pi-search').focus();
+    return;
+  }
+  const time=timeEl.value.replace(':','');
+  const dur=durEl.value?+durEl.value:null;
+  const idx=itinerary.findIndex(s=>s.id===piSelected.id);
+  if(idx>=0)itinerary.splice(idx,1);
+  itinerary.push({time,id:piSelected.id,dur});
+  itinerary.sort((a,b)=>a.time.localeCompare(b.time));
+  durEl.value='';
+  document.getElementById('pi-search').value='';
+  piSelected=null;
+  renderItinList();
+  updateItinUrl();
+}
+
+function removeItinStop(id){
+  itinerary=itinerary.filter(s=>s.id!==id);
+  renderItinList();
+  updateItinUrl();
+}
+
+function dispTime(t){
+  const h=+t.slice(0,2),m=t.slice(2);
+  const ampm=h>=12?'PM':'AM';
+  const h12=h>12?h-12:h===0?12:h;
+  return h12+':'+m+' '+ampm;
+}
+
+function renderItinList(){
+  const list=document.getElementById('itin-list');
+  const empty=document.getElementById('plan-empty');
+  if(!list)return;
+  if(!itinerary.length){list.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  list.innerHTML=itinerary.map(s=>{
+    const found=ALL_PINNED.find(i=>i.id===s.id);
+    if(!found)return'';
+    return`<div class="itin-stop">
+      <span class="itin-time">${dispTime(s.time)}</span>
+      <span class="itin-dot" style="background:${found.color}"></span>
+      <span class="itin-name">${found.name}</span>
+      ${s.dur?`<span class="itin-dur">${s.dur} min</span>`:''}
+      <button class="itin-del" onclick="removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
+    </div>`;
+  }).join('');
+}
+
+function serializeItin(){
+  return itinerary.map(s=>s.dur?`${s.time}.${s.id}.${s.dur}`:`${s.time}.${s.id}`).join(',');
+}
+
+function parseItinStr(str){
+  return str.split(',').map(chunk=>{
+    const p=chunk.split('.');
+    if(p.length<2)return null;
+    const time=p[0],id=+p[1],dur=p[2]?+p[2]:null;
+    if(!/^\d{4}$/.test(time)||!id||isNaN(id))return null;
+    return{time,id,dur};
+  }).filter(Boolean);
+}
+
+function updateItinUrl(){
+  const q=itinerary.length?'?itinerary='+serializeItin():'';
+  history.replaceState(null,'',location.pathname+q);
+}
+
+function copyItinLink(){
+  if(!itinerary.length){showToast('No stops to share');return;}
+  const url=location.origin+location.pathname+'?itinerary='+serializeItin();
+  if(navigator.share)navigator.share({title:'My Dollywood Day',url}).catch(()=>{});
+  else navigator.clipboard.writeText(url).then(()=>showToast('Itinerary link copied!'));
+}
+
+function clearItin(){
+  if(!itinerary.length)return;
+  itinerary=[];
+  renderItinList();
+  updateItinUrl();
+}
+
 // ── Deeplink ──────────────────────────────────────────────────────────────────
 (function(){
+  const params=new URLSearchParams(location.search);
+  const itinStr=params.get('itinerary');
+  if(itinStr){
+    itinerary=parseItinStr(itinStr);
+    if(itinerary.length)setTimeout(()=>{switchView('plan');renderItinList();},100);
+  }
   const m=location.hash.match(/^#pin=(\d+)$/);
   if(!m)return;
   const id=+m[1];
