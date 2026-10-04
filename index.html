@@ -253,7 +253,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .itin-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt2);width:56px;flex-shrink:0}
 .itin-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
 .itin-name{flex:1;font-size:14px;font-weight:500;color:var(--txt);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.itin-dur{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap}
+.itin-dur{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap;width:52px}
 .itin-del{border:none;background:none;color:var(--txt3);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px;flex-shrink:0}
 #plan-empty{text-align:center;color:var(--txt3);padding:52px 16px;font-size:15px;line-height:1.7}
 #plan-foot{flex:0 0 auto;padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom,0px));
@@ -262,6 +262,13 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
 #plan-clear{padding:10px 20px;border:1.5px solid var(--border);border-radius:20px;background:none;
   color:var(--txt2);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
+#itin-popup{position:fixed;z-index:500;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.32);display:none;overflow:hidden;
+  max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#itin-popup.on{display:block}
+.itin-popup-hdr{display:flex;justify-content:flex-end;padding:8px 8px 0}
+.itin-popup-close{border:none;background:var(--surface2);color:var(--txt2);font-size:17px;
+  width:28px;height:28px;border-radius:50%;cursor:pointer;line-height:1;font-family:var(--sans)}
 </style>
 </head>
 <body>
@@ -397,6 +404,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   </div>
 
 </div><!-- #app -->
+<div id="itin-popup">
+  <div class="itin-popup-hdr"><button class="itin-popup-close" aria-label="Close">&#x2715;</button></div>
+  <div class="itin-popup-body" style="padding:0 14px 16px"></div>
+</div>
 <div id="share-toast"></div>
 
 <script>
@@ -1009,20 +1020,61 @@ function renderItinList(){
   const list=document.getElementById('itin-list');
   const empty=document.getElementById('plan-empty');
   if(!list)return;
-  if(!itinerary.length){list.innerHTML='';empty.style.display='';return;}
+  if(!itinerary.length){list.innerHTML='';empty.style.display='';hideItinPopup();return;}
   empty.style.display='none';
   list.innerHTML=itinerary.map(s=>{
     const found=ALL_PINNED.find(i=>i.id===s.id);
     if(!found)return'';
-    return`<div class="itin-stop">
+    return`<div class="itin-stop" data-id="${s.id}">
       <span class="itin-time">${dispTime(s.time)}</span>
-      ${s.dur?`<span class="itin-dur">${s.dur} min</span>`:''}
+      <span class="itin-dur">${s.dur?s.dur+' min':''}</span>
       <span class="itin-dot" style="background:${found.color}"></span>
       <span class="itin-name">${found.name}</span>
-      <button class="itin-del" onclick="removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
+      <button class="itin-del" onclick="event.stopPropagation();removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
     </div>`;
   }).join('');
+  const canHover=window.matchMedia('(hover:hover)').matches;
+  list.querySelectorAll('.itin-stop').forEach(stop=>{
+    const id=+stop.dataset.id;
+    if(canHover){
+      stop.addEventListener('mouseenter',()=>showItinPopup(id,stop,'hover'));
+      stop.addEventListener('mouseleave',()=>{itinPopupTimer=setTimeout(hideItinPopup,120);});
+    }
+    stop.addEventListener('click',()=>showItinPopup(id,stop,'click'));
+  });
 }
+
+let itinPopupTimer=null;
+
+function showItinPopup(id,el,source){
+  clearTimeout(itinPopupTimer);
+  const result=findById(id);
+  if(!result)return;
+  const popup=document.getElementById('itin-popup');
+  popup.querySelector('.itin-popup-body').innerHTML=detailHTML(result.item,A[result.key],result.cat);
+  const hdr=popup.querySelector('.itin-popup-hdr');
+  hdr.style.display=source==='click'?'flex':'none';
+  const rect=el.getBoundingClientRect();
+  popup.style.top=rect.top+'px';
+  popup.style.left=rect.left+'px';
+  popup.style.width=rect.width+'px';
+  popup.classList.add('on');
+}
+
+function hideItinPopup(){
+  clearTimeout(itinPopupTimer);
+  document.getElementById('itin-popup').classList.remove('on');
+}
+
+(function(){
+  const popup=document.getElementById('itin-popup');
+  popup.addEventListener('mouseenter',()=>clearTimeout(itinPopupTimer));
+  popup.addEventListener('mouseleave',()=>{itinPopupTimer=setTimeout(hideItinPopup,120);});
+  popup.querySelector('.itin-popup-close').addEventListener('click',e=>{e.stopPropagation();hideItinPopup();});
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#itin-popup')&&!e.target.closest('.itin-stop'))hideItinPopup();
+  });
+})();
 
 function serializeItin(){
   return itinerary.map(s=>s.dur?`${s.time}.${s.id}.${s.dur}`:`${s.time}.${s.id}`).join(',');
