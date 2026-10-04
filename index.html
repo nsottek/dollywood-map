@@ -635,7 +635,9 @@ function openIdet(key,id,cat){
   const idet=document.getElementById('idet');
   const panel=document.getElementById('panel');
   const headerH=panel.querySelector('.ph-bar').offsetHeight+panel.querySelector('.ph').offsetHeight;
-  idet.style.height=Math.max(120,window.innerHeight-panel.getBoundingClientRect().top-headerH)+'px';
+  // Use layout height × visible fraction, not getBoundingClientRect — panel may be mid-animation
+  const visH=isMob()?panel.offsetHeight*0.625-headerH:panel.offsetHeight-headerH;
+  idet.style.height=Math.max(120,visH)+'px';
   idet.classList.add('on');
 }
 
