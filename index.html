@@ -71,11 +71,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   transform:translateY(105%);
   transition:transform .38s cubic-bezier(.32,.72,0,1);
   z-index:50;display:flex;flex-direction:column;
-  height:50vh;overflow:hidden;
+  height:80vh;overflow:hidden;
 }
-#panel.on{transform:translateY(0)}
+#panel.on{transform:translateY(37.5%)}
 @media(min-width:768px){
   #panel{height:38vh}
+  #panel.on{transform:translateY(0)}
 }
 .ph-bar{flex:0 0 auto;display:flex;justify-content:center;padding:10px;cursor:pointer}
 .ph-nub{width:36px;height:4px;border-radius:2px;background:var(--border)}
@@ -151,7 +152,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 #idet{position:absolute;bottom:0;left:0;right:0;height:0;background:var(--surface);
   overflow:hidden;transition:height .28s cubic-bezier(.32,.72,0,1);z-index:5;border-radius:inherit}
 #idet.on{overflow-y:auto;-webkit-overflow-scrolling:touch}
-.det-body{padding:16px 16px 32px}
+.det-body{padding:10px 16px 32px}
 .det-area-pill{display:inline-flex;align-items:center;gap:6px;
   background:var(--surface2);border-radius:20px;padding:4px 10px;margin-bottom:14px}
 .det-area-dot{width:10px;height:10px;border-radius:3px}
@@ -843,7 +844,7 @@ const pz=(()=>{
   function zoomTo(key){
     const area=A[key];
     const cw=mc.clientWidth,ch=mc.clientHeight;
-    const panH=isMob()?ch*.52:ch*.38;
+    const panH=isMob()?ch*.5:ch*.38;
     const visH=ch-panH;
     const iw=mi.offsetWidth,ih=mi.offsetHeight;
     const px=(area.cx/1836)*iw,py=(area.cy/1290)*ih;
@@ -852,9 +853,9 @@ const pz=(()=>{
     tx=cw/2-px*s; ty=visH*.4-py*s;
     apply(true); setTimeout(clamp,440);
   }
-  function panToPin(px1836,py1836){
+  function panToPin(px1836,py1290){
     const cw=mc.clientWidth,ch=mc.clientHeight;
-    const panH=isMob()?ch*.52:ch*.38;
+    const panH=isMob()?ch*.5:ch*.38;
     const visH=ch-panH;
     const iw=mi.offsetWidth,ih=mi.offsetHeight;
     const px=(px1836/1836)*iw,py2=(py1836/1290)*ih;
@@ -870,7 +871,7 @@ const pz=(()=>{
   const handle=panel.querySelector('.ph-bar');
   const ph=panel.querySelector('.ph');
   const TRANS='transform .38s cubic-bezier(.32,.72,0,1)';
-  const S_DEFAULT=0, S_EXPANDED=-30, S_CLOSED=105;
+  const S_DEFAULT=37.5, S_EXPANDED=0, S_CLOSED=105;
 
   let sy=0,sCur=0,dragging=false,hasMoved=false,ly=0,lt=0,vel=0;
 
@@ -922,9 +923,9 @@ const pz=(()=>{
     dragging=false;
     if(!hasMoved)return;
     const p=curPct();
-    if(vel>0.4||p>45){
+    if(vel>0.4||p>65){
       closePanel();
-    } else if(vel<-0.4||p<-15){
+    } else if(vel<-0.4||p<18){
       animTo(S_EXPANDED);
     } else {
       animTo(S_DEFAULT);
