@@ -651,9 +651,9 @@ function renderListView(){{
     else if(F.cat==='din'){{att=[];shp=[];}}
     else if(F.cat==='shp'){{att=[];din=[];}}
 
-    // Height filter (rides only)
-    if(F.hmin===-1) att=att.filter(i=>i.hmax>0);
-    else if(F.hmin>0) att=att.filter(i=>i.hmin>=F.hmin);
+    // Height filter (rides only — non-ride items pass through unchanged)
+    if(F.hmin===-1) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmax>0);
+    else if(F.hmin>0) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmin>=F.hmin);
 
     // TimeSaver filter
     if(F.ts){{
