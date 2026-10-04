@@ -1076,7 +1076,6 @@ function showItinPopup(id,el,source){
     const nameEl=el.querySelector('.itin-name');
     const nameLeft=nameEl?nameEl.getBoundingClientRect().right:rect.right;
     popup.style.left=nameLeft+'px';
-    popup.style.right='16px';
     popup.style.top=(rect.top+rect.height/2)+'px';
     popup.style.transform='translateY(-50%)';
     popup.classList.add('has-caret');
