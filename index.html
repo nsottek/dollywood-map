@@ -633,7 +633,9 @@ function openIdet(key,id,cat){
   document.getElementById('p-det-btns').innerHTML=item.id>0?`<button class="share-btn" onclick="sharePin(${id})" title="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v13M7 8l5-5 5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 16v3a1 1 0 001 1h12a1 1 0 001-1v-3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>`:'';
   document.getElementById('idet-body').innerHTML=detailHTML(item,area,cat);
   const idet=document.getElementById('idet');
-  idet.style.height=document.getElementById('pbody').clientHeight+'px';
+  const panel=document.getElementById('panel');
+  const headerH=panel.querySelector('.ph-bar').offsetHeight+panel.querySelector('.ph').offsetHeight;
+  idet.style.height=Math.max(120,window.innerHeight-panel.getBoundingClientRect().top-headerH)+'px';
   idet.classList.add('on');
 }
 
@@ -924,6 +926,13 @@ const pz=(()=>{
     panel.style.transform=`translateY(${sCur}%)`;
   }
 
+  function idetH(){
+    const idet=document.getElementById('idet');
+    if(!idet.classList.contains('on'))return;
+    const headerH=ph.offsetHeight+handle.offsetHeight;
+    idet.style.height=Math.max(120,window.innerHeight-panel.getBoundingClientRect().top-headerH)+'px';
+  }
+
   function onMove(e){
     if(!dragging)return;
     const cy=e.touches?e.touches[0].clientY:e.clientY;
@@ -934,20 +943,25 @@ const pz=(()=>{
     const now=Date.now(),dt=now-lt;
     if(dt>0)vel=(cy-ly)/dt;
     ly=cy; lt=now;
+    const idet=document.getElementById('idet');
+    if(idet.classList.contains('on')){idet.style.transition='none';idetH();}
     e.preventDefault();
   }
 
   function onUp(){
     if(!dragging)return;
     dragging=false;
+    document.getElementById('idet').style.transition='';
     if(!hasMoved)return;
     const p=curPct();
     if(vel>0.4||p>65){
       closePanel();
     } else if(vel<-0.4||p<18){
       animTo(S_EXPANDED);
+      setTimeout(idetH,400);
     } else {
       animTo(S_DEFAULT);
+      setTimeout(idetH,400);
     }
   }
 
