@@ -577,6 +577,7 @@ function detailHTML(item,area,cat){
 function closeIdet(){
   const el=document.getElementById('idet');
   el.classList.remove('on');
+  history.replaceState(null,'',location.pathname);
   clearTimeout(idetClearTimer);
   idetClearTimer=setTimeout(()=>{document.getElementById('idet-body').innerHTML='';},320);
 }
@@ -592,6 +593,7 @@ function panelBack(){
 function closePanel(){
   document.getElementById('panel').classList.remove('on');
   document.querySelectorAll('#msvg path[data-area]').forEach(p=>{p.setAttribute('fill-opacity','0.1');p.setAttribute('stroke-width','1.5');});
+  history.replaceState(null,'',location.pathname);
   curArea=null;
 }
 
