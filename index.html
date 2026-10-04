@@ -145,10 +145,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .iarr{color:var(--txt3);font-size:16px}
 
 /* ── Item detail (within panel) ──────────────────────────────────────────── */
-#idet{position:absolute;top:0;left:0;right:0;height:100%;background:var(--surface);
-  transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);z-index:5;
-  overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:inherit}
-#idet.on{transform:translateY(0)}
+#idet{position:absolute;bottom:0;left:0;right:0;height:0;background:var(--surface);
+  overflow:hidden;transition:height .28s cubic-bezier(.32,.72,0,1);z-index:5;border-radius:inherit}
+#idet.on{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .det-body{padding:16px 16px 32px}
 .det-area-pill{display:inline-flex;align-items:center;gap:6px;
   background:var(--surface2);border-radius:20px;padding:4px 10px;margin-bottom:14px}
