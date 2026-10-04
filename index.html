@@ -86,6 +86,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .p-dot{width:13px;height:13px;border-radius:4px;flex-shrink:0}
 #p-title{font-family:var(--serif);font-size:17px;color:var(--txt);flex:1;min-width:0;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#p-det-btns{display:flex;gap:8px;flex-shrink:0;}
 #p-close{border:none;background:var(--surface2);color:var(--txt2);font-size:17px;
   width:28px;height:28px;border-radius:50%;cursor:pointer;line-height:1;flex-shrink:0;
   font-family:var(--sans)}
@@ -266,6 +267,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
         <button id="p-back" onclick="panelBack()">←</button>
         <div class="p-dot" id="p-dot"></div>
         <div id="p-title"></div>
+        <div id="p-det-btns"></div>
         <button id="p-close" onclick="closePanel()">×</button>
       </div>
       <div id="pbody">
@@ -486,8 +488,10 @@ function highlightZone(key){
 function showPanel(key){
   const area=A[key];
   document.getElementById('p-dot').style.background=area.color;
+  document.getElementById('p-dot').style.display='';
   document.getElementById('p-title').textContent=area.name;
   document.getElementById('p-back').classList.remove('on');
+  document.getElementById('p-det-btns').innerHTML='';
   renderPanelList(key);
   document.getElementById('panel').classList.add('on');
   closeIdet();
@@ -536,10 +540,11 @@ function openIdet(key,id,cat){
   const items=cat==='att'?area.att:cat==='din'?area.din:area.shp;
   const item=items.find(i=>i.id===id); if(!item)return;
   panelPage='detail';
-  document.getElementById('p-title').textContent=item.name;
+  document.getElementById('p-title').textContent='';
+  document.getElementById('p-dot').style.display='none';
   document.getElementById('p-back').classList.add('on');
-  const shareBtn=item.id>0?`<div class="det-btns"><button class="share-btn" onclick="sharePin(${id})">Share</button></div>`:'';
-  document.getElementById('idet-body').innerHTML=detailHTML(item,area,cat)+shareBtn;
+  document.getElementById('p-det-btns').innerHTML=item.id>0?`<button class="chip" onclick="sharePin(${id})">Share</button>`:'';
+  document.getElementById('idet-body').innerHTML=detailHTML(item,area,cat);
   document.getElementById('idet').classList.add('on');
 }
 
@@ -577,6 +582,8 @@ function panelBack(){
   if(panelPage==='detail'){
     closeIdet(); panelPage='list';
     document.getElementById('p-back').classList.remove('on');
+    document.getElementById('p-dot').style.display='';
+    document.getElementById('p-det-btns').innerHTML='';
     if(curArea) document.getElementById('p-title').textContent=A[curArea].name;
   }
 }
