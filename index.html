@@ -581,7 +581,11 @@ function showPanel(key){
   document.getElementById('p-det-btns').innerHTML='';
   closeIdet();
   renderPanelList(key);
-  document.getElementById('panel').classList.add('on');
+  const panel=document.getElementById('panel');
+  panel.classList.add('on');
+  const headerH=panel.querySelector('.ph-bar').offsetHeight+panel.querySelector('.ph').offsetHeight;
+  const visH=isMob()?panel.offsetHeight*0.625-headerH:panel.offsetHeight-headerH;
+  document.getElementById('pbody').style.maxHeight=Math.max(120,visH)+'px';
 }
 
 function renderPanelList(key){
@@ -930,11 +934,13 @@ const pz=(()=>{
   }
 
   function idetH(){
+    const headerH=ph.offsetHeight+handle.offsetHeight;
+    const visH=Math.max(120,window.innerHeight-panel.getBoundingClientRect().top-headerH);
+    document.getElementById('pbody').style.maxHeight=visH+'px';
     const idet=document.getElementById('idet');
     if(!idet.classList.contains('on'))return;
-    const headerH=ph.offsetHeight+handle.offsetHeight;
     idet.style.top=headerH+'px';
-    idet.style.height=Math.max(120,window.innerHeight-panel.getBoundingClientRect().top-headerH)+'px';
+    idet.style.height=visH+'px';
   }
 
   function onMove(e){
