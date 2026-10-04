@@ -71,7 +71,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   transform:translateY(105%);
   transition:transform .38s cubic-bezier(.32,.72,0,1);
   z-index:50;display:flex;flex-direction:column;
-  height:50vh;height:50svh;overflow:hidden;
+  height:50vh;overflow:hidden;
 }
 #panel.on{transform:translateY(0)}
 @media(min-width:768px){
@@ -270,11 +270,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
         <div id="p-det-btns"></div>
         <button id="p-close" onclick="closePanel()">×</button>
       </div>
-      <div id="pbody">
-        <!-- item detail overlay sits inside pbody -->
-        <div id="idet">
-          <div class="det-body" id="idet-body"></div>
-        </div>
+      <div id="pbody"></div>
+      <div id="idet">
+        <div class="det-body" id="idet-body"></div>
       </div>
     </div>
   </div>
@@ -505,8 +503,7 @@ function renderPanelList(key){
   if(area.din?.length) wrap.appendChild(buildCatSection(area,key,area.din,'din','🍽','Dining'));
   if(area.shp?.length) wrap.appendChild(buildCatSection(area,key,area.shp,'shp','🛍','Shopping'));
   const body=document.getElementById('pbody');
-  const idet=document.getElementById('idet');
-  body.innerHTML=''; body.appendChild(wrap); body.appendChild(idet);
+  body.innerHTML=''; body.appendChild(wrap);
   wrap.querySelectorAll('.ir').forEach(r=>{
     r.addEventListener('click',()=>{
       const id=+r.dataset.id;
