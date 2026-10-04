@@ -936,9 +936,9 @@ function renderItinList(){
     if(!found)return'';
     return`<div class="itin-stop">
       <span class="itin-time">${dispTime(s.time)}</span>
+      ${s.dur?`<span class="itin-dur">${s.dur} min</span>`:''}
       <span class="itin-dot" style="background:${found.color}"></span>
       <span class="itin-name">${found.name}</span>
-      ${s.dur?`<span class="itin-dur">${s.dur} min</span>`:''}
       <button class="itin-del" onclick="removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
     </div>`;
   }).join('');
