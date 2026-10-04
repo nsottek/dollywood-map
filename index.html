@@ -215,13 +215,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 #ldet-inner{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 24px}
 .back-btn{border:none;background:none;color:var(--red);font-size:15px;font-weight:600;
   cursor:pointer;display:flex;align-items:center;gap:3px;font-family:var(--sans);padding:4px 0}
-.vom-btn{border:none;padding:6px 13px;background:var(--surface2);border:1.5px solid var(--border);
-  color:var(--txt2);border-radius:20px;font-family:var(--sans);font-size:13px;
-  font-weight:600;cursor:pointer;white-space:nowrap;}
-.share-btn{border:none;padding:6px 13px;background:var(--surface2);border:1.5px solid var(--border);
-  color:var(--txt2);border-radius:20px;font-family:var(--sans);font-size:13px;
-  font-weight:600;cursor:pointer;white-space:nowrap;}
-.det-btns{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+#ldet-vom{display:flex;gap:8px;margin-left:auto;}
 #share-toast{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);left:50%;
   transform:translateX(-50%) translateY(12px);background:var(--txt);color:var(--bg);
   padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;
@@ -686,9 +680,10 @@ function openLdet(key,id,cat){
   const items=cat==='att'?area.att:cat==='din'?area.din:area.shp;
   const item=items.find(i=>i.id===id); if(!item)return;
   const hasPin=item.id>0&&PIN_COORDS[item.id];
-  document.getElementById('ldet-vom').innerHTML=hasPin?`<button class="vom-btn" onclick="viewOnMap('${key}',${id},'${cat}')">📍 View on Map</button>`:'';
-  const shareBtn=item.id>0?`<div class="det-btns"><button class="share-btn" onclick="sharePin(${id})">Share</button></div>`:'';
-  document.getElementById('ldet-inner').innerHTML=`<div style="padding:20px 16px 0">${detailHTML(item,area,cat)}${shareBtn}</div>`;
+  const hdrBtns=(hasPin?`<button class="chip" onclick="viewOnMap('${key}',${id},'${cat}')">View on Map</button>`:'')
+    +(item.id>0?`<button class="chip" onclick="sharePin(${id})">Share</button>`:'');
+  document.getElementById('ldet-vom').innerHTML=hdrBtns;
+  document.getElementById('ldet-inner').innerHTML=`<div style="padding:20px 16px 0">${detailHTML(item,area,cat)}</div>`;
   document.getElementById('ldet').classList.add('on');
 }
 function closeLdet(){document.getElementById('ldet').classList.remove('on');document.getElementById('ldet-vom').innerHTML='';}
