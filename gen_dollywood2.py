@@ -653,7 +653,7 @@ function renderListView(){{
 
     // Height filter (rides only — non-ride items pass through unchanged)
     if(F.hmin===-1) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmax>0);
-    else if(F.hmin>0) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmin>=F.hmin);
+    else if(F.hmin>0) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmin===F.hmin);
 
     // TimeSaver filter
     if(F.ts){{

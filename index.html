@@ -703,7 +703,7 @@ function renderListView(){
 
     // Height filter (rides only — non-ride items pass through unchanged)
     if(F.hmin===-1) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmax>0);
-    else if(F.hmin>0) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmin>=F.hmin);
+    else if(F.hmin>0) att=att.filter(i=>!RIDE_TYPES.has(i.type)||i.hmin===F.hmin);
 
     // TimeSaver filter
     if(F.ts){
@@ -780,7 +780,12 @@ function openLdet(key,id,cat){
 function closeLdet(){document.getElementById('ldet').classList.remove('on');document.getElementById('ldet-vom').innerHTML='';}
 function viewOnMap(key,id,cat){
   closeLdet();
-  switchView('map');
+  // Switch view directly — avoids animated closePanel() racing with selectArea
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.tbtn').forEach(el=>el.classList.remove('on'));
+  document.getElementById('map-view').classList.add('on');
+  document.querySelector('.tbtn[data-view="map"]').classList.add('on');
+  const p=document.getElementById('panel');p.style.transition='';p.style.transform='';
   selectArea(key);
   history.replaceState(null,'','#pin='+id);
   const coords=PIN_COORDS[id];
