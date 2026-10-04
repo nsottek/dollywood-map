@@ -795,6 +795,8 @@ function viewOnMap(key,id,cat){
   document.querySelectorAll('.tbtn').forEach(el=>el.classList.remove('on'));
   document.getElementById('map-view').classList.add('on');
   document.querySelector('.tbtn[data-view="map"]').classList.add('on');
+  // Cancel any in-flight close animation so its callback won't call _cp() after we reopen
+  window._panelCloseGen=(window._panelCloseGen||0)+1;
   const p=document.getElementById('panel');p.style.transition='';p.style.transform='';
   selectArea(key);
   history.replaceState(null,'','#pin='+id);
@@ -906,10 +908,11 @@ const pz=(()=>{
   closePanel=function(){
     if(!panel.classList.contains('on')){_cp();return;}
     animTo(S_CLOSED);
-    panel.addEventListener('transitionend',()=>{
-      panel.style.transition=''; panel.style.transform='';
-      if(!panel.classList.contains('on')) _cp();
-    },{once:true});
+    const myGen=(window._panelCloseGen=(window._panelCloseGen||0)+1);
+    setTimeout(()=>{
+      if((window._panelCloseGen||0)!==myGen)return;
+      panel.style.transition=''; panel.style.transform=''; _cp();
+    },400);
   };
 
   function onDown(e){
