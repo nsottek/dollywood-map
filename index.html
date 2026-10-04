@@ -147,7 +147,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 /* ── Item detail (within panel) ──────────────────────────────────────────── */
 #idet{position:absolute;bottom:0;left:0;right:0;height:0;background:var(--surface);
   overflow:hidden;transition:height .28s cubic-bezier(.32,.72,0,1);z-index:5;border-radius:inherit}
-#idet.on{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#idet.on{overflow-y:auto;-webkit-overflow-scrolling:touch}
 .det-body{padding:16px 16px 32px}
 .det-area-pill{display:inline-flex;align-items:center;gap:6px;
   background:var(--surface2);border-radius:20px;padding:4px 10px;margin-bottom:14px}
@@ -610,7 +610,9 @@ function openIdet(key,id,cat){
   document.getElementById('p-back').classList.add('on');
   document.getElementById('p-det-btns').innerHTML=item.id>0?`<button class="chip" onclick="sharePin(${id})">Share</button>`:'';
   document.getElementById('idet-body').innerHTML=detailHTML(item,area,cat);
-  document.getElementById('idet').classList.add('on');
+  const idet=document.getElementById('idet');
+  idet.style.height=document.getElementById('pbody').clientHeight+'px';
+  idet.classList.add('on');
 }
 
 function detailHTML(item,area,cat){
@@ -640,6 +642,7 @@ function detailHTML(item,area,cat){
 
 function closeIdet(){
   const el=document.getElementById('idet');
+  el.style.height='0';
   el.classList.remove('on');
   history.replaceState(null,'',location.pathname+(itinerary.length?'?itinerary='+serializeItin():''));
   clearTimeout(idetClearTimer);
