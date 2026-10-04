@@ -907,7 +907,8 @@ const pz=(()=>{
     if(!panel.classList.contains('on')){_cp();return;}
     animTo(S_CLOSED);
     panel.addEventListener('transitionend',()=>{
-      panel.style.transition=''; panel.style.transform=''; _cp();
+      panel.style.transition=''; panel.style.transform='';
+      if(!panel.classList.contains('on')) _cp();
     },{once:true});
   };
 
