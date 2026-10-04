@@ -415,7 +415,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 <div id="itin-popup">
   <div class="itin-popup-inner">
     <div class="itin-popup-hdr"><button class="itin-popup-close" aria-label="Close">&#x2715;</button></div>
-    <div class="itin-popup-body" style="padding:0 14px 16px"></div>
+    <div class="itin-popup-body" style="padding:12px 14px 16px"></div>
   </div>
 </div>
 <div id="share-toast"></div>
@@ -1074,7 +1074,7 @@ function showItinPopup(id,el,source){
   const rect=el.getBoundingClientRect();
   if(source==='hover'){
     const nameEl=el.querySelector('.itin-name');
-    const nameLeft=nameEl?nameEl.getBoundingClientRect().left:rect.left;
+    const nameLeft=nameEl?nameEl.getBoundingClientRect().right:rect.right;
     popup.style.left=nameLeft+'px';
     popup.style.right='16px';
     popup.style.top=(rect.top+rect.height/2)+'px';
