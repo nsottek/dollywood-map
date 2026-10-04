@@ -145,7 +145,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .iarr{color:var(--txt3);font-size:16px}
 
 /* ── Item detail (within panel) ──────────────────────────────────────────── */
-#idet{position:absolute;inset:0;background:var(--surface);
+#idet{position:absolute;top:0;left:0;right:0;height:100%;background:var(--surface);
   transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);z-index:5;
   overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:inherit}
 #idet.on{transform:translateY(0)}
@@ -270,9 +270,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
         <div id="p-det-btns"></div>
         <button id="p-close" onclick="closePanel()">×</button>
       </div>
-      <div id="pbody"></div>
-      <div id="idet">
-        <div class="det-body" id="idet-body"></div>
+      <div id="pbody">
+        <div id="idet">
+          <div class="det-body" id="idet-body"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -503,7 +504,8 @@ function renderPanelList(key){
   if(area.din?.length) wrap.appendChild(buildCatSection(area,key,area.din,'din','🍽','Dining'));
   if(area.shp?.length) wrap.appendChild(buildCatSection(area,key,area.shp,'shp','🛍','Shopping'));
   const body=document.getElementById('pbody');
-  body.innerHTML=''; body.appendChild(wrap);
+  const idet=document.getElementById('idet');
+  body.innerHTML=''; body.appendChild(wrap); body.appendChild(idet);
   wrap.querySelectorAll('.ir').forEach(r=>{
     r.addEventListener('click',()=>{
       const id=+r.dataset.id;
