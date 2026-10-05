@@ -63,6 +63,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 #msvg path[data-area]{cursor:pointer;stroke-width:2;stroke-opacity:.85;transition:fill-opacity .18s,stroke-width .18s}
 
 /* ── Slide-up panel ──────────────────────────────────────────────────────── */
+#panel-clip{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:50}
 #panel{
   position:absolute;bottom:0;left:0;right:0;
   background:var(--surface);
@@ -70,8 +71,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   box-shadow:0 -6px 32px rgba(0,0,0,.22);
   transform:translateY(105%);
   transition:transform .38s cubic-bezier(.32,.72,0,1);
-  z-index:50;display:flex;flex-direction:column;
-  height:80vh;overflow:hidden;
+  pointer-events:auto;display:flex;flex-direction:column;
+  height:80vh;
 }
 #panel.on{transform:translateY(37.5%)}
 @media(min-width:768px){
@@ -149,7 +150,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .iarr{color:var(--txt3);font-size:16px}
 
 /* ── Item detail (within panel) ──────────────────────────────────────────── */
-#idet{position:absolute;top:0;left:0;right:0;height:0;background:var(--surface);
+#idet{position:absolute;bottom:0;left:0;right:0;height:0;background:var(--surface);
   overflow:hidden;transition:height .28s cubic-bezier(.32,.72,0,1);z-index:5;border-radius:inherit}
 #idet.on{overflow-y:auto;-webkit-overflow-scrolling:touch}
 .det-body{padding:10px 16px 32px}
@@ -317,7 +318,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
     </div>
 
     <!-- Slide-up panel -->
-    <div id="panel">
+    <div id="panel-clip"><div id="panel">
       <div class="ph-bar" onclick="closePanel()"><div class="ph-nub"></div></div>
       <div class="ph">
         <button id="p-back" onclick="panelBack()">←</button>
@@ -330,7 +331,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
       <div id="idet">
         <div class="det-body" id="idet-body"></div>
       </div>
-    </div>
+    </div></div>
   </div>
 
   <!-- LIST VIEW -->
@@ -581,11 +582,7 @@ function showPanel(key){
   document.getElementById('p-det-btns').innerHTML='';
   closeIdet();
   renderPanelList(key);
-  const panel=document.getElementById('panel');
-  panel.classList.add('on');
-  const headerH=panel.querySelector('.ph-bar').offsetHeight+panel.querySelector('.ph').offsetHeight;
-  const visH=isMob()?panel.offsetHeight*0.625-headerH:panel.offsetHeight-headerH;
-  document.getElementById('pbody').style.maxHeight=Math.max(120,visH)+'px';
+  document.getElementById('panel').classList.add('on');
 }
 
 function renderPanelList(key){
@@ -637,12 +634,7 @@ function openIdet(key,id,cat){
   document.getElementById('p-det-btns').innerHTML=item.id>0?`<button class="share-btn" onclick="sharePin(${id})" title="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v13M7 8l5-5 5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 16v3a1 1 0 001 1h12a1 1 0 001-1v-3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>`:'';
   document.getElementById('idet-body').innerHTML=detailHTML(item,area,cat);
   const idet=document.getElementById('idet');
-  const panel=document.getElementById('panel');
-  const headerH=panel.querySelector('.ph-bar').offsetHeight+panel.querySelector('.ph').offsetHeight;
-  idet.style.top=headerH+'px';
-  // Use layout height × visible fraction, not getBoundingClientRect — panel may be mid-animation
-  const visH=isMob()?panel.offsetHeight*0.625-headerH:panel.offsetHeight-headerH;
-  idet.style.height=Math.max(120,visH)+'px';
+  idet.style.height=document.getElementById('pbody').clientHeight+'px';
   idet.classList.add('on');
 }
 
@@ -673,7 +665,7 @@ function detailHTML(item,area,cat){
 
 function closeIdet(){
   const el=document.getElementById('idet');
-  el.style.height='0'; el.style.top='';
+  el.style.height='0';
   el.classList.remove('on');
   history.replaceState(null,'',location.pathname+(itinerary.length?'?itinerary='+serializeItin():''));
   clearTimeout(idetClearTimer);
@@ -933,16 +925,6 @@ const pz=(()=>{
     panel.style.transform=`translateY(${sCur}%)`;
   }
 
-  function idetH(){
-    const headerH=ph.offsetHeight+handle.offsetHeight;
-    const visH=Math.max(120,window.innerHeight-panel.getBoundingClientRect().top-headerH);
-    document.getElementById('pbody').style.maxHeight=visH+'px';
-    const idet=document.getElementById('idet');
-    if(!idet.classList.contains('on'))return;
-    idet.style.top=headerH+'px';
-    idet.style.height=visH+'px';
-  }
-
   function onMove(e){
     if(!dragging)return;
     const cy=e.touches?e.touches[0].clientY:e.clientY;
@@ -953,26 +935,17 @@ const pz=(()=>{
     const now=Date.now(),dt=now-lt;
     if(dt>0)vel=(cy-ly)/dt;
     ly=cy; lt=now;
-    const idet=document.getElementById('idet');
-    if(idet.classList.contains('on')){idet.style.transition='none';idetH();}
     e.preventDefault();
   }
 
   function onUp(){
     if(!dragging)return;
     dragging=false;
-    document.getElementById('idet').style.transition='';
     if(!hasMoved)return;
     const p=curPct();
-    if(vel>0.4||p>65){
-      closePanel();
-    } else if(vel<-0.4||p<18){
-      animTo(S_EXPANDED);
-      setTimeout(idetH,400);
-    } else {
-      animTo(S_DEFAULT);
-      setTimeout(idetH,400);
-    }
+    if(vel>0.4||p>65) closePanel();
+    else if(vel<-0.4||p<18) animTo(S_EXPANDED);
+    else animTo(S_DEFAULT);
   }
 
   [handle,ph].forEach(el=>{
