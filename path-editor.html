@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dollywood Path Editor</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;color:#eee;font-family:system-ui,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+#toolbar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#1c1c1c;border-bottom:1px solid #333;flex-shrink:0;flex-wrap:wrap}
+.tbtn{padding:6px 13px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;background:#2e2e2e;color:#bbb;transition:background .12s}
+.tbtn:hover{background:#3a3a3a}
+.tbtn.on{background:#f5a623;color:#111}
+#export-btn{background:#27622a;color:#d4f5d7}
+#export-btn:hover{background:#2e7a32}
+#load-btn{background:#2a4a6e;color:#acd}
+#load-btn:hover{background:#2f5580}
+#stats{margin-left:auto;font-size:11px;color:#666;white-space:nowrap}
+
+#map-wrap{flex:1;position:relative;overflow:auto;min-height:0}
+#map-wrap.mode-node{cursor:crosshair}
+#map-wrap.mode-edge{cursor:default}
+#map-wrap.mode-delete{cursor:no-drop}
+#map-img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+#overlay{position:absolute;top:0;left:0;width:100%;height:100%}
+
+#statusbar{padding:3px 12px;font-size:11px;color:#888;background:#1c1c1c;border-top:1px solid #2a2a2a;flex-shrink:0}
+
+/* tooltip */
+#tip{position:fixed;background:#222;color:#ccc;font-size:11px;padding:3px 7px;border-radius:4px;
+  border:1px solid #444;pointer-events:none;display:none;z-index:50}
+
+/* export modal */
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center}
+#modal.on{display:flex}
+#modal-box{background:#1a1a1a;border:1px solid #444;border-radius:10px;padding:18px;width:640px;max-height:82vh;display:flex;flex-direction:column;gap:10px}
+#modal-box h3{font-size:14px;color:#ddd}
+#modal-ta{flex:1;background:#0e0e0e;color:#7fe07f;font-family:monospace;font-size:11.5px;
+  border:1px solid #333;border-radius:6px;padding:10px;resize:none;min-height:260px;outline:none}
+#modal-actions{display:flex;gap:8px}
+
+/* file input hidden */
+#file-in{display:none}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <button class="tbtn on"  id="btn-node"   onclick="setMode('node')">● Node</button>
+  <button class="tbtn"     id="btn-edge"   onclick="setMode('edge')">─ Edge</button>
+  <button class="tbtn"     id="btn-delete" onclick="setMode('delete')">✕ Delete</button>
+  <div style="width:1px;background:#333;align-self:stretch;margin:0 2px"></div>
+  <button class="tbtn on"  id="btn-pins"   onclick="togglePins()">◈ Pins</button>
+  <button class="tbtn on"  id="btn-ids"    onclick="toggleIds()">⌗ IDs</button>
+  <div style="width:1px;background:#333;align-self:stretch;margin:0 2px"></div>
+  <button class="tbtn"     id="undo-btn"   onclick="undo()">↩ Undo</button>
+  <button class="tbtn" id="load-btn"  onclick="document.getElementById('file-in').click()">⬆ Load JSON</button>
+  <button class="tbtn" id="export-btn" onclick="showExport()">⬇ Export JSON</button>
+  <input type="file" id="file-in" accept=".json" onchange="loadFile(event)">
+  <span id="stats">0 nodes · 0 edges</span>
+</div>
+
+<div id="map-wrap" class="mode-node">
+  <img id="map-img" alt="Park map">
+  <svg id="overlay" viewBox="0 0 1836 1290" preserveAspectRatio="none">
+    <g id="layer-edges"></g>
+    <g id="layer-nodes"></g>
+    <g id="layer-pins"></g>
+  </svg>
+</div>
+
+<div id="statusbar">Loading map…</div>
+<div id="tip"></div>
+
+<div id="modal">
+  <div id="modal-box">
+    <h3>Export — <code>park_graph.json</code></h3>
+    <textarea id="modal-ta" readonly spellcheck="false"></textarea>
+    <div id="modal-actions">
+      <button class="tbtn" onclick="copyJSON()">Copy</button>
+      <button class="tbtn" id="dl-btn" onclick="downloadJSON()">Download</button>
+      <button class="tbtn" style="margin-left:auto" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+let nodes = [];   // [{id, x, y}]
+let edges = [];   // [{from, to}]
+let nextId = 1;
+let mode = 'node';
+let edgeStart = null;   // node id, waiting for edge destination
+let showPins = true;
+let showIds  = true;
+let pinCoords = {};
+let hist = [];   // undo stack
+
+const SVG_W = 1836, SVG_H = 1290;
+
+// ── Bootstrap: load map image + PIN_COORDS from index.html ───────────────────
+fetch('index.html')
+  .then(r => r.text())
+  .then(html => {
+    // Map image (first large base64 jpeg)
+    const b64 = html.match(/src="(data:image\/jpeg;base64,[A-Za-z0-9+/=]{200,})"/);
+    if (b64) document.getElementById('map-img').src = b64[1];
+
+    // PIN_COORDS
+    const pc = html.match(/const PIN_COORDS=(\{[^\n;]+\})/);
+    if (pc) {
+      try { pinCoords = Function('return ' + pc[1])(); } catch(e) {}
+    }
+    renderPins();
+    setStatus('Map loaded. Mode: Add Node — click to place waypoints.');
+  })
+  .catch(() => setStatus('⚠ Could not load index.html — open this file from the same directory.'));
+
+// ── Auto-load existing graph ─────────────────────────────────────────────────
+fetch('park_graph.json')
+  .then(r => r.json())
+  .then(importGraph)
+  .catch(() => {});   // no graph yet, that's fine
+
+// ── SVG coordinate conversion ────────────────────────────────────────────────
+function toSVG(e) {
+  const svg = document.getElementById('overlay');
+  const pt  = svg.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const s = pt.matrixTransform(svg.getScreenCTM().inverse());
+  return [Math.round(s.x), Math.round(s.y)];
+}
+
+// ── Rendering ────────────────────────────────────────────────────────────────
+function render() {
+  renderEdges();
+  renderNodes();
+  document.getElementById('stats').textContent =
+    `${nodes.length} nodes · ${edges.length} edges`;
+}
+
+function renderEdges() {
+  const g = document.getElementById('layer-edges');
+  g.innerHTML = '';
+  for (const e of edges) {
+    const a = nodes.find(n => n.id === e.from);
+    const b = nodes.find(n => n.id === e.to);
+    if (!a || !b) continue;
+    const len = Math.hypot(b.x - a.x, b.y - a.y);
+    const line = el('line', {
+      x1: a.x, y1: a.y, x2: b.x, y2: b.y,
+      stroke: '#f5a623', 'stroke-width': 2.5, opacity: .65,
+      'stroke-linecap': 'round',
+      'data-from': e.from, 'data-to': e.to, style: 'cursor:pointer'
+    });
+    // wider invisible hit target
+    const hit = el('line', {
+      x1: a.x, y1: a.y, x2: b.x, y2: b.y,
+      stroke: 'transparent', 'stroke-width': 12,
+      'data-from': e.from, 'data-to': e.to, style: 'cursor:pointer'
+    });
+    hit.addEventListener('click', onEdgeClick);
+    hit.addEventListener('mouseenter', e2 => showTip(e2, `edge ${e.from}↔${e.to}  ${Math.round(len)}px`));
+    hit.addEventListener('mousemove', moveTip);
+    hit.addEventListener('mouseleave', hideTip);
+    g.appendChild(line);
+    g.appendChild(hit);
+  }
+}
+
+function renderNodes() {
+  const g = document.getElementById('layer-nodes');
+  g.innerHTML = '';
+  for (const n of nodes) {
+    const sel = edgeStart === n.id;
+    const grp = el('g', {'data-id': n.id, style: 'cursor:pointer'});
+    grp.appendChild(el('circle', {
+      cx: n.x, cy: n.y, r: sel ? 11 : 7,
+      fill: sel ? '#fff' : '#f5a623',
+      stroke: sel ? '#f5a623' : '#a06000',
+      'stroke-width': 2
+    }));
+    if (showIds) {
+      grp.appendChild(el('text', {
+        x: n.x, y: n.y + 4,
+        'text-anchor': 'middle', 'font-size': 8,
+        fill: '#111', 'font-weight': 'bold',
+        style: 'pointer-events:none;user-select:none'
+      }, String(n.id)));
+    }
+    grp.addEventListener('click', onNodeClick);
+    grp.addEventListener('mouseenter', e => showTip(e, `node ${n.id}  (${n.x}, ${n.y})`));
+    grp.addEventListener('mousemove', moveTip);
+    grp.addEventListener('mouseleave', hideTip);
+    g.appendChild(grp);
+  }
+}
+
+function renderPins() {
+  const g = document.getElementById('layer-pins');
+  g.innerHTML = '';
+  if (!showPins) return;
+  for (const [id, [x, y]] of Object.entries(pinCoords)) {
+    g.appendChild(el('polygon', {
+      points: `${x},${y-5} ${x+4},${y} ${x},${y+5} ${x-4},${y}`,
+      fill: '#3af', stroke: '#08f', 'stroke-width': 1, opacity: .7,
+      style: 'pointer-events:none'
+    }));
+    if (showIds) {
+      g.appendChild(el('text', {
+        x: x + 6, y: y + 3, 'font-size': 7, fill: '#3af', opacity: .75,
+        style: 'pointer-events:none;user-select:none'
+      }, id));
+    }
+  }
+}
+
+function el(tag, attrs, text) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+// ── Map click (add node) ─────────────────────────────────────────────────────
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target.closest('[data-id]') || e.target.dataset.from) return;
+  if (mode !== 'node') return;
+  const [x, y] = toSVG(e);
+  if (x < 0 || y < 0 || x > SVG_W || y > SVG_H) return;
+  push();
+  nodes.push({id: nextId++, x, y});
+  render();
+  setStatus(`Added node ${nextId - 1} at (${x}, ${y})`);
+});
+
+// ── Node click ────────────────────────────────────────────────────────────────
+function onNodeClick(e) {
+  e.stopPropagation();
+  const id = +e.currentTarget.dataset.id;
+
+  if (mode === 'delete') {
+    push();
+    nodes = nodes.filter(n => n.id !== id);
+    edges = edges.filter(ed => ed.from !== id && ed.to !== id);
+    render();
+    setStatus(`Deleted node ${id} and its edges`);
+    return;
+  }
+
+  if (mode === 'edge') {
+    if (edgeStart === null) {
+      edgeStart = id;
+      render();
+      setStatus(`Edge from node ${id} — now click the destination node`);
+    } else if (edgeStart === id) {
+      edgeStart = null;
+      render();
+      setStatus('Cancelled. Click a node to start a new edge.');
+    } else {
+      const from = edgeStart;
+      const exists = edges.some(ed =>
+        (ed.from === from && ed.to === id) || (ed.from === id && ed.to === from));
+      if (!exists) { push(); edges.push({from, to: id}); }
+      edgeStart = null;
+      render();
+      setStatus(exists ? `Edge ${from}↔${id} already exists` : `Added edge ${from}↔${id}`);
+    }
+  }
+}
+
+// ── Edge click ────────────────────────────────────────────────────────────────
+function onEdgeClick(e) {
+  e.stopPropagation();
+  if (mode !== 'delete') return;
+  const from = +e.target.dataset.from;
+  const to   = +e.target.dataset.to;
+  push();
+  edges = edges.filter(ed => !(ed.from === from && ed.to === to));
+  render();
+  setStatus(`Deleted edge ${from}↔${to}`);
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+const tip = document.getElementById('tip');
+function showTip(e, msg) { tip.textContent = msg; tip.style.display = 'block'; moveTip(e); }
+function moveTip(e) { tip.style.left = (e.clientX + 14) + 'px'; tip.style.top = (e.clientY - 6) + 'px'; }
+function hideTip() { tip.style.display = 'none'; }
+
+// ── Mode & toggles ────────────────────────────────────────────────────────────
+function setMode(m) {
+  mode = m;
+  edgeStart = null;
+  ['node','edge','delete'].forEach(n =>
+    document.getElementById('btn-' + n).classList.toggle('on', n === m));
+  document.getElementById('map-wrap').className = 'mode-' + m;
+  const hints = {
+    node:   'Add Node — click anywhere to place a waypoint',
+    edge:   'Add Edge — click a source node, then a destination node',
+    delete: 'Delete — click a node (removes its edges too) or click an edge'
+  };
+  setStatus('Mode: ' + hints[m]);
+  render();
+}
+
+function togglePins() {
+  showPins = !showPins;
+  document.getElementById('btn-pins').classList.toggle('on', showPins);
+  renderPins();
+}
+
+function toggleIds() {
+  showIds = !showIds;
+  document.getElementById('btn-ids').classList.toggle('on', showIds);
+  render();
+  renderPins();
+}
+
+// ── Undo ──────────────────────────────────────────────────────────────────────
+function push() {
+  hist.push({nodes: JSON.stringify(nodes), edges: JSON.stringify(edges), nextId});
+  if (hist.length > 80) hist.shift();
+}
+
+function undo() {
+  if (!hist.length) { setStatus('Nothing to undo'); return; }
+  const h = hist.pop();
+  nodes  = JSON.parse(h.nodes);
+  edges  = JSON.parse(h.edges);
+  nextId = h.nextId;
+  render();
+  setStatus(`Undone — ${nodes.length} nodes, ${edges.length} edges`);
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'z') { e.preventDefault(); undo(); }
+});
+
+// ── Export ────────────────────────────────────────────────────────────────────
+function graphJSON() {
+  return JSON.stringify({nodes, edges}, null, 2);
+}
+
+function showExport() {
+  document.getElementById('modal-ta').value = graphJSON();
+  document.getElementById('modal').classList.add('on');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('on');
+}
+
+function copyJSON() {
+  navigator.clipboard.writeText(graphJSON())
+    .then(() => setStatus('Copied to clipboard'));
+}
+
+function downloadJSON() {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([graphJSON()], {type:'application/json'}));
+  a.download = 'park_graph.json';
+  a.click();
+}
+
+// ── Import ────────────────────────────────────────────────────────────────────
+function importGraph(data) {
+  nodes  = (data.nodes  || []).map(n => ({id: +n.id, x: +n.x, y: +n.y}));
+  edges  = (data.edges  || []).map(e => ({from: +e.from, to: +e.to}));
+  nextId = nodes.length ? Math.max(...nodes.map(n => n.id)) + 1 : 1;
+  hist   = [];
+  render();
+  setStatus(`Loaded graph: ${nodes.length} nodes, ${edges.length} edges`);
+}
+
+function loadFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      importGraph(JSON.parse(e.target.result));
+    } catch(err) {
+      setStatus('⚠ Could not parse JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function setStatus(msg) {
+  document.getElementById('statusbar').textContent = msg;
+}
+</script>
+</body>
+</html>
