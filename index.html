@@ -1102,7 +1102,13 @@ function showItinPopup(id,el,source){
   const rect=el.getBoundingClientRect();
   if(source==='hover'){
     const nameEl=el.querySelector('.itin-name');
-    const nameLeft=nameEl?nameEl.getBoundingClientRect().right:rect.right;
+    let nameLeft=rect.right;
+    if(nameEl){
+      const r=document.createRange();
+      r.selectNodeContents(nameEl);
+      const rs=r.getClientRects();
+      if(rs.length)nameLeft=rs[rs.length-1].right;
+    }
     popup.style.left=nameLeft+'px';
     popup.style.top=(rect.top+rect.height/2)+'px';
     popup.style.transform='translateY(-50%)';
