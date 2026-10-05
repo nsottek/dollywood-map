@@ -267,7 +267,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
 #plan-clear{padding:10px 20px;border:1.5px solid var(--border);border-radius:20px;background:none;
   color:var(--txt2);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
-#itin-popup{position:fixed;z-index:500;display:none;max-width:75vw}
+#itin-popup{position:fixed;z-index:500;display:none}
 #itin-popup.on{display:block}
 .itin-popup-inner{position:relative;background:var(--surface);border:1.5px solid var(--border);
   border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.32);
@@ -275,12 +275,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .itin-popup-hdr{position:absolute;top:10px;right:10px}
 .itin-popup-close{border:none;background:var(--surface2);color:var(--txt2);font-size:17px;
   width:28px;height:28px;border-radius:50%;cursor:pointer;line-height:1;font-family:var(--sans)}
-#itin-popup.has-caret::before{content:'';position:absolute;top:50%;right:100%;
-  transform:translateY(-50%);border:9px solid transparent;
-  border-right:9px solid var(--border);border-left-width:0}
-#itin-popup.has-caret::after{content:'';position:absolute;top:50%;right:calc(100% - 1.5px);
-  transform:translateY(-50%);border:7.5px solid transparent;
-  border-right:7.5px solid var(--surface);border-left-width:0}
+#itin-popup.has-caret::before{content:'';position:absolute;bottom:100%;left:12px;
+  border:9px solid transparent;border-bottom:9px solid var(--border);border-top-width:0}
+#itin-popup.has-caret::after{content:'';position:absolute;bottom:calc(100% - 1.5px);left:13.5px;
+  border:7.5px solid transparent;border-bottom:7.5px solid var(--surface);border-top-width:0}
 </style>
 </head>
 <body>
@@ -1053,41 +1051,29 @@ function renderItinList(){
       <button class="itin-del" onclick="event.stopPropagation();removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
     </div>`;
   }).join('');
-  const canHover=window.matchMedia('(hover:hover)').matches;
   list.querySelectorAll('.itin-stop').forEach(stop=>{
     const id=+stop.dataset.id;
-    if(canHover){
-      stop.addEventListener('mouseenter',()=>{clearTimeout(itinPopupTimer);itinPopupTimer=setTimeout(()=>showItinPopup(id,stop,'hover'),350);});
-      stop.addEventListener('mouseleave',()=>{clearTimeout(itinPopupTimer);itinPopupTimer=setTimeout(hideItinPopup,120);});
-    }
-    stop.addEventListener('click',()=>showItinPopup(id,stop,'click'));
+    stop.addEventListener('click',()=>showItinPopup(id,stop));
   });
 }
 
-let itinPopupTimer=null;
-
-function showItinPopup(id,el,source){
-  clearTimeout(itinPopupTimer);
+function showItinPopup(id,el){
   const result=findById(id);
   if(!result)return;
   const popup=document.getElementById('itin-popup');
   popup.querySelector('.itin-popup-body').innerHTML=detailHTML(result.item,A[result.key],result.cat);
-  popup.querySelector('.itin-popup-hdr').style.display=source==='click'?'flex':'none';
-  popup.style.top=popup.style.bottom=popup.style.left=popup.style.right=popup.style.width=popup.style.transform='';
+  popup.querySelector('.itin-popup-hdr').style.display='flex';
+  popup.style.top=popup.style.bottom=popup.style.left=popup.style.right=popup.style.width=popup.style.maxWidth='';
   popup.classList.remove('has-caret');
   const rect=el.getBoundingClientRect();
-  if(source==='hover'){
+  const isDesktop=window.matchMedia('(hover:hover)').matches;
+  if(isDesktop){
     const nameEl=el.querySelector('.itin-name');
-    let nameLeft=rect.right;
-    if(nameEl){
-      const r=document.createRange();
-      r.selectNodeContents(nameEl);
-      const rs=r.getClientRects();
-      if(rs.length)nameLeft=rs[rs.length-1].right;
-    }
+    const nameLeft=nameEl?nameEl.getBoundingClientRect().left:rect.left;
     popup.style.left=nameLeft+'px';
-    popup.style.top=(rect.top+rect.height/2)+'px';
-    popup.style.transform='translateY(-50%)';
+    popup.style.right='16px';
+    popup.style.maxWidth='360px';
+    popup.style.top=(rect.bottom+12)+'px';
     popup.classList.add('has-caret');
   } else {
     popup.style.left=rect.left+'px';
@@ -1102,15 +1088,11 @@ function showItinPopup(id,el,source){
 }
 
 function hideItinPopup(){
-  clearTimeout(itinPopupTimer);
-  const popup=document.getElementById('itin-popup');
-  popup.classList.remove('on','has-caret');
+  document.getElementById('itin-popup').classList.remove('on','has-caret');
 }
 
 (function(){
   const popup=document.getElementById('itin-popup');
-  popup.addEventListener('mouseenter',()=>clearTimeout(itinPopupTimer));
-  popup.addEventListener('mouseleave',()=>{itinPopupTimer=setTimeout(hideItinPopup,120);});
   popup.querySelector('.itin-popup-close').addEventListener('click',e=>{e.stopPropagation();hideItinPopup();});
   document.addEventListener('click',e=>{
     if(!e.target.closest('#itin-popup')&&!e.target.closest('.itin-stop'))hideItinPopup();
