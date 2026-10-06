@@ -314,6 +314,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
           <polygon data-area="jukebox"     fill="var(--c-jukebox)"    fill-opacity=".1" stroke="var(--c-jukebox)"    points="1280,1092 1183,1054 1100,1058 1100,1092 1070,1114 1066,1161 1130,1163 1135,1193 1120,1258 1166,1288 1298,1286 1395,1278 1449,1226 1474,1188 1480,1139 1441,1132 1356,1132"/>
           <polygon data-area="dolly"       fill="var(--c-dolly)"      fill-opacity=".1" stroke="var(--c-dolly)"      points="1094,1068 1092,1090 1062,1108 1056,1160 1124,1161 1135,1174 1124,1230 909,1232 910,1170 923,1145 906,1094 925,1067 962,1052"/>
           <polygon data-area="wildwood"    fill="var(--c-wildwood)"   fill-opacity=".1" stroke="var(--c-wildwood)"   points="769,466 768,508 738,538 702,544 654,530 616,524 566,518 546,510 524,512 514,530 502,596 465,643 424,677 361,689 326,665 210,600 17,536 0,394 28,338 94,308 164,306 244,316 252,448 342,440 390,402 446,356 496,299 557,301 574,340 652,346 704,348 750,353 755,389 751,426"/>
+          <g id="route-layer"></g>
         </svg>
       </div>
     </div>
@@ -959,6 +960,84 @@ const pz=(()=>{
   document.addEventListener('mouseup',onUp);
 })();
 
+// ── Park graph (routing) ──────────────────────────────────────────────────────
+let GRAPH_NODES={};  // id → {x,y}
+let GRAPH_ADJ={};    // id → [{id, dist}]
+
+fetch('park_graph.json').then(r=>r.json()).then(data=>{
+  for(const n of data.nodes){
+    GRAPH_NODES[n.id]={x:n.x,y:n.y};
+    GRAPH_ADJ[n.id]=[];
+  }
+  for(const e of data.edges){
+    const a=GRAPH_NODES[e.from],b=GRAPH_NODES[e.to];
+    const d=Math.hypot(b.x-a.x,b.y-a.y);
+    GRAPH_ADJ[e.from].push({id:e.to,d});
+    GRAPH_ADJ[e.to].push({id:e.from,d});
+  }
+}).catch(()=>{});
+
+function nearestNode(x,y){
+  let best=null,bestD=Infinity;
+  for(const[id,n]of Object.entries(GRAPH_NODES)){
+    const d=Math.hypot(n.x-x,n.y-y);
+    if(d<bestD){bestD=d;best=+id;}
+  }
+  return best;
+}
+
+function dijkstra(startId,endId){
+  if(startId===endId)return[startId];
+  const dist={},prev={};
+  const unvisited=new Set(Object.keys(GRAPH_ADJ).map(Number));
+  for(const id of unvisited)dist[id]=Infinity;
+  dist[startId]=0;
+  while(unvisited.size){
+    let u=null;
+    for(const id of unvisited)if(u===null||dist[id]<dist[u])u=id;
+    if(u===endId||dist[u]===Infinity)break;
+    unvisited.delete(u);
+    for(const{id:v,d}of(GRAPH_ADJ[u]||[])){
+      if(!unvisited.has(v))continue;
+      const alt=dist[u]+d;
+      if(alt<dist[v]){dist[v]=alt;prev[v]=u;}
+    }
+  }
+  const path=[];
+  let u=endId;
+  while(u!==undefined){path.unshift(u);u=prev[u];}
+  return path[0]===startId?path:null;
+}
+
+function routeBetween(pinIdA,pinIdB){
+  const ca=PIN_COORDS[pinIdA],cb=PIN_COORDS[pinIdB];
+  if(!ca||!cb||!Object.keys(GRAPH_NODES).length)return null;
+  const na=nearestNode(ca[0],ca[1]);
+  const nb=nearestNode(cb[0],cb[1]);
+  const nodeIds=dijkstra(na,nb);
+  if(!nodeIds)return null;
+  return nodeIds.map(id=>GRAPH_NODES[id]);
+}
+
+function renderItinRoute(){
+  const g=document.getElementById('route-layer');
+  if(!g)return;
+  g.innerHTML='';
+  if(itinerary.length<2)return;
+  for(let i=0;i<itinerary.length-1;i++){
+    const pts=routeBetween(itinerary[i].id,itinerary[i+1].id);
+    if(!pts||pts.length<2)continue;
+    const poly=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    poly.setAttribute('points',pts.map(p=>`${p.x},${p.y}`).join(' '));
+    poly.setAttribute('fill','none');
+    poly.setAttribute('stroke','rgba(255,200,60,0.75)');
+    poly.setAttribute('stroke-width','5');
+    poly.setAttribute('stroke-linecap','round');
+    poly.setAttribute('stroke-linejoin','round');
+    g.appendChild(poly);
+  }
+}
+
 // ── Itinerary ─────────────────────────────────────────────────────────────────
 const ALL_PINNED=(()=>{
   const out=[];
@@ -1055,6 +1134,7 @@ function renderItinList(){
     const id=+stop.dataset.id;
     stop.addEventListener('click',()=>showItinPopup(id,stop));
   });
+  renderItinRoute();
 }
 
 function showItinPopup(id,el){
