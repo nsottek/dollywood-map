@@ -1481,8 +1481,15 @@ function pbUpdateDot(){
   dot.setAttribute('fill',col);
   ring.setAttribute('stroke',col);
   const duration=pos.dwell?'1.4s':'1.2s';
-  dot.style.animation=(pos.dwell?'pb-dwell-pulse 1.8s':'pb-travel-pulse 1s')+' ease-in-out infinite';
-  ring.style.animation='pb-ring-expand '+duration+' ease-out infinite';
+  if(pbSt.playing){
+    dot.style.animation=(pos.dwell?'pb-dwell-pulse 1.8s':'pb-travel-pulse 1s')+' ease-in-out infinite';
+    ring.style.animation='pb-ring-expand '+duration+' ease-out infinite';
+    ring.style.opacity='';
+  } else {
+    dot.style.animation='none';
+    ring.style.animation='none';
+    ring.style.opacity='0';
+  }
 }
 
 function pbUpdateUI(){
@@ -1515,6 +1522,7 @@ function pbToggle(){
     if(pbSt.rafId)cancelAnimationFrame(pbSt.rafId);
     pbSt.rafId=null;pbSt.lastTs=null;
     document.getElementById('pb-play').innerHTML='&#9654;';
+    pbUpdateDot();
   } else {
     if(pbSt.cur>=pbSt.end)pbSt.cur=pbSt.start;
     pbSt.playing=true;pbSt.lastTs=null;
