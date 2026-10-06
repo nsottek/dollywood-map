@@ -1391,7 +1391,7 @@ function clearItin(){
 // ── Playback ──────────────────────────────────────────────────────────────────
 let pbSegs=null;
 const SPEEDS=[1,2,3,5,10];
-const pbSt={playing:false,speed:1,cur:0,start:0,end:0,rafId:null,lastTs:null};
+const pbSt={playing:false,speed:2,cur:0,start:0,end:0,rafId:null,lastTs:null};
 
 function buildPbSegs(){
   if(!itinerary.length)return null;
@@ -1540,10 +1540,10 @@ function openPlayback(){
   pbSt.start=pbSegs[0].startMin;
   pbSt.end=pbSegs[pbSegs.length-1].endMin;
   pbSt.cur=pbSt.start;
-  pbSt.playing=false;pbSt.speed=1;
+  pbSt.playing=false;pbSt.speed=2;
   if(pbSt.rafId){cancelAnimationFrame(pbSt.rafId);pbSt.rafId=null;}
   document.getElementById('pb-play').innerHTML='&#9654;';
-  document.getElementById('pb-speed').textContent='1\xd7';
+  document.getElementById('pb-speed').textContent='2\xd7';
   const scrub=document.getElementById('pb-scrub');
   scrub.min=pbSt.start;scrub.max=pbSt.end;scrub.value=pbSt.start;scrub._seeking=false;
   scrub.addEventListener('mousedown',()=>{scrub._seeking=true;},{once:false,capture:false});
