@@ -255,7 +255,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 #plan-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 #itin-list{padding:0 16px}
 .itin-stop{display:flex;align-items:center;gap:8px;padding:11px 0;border-bottom:1px solid var(--border)}
-.itin-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt2);width:56px;flex-shrink:0}
+.itin-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt2);width:56px;flex-shrink:0;cursor:pointer;border-radius:4px;padding:1px 2px;margin:-1px -2px}
+.itin-time:hover{color:var(--txt);text-decoration:underline dotted}
+.itin-time-input{width:60px;flex-shrink:0;border:none;border-bottom:1.5px solid var(--red);background:transparent;font-size:12px;font-weight:700;font-family:var(--sans);color:var(--txt);font-variant-numeric:tabular-nums;outline:none;padding:0 2px;cursor:pointer}
 .itin-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
 .itin-name{flex:1;font-size:14px;font-weight:500;color:var(--txt);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .itin-dur{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap;width:52px}
@@ -1113,28 +1115,76 @@ function dispTime(t){
   return h12+':'+m+' '+ampm;
 }
 
-function renderItinList(){
+function renderItinList(animate){
   const list=document.getElementById('itin-list');
   const empty=document.getElementById('plan-empty');
   if(!list)return;
   if(!itinerary.length){list.innerHTML='';empty.style.display='';hideItinPopup();return;}
   empty.style.display='none';
+  const oldTops={};
+  if(animate){
+    list.querySelectorAll('.itin-stop[data-id]').forEach(el=>{
+      oldTops[el.dataset.id]=el.getBoundingClientRect().top;
+    });
+  }
   list.innerHTML=itinerary.map(s=>{
     const found=ALL_PINNED.find(i=>i.id===s.id);
     if(!found)return'';
     return`<div class="itin-stop" data-id="${s.id}">
-      <span class="itin-time">${dispTime(s.time)}</span>
+      <span class="itin-time" onclick="event.stopPropagation();startEditTime(${s.id},this)">${dispTime(s.time)}</span>
       <span class="itin-dur">${s.dur?s.dur+' min':''}</span>
       <span class="itin-dot" style="background:${found.color}"></span>
       <span class="itin-name">${found.name}</span>
       <button class="itin-del" onclick="event.stopPropagation();removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
     </div>`;
   }).join('');
+  if(animate&&Object.keys(oldTops).length){
+    list.querySelectorAll('.itin-stop[data-id]').forEach(el=>{
+      const oldTop=oldTops[el.dataset.id];
+      if(oldTop==null)return;
+      const delta=oldTop-el.getBoundingClientRect().top;
+      if(!delta)return;
+      el.style.transition='none';
+      el.style.transform=`translateY(${delta}px)`;
+      el.getBoundingClientRect();
+      el.style.transition='transform 300ms ease';
+      el.style.transform='';
+      el.addEventListener('transitionend',()=>{el.style.transition='';el.style.transform='';},{once:true});
+    });
+  }
   list.querySelectorAll('.itin-stop').forEach(stop=>{
     const id=+stop.dataset.id;
     stop.addEventListener('click',()=>showItinPopup(id,stop));
   });
   renderItinRoute();
+}
+
+function startEditTime(id,timeEl){
+  const s=itinerary.find(x=>x.id===id);
+  if(!s)return;
+  const inp=document.createElement('input');
+  inp.type='time';
+  inp.className='itin-time-input';
+  inp.value=s.time.slice(0,2)+':'+s.time.slice(2);
+  timeEl.replaceWith(inp);
+  inp.focus();
+  let committed=false;
+  function commit(){
+    if(committed)return;
+    committed=true;
+    if(inp.value){
+      const stop=itinerary.find(x=>x.id===id);
+      if(stop)stop.time=inp.value.replace(':','');
+      itinerary.sort((a,b)=>a.time.localeCompare(b.time));
+      updateItinUrl();
+    }
+    renderItinList(true);
+  }
+  inp.addEventListener('blur',()=>setTimeout(commit,0));
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){inp.blur();}
+    if(e.key==='Escape'){committed=true;renderItinList();}
+  });
 }
 
 function showItinPopup(id,el){
