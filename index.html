@@ -480,7 +480,7 @@ function switchView(v){
   document.querySelectorAll('.tbtn').forEach(el=>el.classList.remove('on'));
   document.getElementById(v+'-view').classList.add('on');
   document.querySelector(`.tbtn[data-view="${v}"]`).classList.add('on');
-  if(v==='map') closePanel();
+  if(v==='map'){closePanel();renderItinRoute();}
   if(v==='list') renderListView();
   if(v==='plan') renderItinList();
 }
