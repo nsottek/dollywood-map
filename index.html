@@ -284,6 +284,55 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   border:9px solid transparent;border-bottom:9px solid var(--border);border-top-width:0}
 #itin-popup.has-caret::after{content:'';position:absolute;bottom:calc(100% - 1.5px);left:13.5px;
   border:7.5px solid transparent;border-bottom:7.5px solid var(--surface);border-top-width:0}
+
+/* ── Playback bar ────────────────────────────────────────────────────────── */
+#playback-bar{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  background:rgba(24,12,0,.92);border:1px solid rgba(245,183,49,.35);
+  border-radius:28px;padding:8px 14px;
+  display:none;align-items:center;gap:10px;z-index:100;
+  min-width:260px;max-width:min(92vw,420px);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 4px 24px rgba(0,0,0,.4);pointer-events:auto;
+}
+#playback-bar.on{display:flex}
+#pb-play{
+  width:32px;height:32px;border:none;border-radius:50%;
+  background:var(--gold);color:#180c00;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;line-height:1;padding:0;font-family:var(--sans);
+}
+#pb-play:active{filter:brightness(.85)}
+#pb-scrub-wrap{flex:1;display:flex;align-items:center;min-width:0}
+#pb-scrub{
+  width:100%;appearance:none;height:4px;border-radius:2px;
+  background:rgba(255,255,255,.22);outline:none;cursor:pointer;
+}
+#pb-scrub::-webkit-slider-thumb{
+  appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--gold);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.4);
+}
+#pb-time{
+  font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:rgba(255,255,255,.6);flex-shrink:0;min-width:54px;text-align:right;
+}
+#pb-speed{
+  font-size:11px;font-weight:700;color:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+  border-radius:10px;cursor:pointer;padding:3px 8px;flex-shrink:0;
+  font-family:var(--sans);
+}
+#pb-speed:active{background:rgba(255,255,255,.2)}
+#plan-play{
+  padding:10px 16px;border:1.5px solid var(--gold);border-radius:20px;
+  background:none;color:var(--gold);font-size:14px;font-weight:600;
+  font-family:var(--sans);cursor:pointer;flex-shrink:0;white-space:nowrap;
+}
+#plan-play:active{background:rgba(245,183,49,.12)}
+@keyframes pb-travel-pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.3);opacity:.7}}
+@keyframes pb-dwell-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.8}}
+@keyframes pb-ring-expand{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.2);opacity:0}}
+#pb-dot,#pb-ring{transform-box:fill-box;transform-origin:center}
 </style>
 </head>
 <body>
@@ -341,6 +390,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
         </div>
       </div>
     </div></div>
+    <div id="playback-bar">
+      <button id="pb-play" title="Play/Pause" onclick="pbToggle()">&#9654;</button>
+      <div id="pb-scrub-wrap"><input type="range" id="pb-scrub" min="0" max="1440" value="0" step="1" oninput="pbSeek(+this.value)"></div>
+      <span id="pb-time">&#8212;</span>
+      <button id="pb-speed" title="Playback speed" onclick="pbCycleSpeed()">1&times;</button>
+    </div>
   </div>
 
   <!-- LIST VIEW -->
@@ -416,6 +471,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
       <div id="plan-empty">No stops yet &mdash; search for an attraction above to build your day.</div>
     </div>
     <div id="plan-foot">
+      <button id="plan-play" onclick="openPlayback()">&#9654; Play</button>
       <button id="plan-copy" onclick="copyItinLink()">Share Itinerary</button>
       <button id="plan-clear" onclick="clearItin()">Clear</button>
     </div>
@@ -1331,6 +1387,173 @@ function clearItin(){
   if(!found)return;
   setTimeout(()=>viewOnMap(found.key,id,found.cat),100);
 })();
+
+// ── Playback ──────────────────────────────────────────────────────────────────
+let pbSegs=null;
+const SPEEDS=[1,2,3,5,10];
+const pbSt={playing:false,speed:1,cur:0,start:0,end:0,rafId:null,lastTs:null};
+
+function buildPbSegs(){
+  if(!itinerary.length)return null;
+  const segs=[];
+  for(let i=0;i<itinerary.length;i++){
+    const s=itinerary[i];
+    const c=PIN_COORDS[s.id];
+    if(!c)continue;
+    const sm=timeToMins(s.time);
+    const em=s.dur?sm+s.dur:sm+1;
+    segs.push({type:'dwell',startMin:sm,endMin:em,x:c[0],y:c[1]});
+    if(i<itinerary.length-1){
+      const next=itinerary[i+1];
+      const nc=PIN_COORDS[next.id];
+      if(!nc)continue;
+      const ts=em,te=timeToMins(next.time);
+      if(te>ts){
+        const rpts=routeBetween(s.id,next.id);
+        const full=rpts&&rpts.length?
+          [{x:c[0],y:c[1]},...rpts.map(p=>({x:p.x,y:p.y})),{x:nc[0],y:nc[1]}]:
+          [{x:c[0],y:c[1]},{x:nc[0],y:nc[1]}];
+        segs.push({type:'travel',startMin:ts,endMin:te,pts:full});
+      }
+    }
+  }
+  return segs.length?segs:null;
+}
+
+function pbInterpPoly(pts,t){
+  if(pts.length===1)return{x:pts[0].x,y:pts[0].y};
+  let total=0;
+  const lens=[];
+  for(let i=1;i<pts.length;i++){
+    const dx=pts[i].x-pts[i-1].x,dy=pts[i].y-pts[i-1].y;
+    lens.push(Math.sqrt(dx*dx+dy*dy));
+    total+=lens[i-1];
+  }
+  if(!total)return{x:pts[0].x,y:pts[0].y};
+  let acc=0,tgt=t*total;
+  for(let i=1;i<pts.length;i++){
+    if(acc+lens[i-1]>=tgt){
+      const u=(tgt-acc)/lens[i-1];
+      return{x:pts[i-1].x+u*(pts[i].x-pts[i-1].x),y:pts[i-1].y+u*(pts[i].y-pts[i-1].y)};
+    }
+    acc+=lens[i-1];
+  }
+  return{x:pts[pts.length-1].x,y:pts[pts.length-1].y};
+}
+
+function pbGetPos(mins){
+  if(!pbSegs)return null;
+  for(const seg of pbSegs){
+    if(mins>=seg.startMin&&mins<=seg.endMin){
+      if(seg.type==='dwell')return{x:seg.x,y:seg.y,dwell:true};
+      const t=seg.endMin>seg.startMin?(mins-seg.startMin)/(seg.endMin-seg.startMin):0;
+      return{...pbInterpPoly(seg.pts,t),dwell:false};
+    }
+  }
+  if(mins<pbSegs[0].startMin){
+    const f=pbSegs[0];
+    return f.type==='dwell'?{x:f.x,y:f.y,dwell:true}:{...f.pts[0],dwell:false};
+  }
+  const l=pbSegs[pbSegs.length-1];
+  return l.type==='dwell'?{x:l.x,y:l.y,dwell:true}:{...l.pts[l.pts.length-1],dwell:false};
+}
+
+function pbUpdateDot(){
+  const pos=pbGetPos(pbSt.cur);
+  if(!pos)return;
+  const SVG_NS='http://www.w3.org/2000/svg';
+  let ring=document.getElementById('pb-ring');
+  let dot=document.getElementById('pb-dot');
+  if(!dot){
+    const g=document.getElementById('route-layer');
+    ring=document.createElementNS(SVG_NS,'circle');
+    ring.setAttribute('id','pb-ring');ring.setAttribute('r','14');
+    ring.setAttribute('fill','none');ring.setAttribute('stroke-width','2.5');
+    g.appendChild(ring);
+    dot=document.createElementNS(SVG_NS,'circle');
+    dot.setAttribute('id','pb-dot');dot.setAttribute('r','8');
+    dot.setAttribute('stroke','#fff');dot.setAttribute('stroke-width','2');
+    g.appendChild(dot);
+  }
+  dot.setAttribute('cx',pos.x);dot.setAttribute('cy',pos.y);
+  ring.setAttribute('cx',pos.x);ring.setAttribute('cy',pos.y);
+  const col=pos.dwell?'#3fb950':'#58a6ff';
+  dot.setAttribute('fill',col);
+  ring.setAttribute('stroke',col);
+  const duration=pos.dwell?'1.4s':'1.2s';
+  dot.style.animation=(pos.dwell?'pb-dwell-pulse 1.8s':'pb-travel-pulse 1s')+' ease-in-out infinite';
+  ring.style.animation='pb-ring-expand '+duration+' ease-out infinite';
+}
+
+function pbUpdateUI(){
+  const m=Math.round(pbSt.cur);
+  const h=Math.floor(m/60),mn=m%60;
+  const ap=h>=12?'PM':'AM',h12=h>12?h-12:h===0?12:h;
+  document.getElementById('pb-time').textContent=h12+':'+String(mn).padStart(2,'0')+' '+ap;
+  const s=document.getElementById('pb-scrub');
+  if(s&&!s._seeking)s.value=pbSt.cur;
+}
+
+function pbTick(ts){
+  if(!pbSt.playing)return;
+  if(pbSt.lastTs!==null){
+    const dt=(ts-pbSt.lastTs)/1000;
+    pbSt.cur+=dt*pbSt.speed;
+    if(pbSt.cur>=pbSt.end){
+      pbSt.cur=pbSt.end;pbSt.playing=false;
+      document.getElementById('pb-play').innerHTML='&#9654;';
+    }
+  }
+  pbSt.lastTs=ts;
+  pbUpdateDot();pbUpdateUI();
+  if(pbSt.playing)pbSt.rafId=requestAnimationFrame(pbTick);
+}
+
+function pbToggle(){
+  if(pbSt.playing){
+    pbSt.playing=false;
+    if(pbSt.rafId)cancelAnimationFrame(pbSt.rafId);
+    pbSt.rafId=null;pbSt.lastTs=null;
+    document.getElementById('pb-play').innerHTML='&#9654;';
+  } else {
+    if(pbSt.cur>=pbSt.end)pbSt.cur=pbSt.start;
+    pbSt.playing=true;pbSt.lastTs=null;
+    pbSt.rafId=requestAnimationFrame(pbTick);
+    document.getElementById('pb-play').innerHTML='&#9646;&#9646;';
+  }
+}
+
+function pbSeek(v){
+  pbSt.cur=+v;
+  pbUpdateDot();pbUpdateUI();
+}
+
+function pbCycleSpeed(){
+  const idx=SPEEDS.indexOf(pbSt.speed);
+  pbSt.speed=SPEEDS[(idx+1)%SPEEDS.length];
+  document.getElementById('pb-speed').textContent=pbSt.speed+'\xd7';
+}
+
+function openPlayback(){
+  pbSegs=buildPbSegs();
+  if(!pbSegs){showToast('Add stops with times to play back');return;}
+  pbSt.start=pbSegs[0].startMin;
+  pbSt.end=pbSegs[pbSegs.length-1].endMin;
+  pbSt.cur=pbSt.start;
+  pbSt.playing=false;pbSt.speed=1;
+  if(pbSt.rafId){cancelAnimationFrame(pbSt.rafId);pbSt.rafId=null;}
+  document.getElementById('pb-play').innerHTML='&#9654;';
+  document.getElementById('pb-speed').textContent='1\xd7';
+  const scrub=document.getElementById('pb-scrub');
+  scrub.min=pbSt.start;scrub.max=pbSt.end;scrub.value=pbSt.start;scrub._seeking=false;
+  scrub.addEventListener('mousedown',()=>{scrub._seeking=true;},{once:false,capture:false});
+  scrub.addEventListener('touchstart',()=>{scrub._seeking=true;},{once:false,passive:true});
+  scrub.addEventListener('mouseup',()=>{scrub._seeking=false;},{once:false});
+  scrub.addEventListener('touchend',()=>{scrub._seeking=false;},{once:false});
+  document.getElementById('playback-bar').classList.add('on');
+  switchView('map');
+  pbUpdateDot();pbUpdateUI();
+}
 </script>
 </body>
 </html>
