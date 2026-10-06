@@ -1021,7 +1021,8 @@ function routeBetween(pinIdA,pinIdB){
   const nb=nearestNode(cb[0],cb[1]);
   const nodeIds=dijkstra(na,nb);
   if(!nodeIds)return null;
-  return nodeIds.map(id=>GRAPH_NODES[id]);
+  const nodePts=nodeIds.map(id=>GRAPH_NODES[id]);
+  return [{x:ca[0],y:ca[1]},...nodePts,{x:cb[0],y:cb[1]}];
 }
 
 function renderItinRoute(){
@@ -1032,14 +1033,23 @@ function renderItinRoute(){
   for(let i=0;i<itinerary.length-1;i++){
     const pts=routeBetween(itinerary[i].id,itinerary[i+1].id);
     if(!pts||pts.length<2)continue;
-    const poly=document.createElementNS('http://www.w3.org/2000/svg','polyline');
-    poly.setAttribute('points',pts.map(p=>`${p.x},${p.y}`).join(' '));
-    poly.setAttribute('fill','none');
-    poly.setAttribute('stroke','rgba(255,200,60,0.75)');
-    poly.setAttribute('stroke-width','5');
-    poly.setAttribute('stroke-linecap','round');
-    poly.setAttribute('stroke-linejoin','round');
-    g.appendChild(poly);
+    const ptStr=pts.map(p=>`${p.x},${p.y}`).join(' ');
+    const outline=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    outline.setAttribute('points',ptStr);
+    outline.setAttribute('fill','none');
+    outline.setAttribute('stroke','rgba(160,110,0,0.85)');
+    outline.setAttribute('stroke-width','9');
+    outline.setAttribute('stroke-linecap','round');
+    outline.setAttribute('stroke-linejoin','round');
+    g.appendChild(outline);
+    const fill=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    fill.setAttribute('points',ptStr);
+    fill.setAttribute('fill','none');
+    fill.setAttribute('stroke','rgba(255,205,60,0.9)');
+    fill.setAttribute('stroke-width','5');
+    fill.setAttribute('stroke-linecap','round');
+    fill.setAttribute('stroke-linejoin','round');
+    g.appendChild(fill);
   }
 }
 
