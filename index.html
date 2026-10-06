@@ -260,7 +260,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
 .itin-time-input{width:60px;flex-shrink:0;border:none;border-bottom:1.5px solid var(--red);background:transparent;font-size:12px;font-weight:700;font-family:var(--sans);color:var(--txt);font-variant-numeric:tabular-nums;outline:none;padding:0 2px;cursor:pointer}
 .itin-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
 .itin-name{flex:1;font-size:14px;font-weight:500;color:var(--txt);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.itin-dur{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap;width:52px}
+.itin-dur{font-size:12px;color:var(--txt3);flex-shrink:0;white-space:nowrap;width:52px;cursor:pointer}
+.itin-dur:hover{color:var(--txt);text-decoration:underline dotted}
+.itin-dur-input{width:44px;flex-shrink:0;border:none;border-bottom:1.5px solid var(--red);background:transparent;font-size:12px;font-family:var(--sans);color:var(--txt);font-variant-numeric:tabular-nums;outline:none;padding:0 2px;text-align:right}
+.itin-travel{display:flex;align-items:center;gap:5px;padding:4px 0;font-size:11px;color:var(--txt3);font-variant-numeric:tabular-nums}
 .itin-del{border:none;background:none;color:var(--txt3);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px;flex-shrink:0}
 #plan-empty{text-align:center;color:var(--txt3);padding:52px 16px;font-size:15px;line-height:1.7}
 #plan-foot{flex:0 0 auto;padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom,0px));
@@ -1115,6 +1118,8 @@ function dispTime(t){
   return h12+':'+m+' '+ampm;
 }
 
+function timeToMins(t){return +t.slice(0,2)*60+ +t.slice(2);}
+
 function renderItinList(animate){
   const list=document.getElementById('itin-list');
   const empty=document.getElementById('plan-empty');
@@ -1127,12 +1132,21 @@ function renderItinList(animate){
       oldTops[el.dataset.id]=el.getBoundingClientRect().top;
     });
   }
-  list.innerHTML=itinerary.map(s=>{
-    const found=ALL_PINNED.find(i=>i.id===s.id);
+  list.innerHTML=itinerary.map((s,i)=>{
+    const found=ALL_PINNED.find(x=>x.id===s.id);
     if(!found)return'';
-    return`<div class="itin-stop" data-id="${s.id}">
+    let travel='';
+    if(i>0){
+      const prev=itinerary[i-1];
+      if(prev.dur!=null){
+        const gap=timeToMins(s.time)-(timeToMins(prev.time)+prev.dur);
+        if(gap>0)travel=`<div class="itin-travel"><span>↳</span>${gap} min travel</div>`;
+      }
+    }
+    const durTxt=s.dur?s.dur+' min':'<span style="opacity:.25">—</span>';
+    return travel+`<div class="itin-stop" data-id="${s.id}">
       <span class="itin-time" onclick="event.stopPropagation();startEditTime(${s.id},this)">${dispTime(s.time)}</span>
-      <span class="itin-dur">${s.dur?s.dur+' min':''}</span>
+      <span class="itin-dur" onclick="event.stopPropagation();startEditDur(${s.id},this)">${durTxt}</span>
       <span class="itin-dot" style="background:${found.color}"></span>
       <span class="itin-name">${found.name}</span>
       <button class="itin-del" onclick="event.stopPropagation();removeItinStop(${s.id})" aria-label="Remove">&#x2715;</button>
@@ -1179,6 +1193,36 @@ function startEditTime(id,timeEl){
       updateItinUrl();
     }
     renderItinList(true);
+  }
+  inp.addEventListener('blur',()=>setTimeout(commit,0));
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){inp.blur();}
+    if(e.key==='Escape'){committed=true;renderItinList();}
+  });
+}
+
+function startEditDur(id,durEl){
+  const s=itinerary.find(x=>x.id===id);
+  if(!s)return;
+  const inp=document.createElement('input');
+  inp.type='number';
+  inp.className='itin-dur-input';
+  inp.min=0;inp.max=480;inp.step=5;
+  inp.placeholder='min';
+  if(s.dur!=null)inp.value=s.dur;
+  durEl.replaceWith(inp);
+  inp.focus();inp.select();
+  let committed=false;
+  function commit(){
+    if(committed)return;
+    committed=true;
+    const stop=itinerary.find(x=>x.id===id);
+    if(stop){
+      const v=parseInt(inp.value,10);
+      stop.dur=(inp.value===''||isNaN(v)||v<=0)?null:v;
+      updateItinUrl();
+    }
+    renderItinList(false);
   }
   inp.addEventListener('blur',()=>setTimeout(commit,0));
   inp.addEventListener('keydown',e=>{
